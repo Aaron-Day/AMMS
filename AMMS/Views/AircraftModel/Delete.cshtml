@@ -8,7 +8,7 @@
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
-    <h4>AircraftModelViewModel</h4>
+    <h4>Aircraft Model</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -18,10 +18,10 @@
             @Html.DisplayFor(model => model.Id)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.MDS)
+            @Html.DisplayNameFor(model => model.Mds)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.MDS)
+            @Html.DisplayFor(model => model.Mds)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Name)
@@ -30,27 +30,21 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.NSN)
+            @Html.DisplayNameFor(model => model.Nsn)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.NSN)
+            @Html.DisplayFor(model => model.Nsn)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.EIC)
+            @Html.DisplayNameFor(model => model.Eic)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.EIC)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.UnitId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.UnitId)
+            @Html.DisplayFor(model => model.Eic)
         </dd>
     </dl>
 
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        @Html.ActionLink("Back to List", "Index", new { unitId = Model.UnitId })
+        @Html.ActionLink("Back to List", "Index")
     </form>
 </div>

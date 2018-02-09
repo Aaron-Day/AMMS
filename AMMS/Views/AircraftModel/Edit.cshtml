@@ -6,7 +6,7 @@
 
 <h2>Edit</h2>
 
-<h4>AircraftModelViewModel</h4>
+<h4>Aircraft Model</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -21,9 +21,9 @@
             <!--(atsymbolhere)Html.HiddenFor(model => model.Id)-->
 
             <div class="form-group">
-                <label asp-for="MDS" class="control-label"></label>
-                <input asp-for="MDS" class="form-control" />
-                <span asp-validation-for="MDS" class="text-danger"></span>
+                <label asp-for="Mds" class="control-label"></label>
+                <input asp-for="Mds" class="form-control" />
+                <span asp-validation-for="Mds" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -31,19 +31,14 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NSN" class="control-label"></label>
-                <input asp-for="NSN" class="form-control" />
-                <span asp-validation-for="NSN" class="text-danger"></span>
+                <label asp-for="Nsn" class="control-label"></label>
+                <input asp-for="Nsn" class="form-control" />
+                <span asp-validation-for="Nsn" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="EIC" class="control-label"></label>
-                <input asp-for="EIC" class="form-control" />
-                <span asp-validation-for="EIC" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UnitId" class="control-label"></label>
-                <input asp-for="UnitId" class="form-control" />
-                <span asp-validation-for="UnitId" class="text-danger"></span>
+                <label asp-for="Eic" class="control-label"></label>
+                <input asp-for="Eic" class="form-control" />
+                <span asp-validation-for="Eic" class="text-danger"></span>
             </div>
 
             <!--(atsymbolhere)Html.HiddenFor(model => model.UnitId, (string)ViewBag.UnitId)-->
@@ -56,6 +51,6 @@
 </div>
 
 <div>
-    @Html.ActionLink("Back to List", "Index", new { unitId = Model.UnitId })
+    @Html.ActionLink("Back to List", "Index")
 </div>
 

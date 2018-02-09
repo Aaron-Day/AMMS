@@ -25,6 +25,7 @@ namespace AMMS.Controllers
             return View(viewModels);
         }
 
+        // <C>RUD
         [HttpGet]
         public IActionResult Create()
         {
@@ -41,6 +42,7 @@ namespace AMMS.Controllers
             return RedirectToAction("List");
         }
 
+        // C<R>UD
         public IActionResult Details(string id)
         {
             var viewModel = _service.GetModel(id);
@@ -48,6 +50,7 @@ namespace AMMS.Controllers
             return View(viewModel);
         }
 
+        // CR<U>D
         [HttpGet]
         public IActionResult Edit(string id)
         {
@@ -66,9 +69,19 @@ namespace AMMS.Controllers
             return RedirectToAction("List");
         }
 
+        // CRU<D>
+        [HttpGet]
         public IActionResult Delete(string id)
         {
-            _service.DeleteModel(id);
+            var viewModel = _service.GetModel(id);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(AircraftModelViewModel model)
+        {
+            _service.DeleteModel(model.Id);
 
             return RedirectToAction("List");
         }
