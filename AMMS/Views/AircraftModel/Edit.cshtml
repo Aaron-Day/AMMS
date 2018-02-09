@@ -1,0 +1,61 @@
+﻿@model AMMS.Models.ViewModels.AircraftModelViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<h4>AircraftModelViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+
+            <!--(atsymbolhere)Html.HiddenFor(model => model.Id)-->
+
+            <div class="form-group">
+                <label asp-for="MDS" class="control-label"></label>
+                <input asp-for="MDS" class="form-control" />
+                <span asp-validation-for="MDS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NSN" class="control-label"></label>
+                <input asp-for="NSN" class="form-control" />
+                <span asp-validation-for="NSN" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EIC" class="control-label"></label>
+                <input asp-for="EIC" class="form-control" />
+                <span asp-validation-for="EIC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitId" class="control-label"></label>
+                <input asp-for="UnitId" class="form-control" />
+                <span asp-validation-for="UnitId" class="text-danger"></span>
+            </div>
+
+            <!--(atsymbolhere)Html.HiddenFor(model => model.UnitId, (string)ViewBag.UnitId)-->
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index", new { unitId = Model.UnitId })
+</div>
+

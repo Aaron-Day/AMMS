@@ -1,0 +1,60 @@
+﻿@model RegisterViewModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h2>@ViewBag.Status</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">
+            <h4>Create a new account: @ViewBag.Request.Email</h4>
+            <hr />
+            <input type="hidden" asp-for="Email" value="@ViewBag.Request.Email.ToLower()" class="form-control" />
+            <input type="hidden" asp-for="Password" class="form-control" value="@ViewBag.Request.Password" />
+            <input type="hidden" asp-for="PhoneNumber" class="form-control" value="@ViewBag.Request.PhoneNumber" />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Rank"></label>
+                <input asp-for="Rank" class="form-control" />
+                <span asp-validation-for="Rank" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MiddleName"></label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth"></label>
+                <input asp-for="DateOfBirth" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SocialSecurityNumber"></label>
+                <input asp-for="SocialSecurityNumber" class="form-control" />
+                <span asp-validation-for="SocialSecurityNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AssignedUnit"></label>
+                <input asp-for="AssignedUnit" class="form-control" />
+                <span asp-validation-for="AssignedUnit" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-default" asp-route-id="@ViewBag.Request.Id">Register</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

@@ -1,0 +1,44 @@
+﻿@using AMMS.Services
+@model IEnumerable<AMMS.Models.AccountViewModels.RequestViewModel>
+
+@{
+    ViewData["Title"] = "Requests";
+}
+
+<h2>View</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Requested)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNumber)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var request in Model)
+        {
+            <tr>
+                <td>
+                    @Formatting.TimeStamp(request.Requested)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => request.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => request.PhoneNumber)
+                </td>
+                <td>
+                    <a asp-controller="Account" asp-action="ApproveRequest" asp-route-id="@request.Id">Approve</a>
+                    <a asp-controller="Account" asp-action="DenyRequest" asp-route-id="@request.Id">Deny</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
