@@ -6,7 +6,7 @@
 
 <h2>Create</h2>
 
-<h4>AircraftViewModel @ViewBag.ParentId</h4>
+<h4>Aircraft</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -29,8 +29,18 @@
             </div>
             <div class="form-group">
                 <label asp-for="AircraftModelId" class="control-label"></label>
-                <input asp-for="AircraftModelId" class="form-control" />
+                <select asp-for="AircraftModelId" class="form-control">
+                    @foreach (var m in @ViewBag.Models)
+                    {
+                        <option value="@m.Id">@m.Mds</option>
+                    }
+                </select>
                 <span asp-validation-for="AircraftModelId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UnitId" class="control-label"></label>
+                <input asp-for="UnitId" value="@TempData["ParentId"]" class="form-control" />
+                <span asp-validation-for="UnitId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-default" />

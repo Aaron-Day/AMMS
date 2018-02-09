@@ -70,9 +70,18 @@ namespace AMMS.Controllers
         }
 
         // CRU<D>
+        [HttpGet]
         public IActionResult Delete(string id)
         {
-            _service.DeleteUnit(id);
+            var viewModel = _service.GetUnit(id);
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(UnitViewModel viewModel)
+        {
+            _service.DeleteUnit(viewModel.Id);
 
             return RedirectToAction("List");
         }

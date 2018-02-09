@@ -157,8 +157,8 @@ namespace AMMS.Controllers
         [AllowAnonymous]
         public IActionResult RequestAccount()
         {
-            var units = _service.GetUnits();
-            ViewBag.Units = units;
+            ViewBag.Units = _service.GetUnits();
+
             return View();
         }
 

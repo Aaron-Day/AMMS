@@ -58,5 +58,10 @@ namespace AMMS.Repository
                 ? _context.Units.SingleOrDefault(u => u.UIC == user.AssignedUnit)?.Id
                 : id;
         }
+
+        public IEnumerable<AircraftModel> GetAllModels()
+        {
+            return _context.AircraftModels.ToList();
+        }
     }
 }

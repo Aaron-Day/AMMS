@@ -2,6 +2,7 @@
 using AMMS.Models.ViewModels;
 using AMMS.Repository;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AMMS.Services
 {
@@ -23,15 +24,9 @@ namespace AMMS.Services
 
         public IEnumerable<AircraftViewModel> GetAllAircraft(string parentId)
         {
-            var viewModels = new List<AircraftViewModel>();
-
             var models = _repository.GetAllAircraft(parentId);
-            foreach (var model in models)
-            {
-                viewModels.Add(MapToAircraftViewModel(model));
-            }
 
-            return viewModels;
+            return models.Select(MapToAircraftViewModel).ToList();
         }
 
         public void SaveAircraft(AircraftViewModel viewModel)
@@ -57,36 +52,58 @@ namespace AMMS.Services
             return _repository.GetUnitId(id);
         }
 
+        public IEnumerable<AircraftModelViewModel> GetAllModels()
+        {
+            var models = _repository.GetAllModels();
+
+            return models.Select(MapToAircraftModelViewModel).ToList();
+        }
+
         //---------------------------------------------------------------------------//
 
-        private Aircraft MapToAircraft(AircraftViewModel viewModel)
+        private static Aircraft MapToAircraft(AircraftViewModel viewModel)
         {
             return new Aircraft
             {
                 Id = viewModel.Id,
                 AcftHrs = viewModel.AcftHrs,
                 SerialNumber = viewModel.SerialNumber,
-                AircraftModelId = viewModel.AircraftModelId
+                AircraftModelId = viewModel.AircraftModelId,
+                UnitId = viewModel.UnitId
             };
         }
 
-        private AircraftViewModel MapToAircraftViewModel(Aircraft aircraft)
+        private static AircraftViewModel MapToAircraftViewModel(Aircraft aircraft)
         {
             return new AircraftViewModel
             {
                 Id = aircraft.Id,
                 AcftHrs = aircraft.AcftHrs,
                 SerialNumber = aircraft.SerialNumber,
-                AircraftModelId = aircraft.AircraftModelId
+                AircraftModelId = aircraft.AircraftModelId,
+                UnitId = aircraft.UnitId
             };
         }
 
-        private void CopyToAircraft(AircraftViewModel viewModel, Aircraft aircraft)
+        private static void CopyToAircraft(AircraftViewModel viewModel, Aircraft aircraft)
         {
             aircraft.Id = viewModel.Id;
             aircraft.AcftHrs = viewModel.AcftHrs;
             aircraft.SerialNumber = viewModel.SerialNumber;
             aircraft.AircraftModelId = viewModel.AircraftModelId;
+            aircraft.UnitId = viewModel.UnitId;
+        }
+
+        private static AircraftModelViewModel MapToAircraftModelViewModel(AircraftModel model)
+        {
+            return new AircraftModelViewModel
+            {
+                Id = model.Id,
+                Eic = model.Eic,
+                Mds = model.Mds,
+                Name = model.Name,
+                Nsn = model.Nsn
+            };
         }
     }
 }

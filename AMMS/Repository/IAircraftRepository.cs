@@ -16,5 +16,7 @@ namespace AMMS.Repository
         void DeleteAircraft(string id);
 
         string GetUnitId(string id);
+
+        IEnumerable<AircraftModel> GetAllModels();
     }
 }
