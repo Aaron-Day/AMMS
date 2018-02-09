@@ -11,6 +11,9 @@
             @if (User.IsInRole("Admin"))
             {
                 <li>
+                    <a asp-area="" asp-controller="Role" asp-action="List">Roles</a>
+                </li>
+                <li>
                     <a asp-area="" asp-controller="Unit" asp-action="List">Units</a>
                 </li>
                 <li>
@@ -20,7 +23,7 @@
                     <a asp-area="" asp-controller="Account" asp-action="Requests">Access Requests</a>
                 </li>
             }
-            @if (User.IsInRole("CE"))
+            @if (!User.IsInRole("Admin"))
             {
                 <li>
                     <a asp-area="" asp-controller="Aircraft" asp-action="List" asp-route-parentId="@UserManager.GetUserId(User)">Logbooks</a>

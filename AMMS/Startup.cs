@@ -57,6 +57,8 @@ namespace AMMS
             services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleRepository, RoleRepository>();
+            services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUnitRepository, UnitRepository>();
             services.AddScoped<IUnitService, UnitService>();
             services.AddScoped<IAircraftModelRepository, AircraftModelRepository>();

@@ -1,4 +1,5 @@
 ﻿using AMMS.Models;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
 namespace AMMS.Repository
@@ -7,12 +8,14 @@ namespace AMMS.Repository
     {
         IEnumerable<ApplicationUser> GetUsers(string role);
 
-        IEnumerable<string> GetRoles();
+        IdentityRole GetRole(string id);
 
-        void SaveRole(string role);
+        IEnumerable<IdentityRole> GetRoles();
 
-        void UpdateRole(string role);
+        void SaveRole(IdentityRole role);
 
-        void DeleteRole(string role);
+        void UpdateRole(IdentityRole role);
+
+        void DeleteRole(string id);
     }
 }
