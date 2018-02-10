@@ -25,6 +25,13 @@ namespace AMMS.Services
             return MapToRegisterViewModel(user);
         }
 
+        public IEnumerable<RegisterViewModel> GetUsers(string uic)
+        {
+            var users = _repository.GetUsers(uic);
+
+            return users.Select(MapToRegisterViewModel).ToList();
+        }
+
         public IEnumerable<RegisterViewModel> GetAllUsers()
         {
             var users = _repository.GetAllUsers();
@@ -53,6 +60,16 @@ namespace AMMS.Services
         public string GetUserSalt(string id)
         {
             return _repository.GetUser(id).Salt;
+        }
+
+        public IList<UserRolesViewModel> GetUserRoles(string id)
+        {
+            return _repository.GetUserRoles(id);
+        }
+
+        public void UpdateUserRoles(IList<UserRolesViewModel> assignments)
+        {
+            _repository.UpdateUserRoles(assignments);
         }
 
         //---------------------------------------------------------------------------//
@@ -106,28 +123,27 @@ namespace AMMS.Services
                 CopyToUser(viewModel, user);
                 return user;
             }
-            if (viewModel.FirstName != null)
-                user = new ApplicationUser
-                {
-                    FirstName = viewModel.FirstName,
-                    MiddleName = viewModel.MiddleName,
-                    LastName = viewModel.LastName,
-                    Email = viewModel.Email.ToLower(),
-                    NormalizedEmail = viewModel.Email.ToUpper(),
-                    PhoneNumber = viewModel.PhoneNumber,
-                    PhoneNumberConfirmed = viewModel.PhoneNumber != null,
-                    SocialSecurityNumber = viewModel.SocialSecurityNumber,
-                    Rank = viewModel.Rank,
-                    DateOfBirth = viewModel.DateOfBirth,
-                    UserName = viewModel.Email.ToLower(),
-                    NormalizedUserName = viewModel.Email.ToUpper(),
-                    SecurityStamp = Guid.NewGuid().ToString("D"),
-                    FullName = (viewModel.Rank == null ? "" : $"{viewModel.Rank} ") +
-                               $"{viewModel.LastName}, {viewModel.FirstName}",
-                    AssignedUnit = viewModel.AssignedUnit
-                };
+            user = new ApplicationUser
+            {
+                FirstName = viewModel.FirstName,
+                MiddleName = viewModel.MiddleName,
+                LastName = viewModel.LastName,
+                Email = viewModel.Email.ToLower(),
+                NormalizedEmail = viewModel.Email.ToUpper(),
+                PhoneNumber = viewModel.PhoneNumber,
+                PhoneNumberConfirmed = viewModel.PhoneNumber != null,
+                SocialSecurityNumber = viewModel.SocialSecurityNumber,
+                Rank = viewModel.Rank,
+                DateOfBirth = viewModel.DateOfBirth,
+                UserName = viewModel.Email.ToLower(),
+                NormalizedUserName = viewModel.Email.ToUpper(),
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                FullName = (viewModel.Rank == null ? "" : $"{viewModel.Rank} ") +
+                           $"{viewModel.LastName}, {viewModel.FirstName}",
+                AssignedUnit = viewModel.AssignedUnit
+            };
             var password = new PasswordHasher<ApplicationUser>();
-            var hashed = password.HashPassword(user, viewModel.Password + user.Salt);
+            var hashed = password.HashPassword(user, PasswordProtocol.CalculateHash(viewModel.Password, user.Salt));
             user.PasswordHash = hashed;
 
             return user;

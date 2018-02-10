@@ -19,6 +19,20 @@ namespace AMMS.Repository
             return _context.AircraftModels.Find(id);
         }
 
+        public IEnumerable<AircraftModel> GetModels(string uic)
+        {
+            if (uic == null || uic == "ADMIN") return _context.AircraftModels.ToList();
+
+            var unitId = _context.Units.FirstOrDefault(u => u.UIC == uic)?.Id;
+            var aircraft = _context.Aircraft.Where(a => a.UnitId == unitId).ToList();
+            var models = new HashSet<AircraftModel>();
+            foreach (var acft in aircraft)
+            {
+                models.Add(_context.AircraftModels.Find(acft.AircraftModelId));
+            }
+            return models.ToList();
+        }
+
         public IEnumerable<AircraftModel> GetAllModels()
         {
             return _context.AircraftModels.ToList();

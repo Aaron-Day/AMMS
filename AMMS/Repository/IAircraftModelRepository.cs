@@ -7,6 +7,8 @@ namespace AMMS.Repository
     {
         AircraftModel GetModel(string id);
 
+        IEnumerable<AircraftModel> GetModels(string uic);
+
         IEnumerable<AircraftModel> GetAllModels();
 
         void SaveModel(AircraftModel model);

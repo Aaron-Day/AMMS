@@ -50,7 +50,6 @@
 </div>
 
 <div>
-    <a asp-area="" asp-controller="Aircraft" asp-action="List" asp-route-parentId="@TempData["ParentId"]">Logbooks</a>
-    @Html.ActionLink("Back to List", "Index", new { parentId = ViewBag.ParentId })
+    <a asp-action="Index" asp-route-parentId="@TempData["ParentId"]">Back to List</a>
 </div>
 

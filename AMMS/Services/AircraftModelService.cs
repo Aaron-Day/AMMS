@@ -22,6 +22,13 @@ namespace AMMS.Services
             return MapToAircraftModelViewModel(model);
         }
 
+        public IEnumerable<AircraftModelViewModel> GetModels(string uic)
+        {
+            var models = _repository.GetModels(uic);
+
+            return models.Select(MapToAircraftModelViewModel).ToList();
+        }
+
         public IEnumerable<AircraftModelViewModel> GetAllModels()
         {
             var models = _repository.GetAllModels();

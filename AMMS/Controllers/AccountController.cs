@@ -1,11 +1,13 @@
 ﻿using AMMS.Models;
 using AMMS.Models.AccountViewModels;
+using AMMS.Models.ViewModels;
 using AMMS.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AMMS.Controllers
@@ -26,6 +28,86 @@ namespace AMMS.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _service = service;
+        }
+
+        [Authorize(Roles = "Admin, PC, QC")]
+        public IActionResult List(string uic = null)
+        {
+            if (uic == null && TempData["Assigned Unit"] != null)
+                uic = (string)TempData["Assigned Unit"];
+            var users = _service.GetUsers(uic);
+
+            return View(users);
+        }
+
+        [Authorize]
+        public IActionResult Details(string id)
+        {
+            var user = _service.GetUser(id);
+
+            return View(user);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, PC, QC")]
+        public IActionResult Edit(string id)
+        {
+            var user = _service.GetUser(id);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, PC, QC")]
+        public IActionResult Edit(RegisterViewModel viewModel)
+        {
+            _service.UpdateUser(viewModel);
+
+            return RedirectToAction("List", new { uic = viewModel.AssignedUnit });
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, PC, QC")]
+        public IActionResult Delete(string id)
+        {
+            var user = _service.GetUser(id);
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin, PC, QC")]
+        public IActionResult Delete(RegisterViewModel viewModel)
+        {
+            _service.DeleteUser(viewModel.Id);
+
+            return RedirectToAction("List", new { uic = viewModel.AssignedUnit });
+        }
+
+        [HttpGet]
+        public IActionResult ManageRoles(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var user = _service.GetUser(id);
+            ViewBag.User = user;
+            TempData["Assigned Unit"] = user.AssignedUnit;
+            var roles = _service.GetUserRoles(id);
+
+            return View(roles);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ManageRoles(IList<UserRolesViewModel> viewModel)
+        {
+            _service.UpdateUserRoles(viewModel);
+
+            return RedirectToAction("List", new { uic = TempData["Assigned Unit"] });
         }
 
         [TempData]
@@ -94,12 +176,13 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public IActionResult Register(RegisterViewModel model, string id = null)
         {
             if (!ModelState.IsValid || id == null) return View();
 
+            ViewBag.Units = _service.GetUnits();
             _service.SaveUser(model);
             _service.DeleteRequest(id);
 
@@ -148,6 +231,7 @@ namespace AMMS.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult AccessDenied()
         {
             return View();

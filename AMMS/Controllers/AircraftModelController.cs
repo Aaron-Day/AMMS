@@ -13,14 +13,16 @@ namespace AMMS.Controllers
             _service = service;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string parentId)
         {
-            return RedirectToAction("List");
+            return RedirectToAction("List", new { parentId });
         }
 
-        public IActionResult List()
+        public IActionResult List(string parentId)
         {
-            var viewModels = _service.GetAllModels();
+            var viewModels = _service.GetModels(parentId);
+
+            TempData["ParentId"] = parentId;
 
             return View(viewModels);
         }

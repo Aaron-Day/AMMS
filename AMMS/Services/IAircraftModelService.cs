@@ -7,6 +7,8 @@ namespace AMMS.Services
     {
         AircraftModelViewModel GetModel(string id);
 
+        IEnumerable<AircraftModelViewModel> GetModels(string uic);
+
         IEnumerable<AircraftModelViewModel> GetAllModels();
 
         void SaveModel(AircraftModelViewModel viewModel);

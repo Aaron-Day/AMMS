@@ -1,0 +1,55 @@
+﻿@model IList<AMMS.Models.ViewModels.UserRolesViewModel>
+
+@{
+    ViewData["Title"] = "ManageRoles";
+}
+
+<h2>Manage Roles: @ViewBag.User.LastName, @ViewBag.User.FirstName</h2>
+@using (Html.BeginForm())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    User Id
+                </th>
+                <th>
+                    Role Id
+                </th>
+                <th>
+                    Role
+                </th>
+                <th>
+                    Assigned
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < Model.Count(); i++)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(x => x[i].UserId)
+                        @Html.HiddenFor(x => x[i].UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => x[i].RoleId)
+                        @Html.HiddenFor(x => x[i].RoleId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(x => x[i].RoleName)
+                        @Html.HiddenFor(x => x[i].RoleName)
+                    </td>
+                    <td>
+                        @Html.CheckBoxFor(x => x[i].Assigned)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div>
+        <input type="submit" value="Save" /> |
+        <a asp-action="List">Back to List</a>
+    </div>
+}

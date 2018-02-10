@@ -1,4 +1,5 @@
 ﻿using AMMS.Models;
+using AMMS.Models.ViewModels;
 using System.Collections.Generic;
 
 namespace AMMS.Repository
@@ -6,6 +7,8 @@ namespace AMMS.Repository
     public interface IUserRepository
     {
         ApplicationUser GetUser(string id);
+
+        IEnumerable<ApplicationUser> GetUsers(string uic);
 
         IEnumerable<ApplicationUser> GetAllUsers();
 
@@ -17,10 +20,14 @@ namespace AMMS.Repository
 
         string GetUserId(string email);
 
+        IList<UserRolesViewModel> GetUserRoles(string id);
+
+        void UpdateUserRoles(IList<UserRolesViewModel> assignments);
+
         //--------------------------------------------//
 
         IEnumerable<Unit> GetUnits();
-            
+
         Request GetRequest(string id);
 
         IEnumerable<Request> GetAllRequests();

@@ -38,7 +38,7 @@ namespace AMMS.Data
                     Name = role,
                     NormalizedName = role.ToUpper()
                 };
-                var result = roleStore.CreateAsync(idRole).Result;
+                roleStore.CreateAsync(idRole).Wait();
             }
             context.SaveChanges();
         }
@@ -70,8 +70,8 @@ namespace AMMS.Data
 
             var userManager = context.GetService<UserManager<ApplicationUser>>();
             var userStore = new UserStore<ApplicationUser>(context);
-            var result = userStore.CreateAsync(user).Result;
-            result = userManager.AddToRoleAsync(user, "ADMIN").Result;
+            userStore.CreateAsync(user).Wait();
+            userManager.AddToRoleAsync(user, "ADMIN").Wait();
 
             context.SaveChanges();
         }

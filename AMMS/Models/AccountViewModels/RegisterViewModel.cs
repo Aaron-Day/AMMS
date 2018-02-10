@@ -49,6 +49,6 @@ namespace AMMS.Models.AccountViewModels
         [Display(Name = "UIC")]
         public string AssignedUnit { get; set; }
 
-        public string Pid => $"{FirstName[0]}{LastName[0]}{SocialSecurityNumber.Substring(SocialSecurityNumber.Length - 4)}";
+        public string Pid => $"{FirstName.Substring(0,1)}{LastName.Substring(0,1)}{SocialSecurityNumber.Substring(SocialSecurityNumber.Length - 4)}";
     }
 }

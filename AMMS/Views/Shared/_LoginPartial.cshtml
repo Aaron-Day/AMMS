@@ -23,6 +23,12 @@
                     <a asp-area="" asp-controller="Account" asp-action="Requests">Access Requests</a>
                 </li>
             }
+            @if (User.IsInRole("Admin") || User.IsInRole("PC") || User.IsInRole("QC"))
+            {
+                <li>
+                    <a asp-area="" asp-controller="Account" asp-action="List">Users</a>
+                </li>
+            }
             @if (!User.IsInRole("Admin"))
             {
                 <li>

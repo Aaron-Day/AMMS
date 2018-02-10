@@ -23,7 +23,7 @@ namespace AMMS.Repository
         {
             return parentId == "ADMIN"
                 ? _context.Aircraft.ToList()
-                : _context.Aircraft.Where(m => m.AircraftModelId == parentId).ToList();
+                : _context.Aircraft.Where(m => m.UnitId == parentId).ToList();
         }
 
         public void SaveAircraft(Aircraft aircraft)

@@ -101,9 +101,7 @@ namespace AMMS.Controllers
         {
             var viewModel = _service.GetAircraft(id);
 
-            _service.DeleteAircraft(id);
-
-            return RedirectToAction("List", new { parentId = viewModel.UnitId });
+            return View(viewModel);
         }
 
         [HttpPost]
