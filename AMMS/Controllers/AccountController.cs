@@ -16,6 +16,8 @@ namespace AMMS.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(typeof(AccountController));
+
         private readonly IUserService _service;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -43,6 +45,7 @@ namespace AMMS.Controllers
         [Authorize]
         public IActionResult Details(string id)
         {
+            if (id == null) return NotFound();
             var user = _service.GetUser(id);
 
             return View(user);
@@ -52,6 +55,7 @@ namespace AMMS.Controllers
         [Authorize(Roles = "Admin, PC, QC")]
         public IActionResult Edit(string id)
         {
+            if (id == null) return NotFound();
             var user = _service.GetUser(id);
 
             return View(user);
@@ -62,6 +66,7 @@ namespace AMMS.Controllers
         [Authorize(Roles = "Admin, PC, QC")]
         public IActionResult Edit(RegisterViewModel viewModel)
         {
+            if (viewModel == null) return NotFound();
             _service.UpdateUser(viewModel);
 
             return RedirectToAction("List", new { uic = viewModel.AssignedUnit });
@@ -71,6 +76,7 @@ namespace AMMS.Controllers
         [Authorize(Roles = "Admin, PC, QC")]
         public IActionResult Delete(string id)
         {
+            if (id == null) return NotFound();
             var user = _service.GetUser(id);
 
             return View(user);
@@ -81,6 +87,7 @@ namespace AMMS.Controllers
         [Authorize(Roles = "Admin, PC, QC")]
         public IActionResult Delete(RegisterViewModel viewModel)
         {
+            if (viewModel == null) return NotFound();
             _service.DeleteUser(viewModel.Id);
 
             return RedirectToAction("List", new { uic = viewModel.AssignedUnit });
@@ -89,10 +96,7 @@ namespace AMMS.Controllers
         [HttpGet]
         public IActionResult ManageRoles(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
             var user = _service.GetUser(id);
             ViewBag.User = user;
             TempData["Assigned Unit"] = user.AssignedUnit;
@@ -105,6 +109,7 @@ namespace AMMS.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult ManageRoles(IList<UserRolesViewModel> viewModel)
         {
+            if (viewModel == null) return NotFound();
             _service.UpdateUserRoles(viewModel);
 
             return RedirectToAction("List", new { uic = TempData["Assigned Unit"] });
@@ -115,32 +120,32 @@ namespace AMMS.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Login(string returnUrl = null)
+        public async Task<IActionResult> Login()
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
-            ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
+            if (viewModel == null) return NotFound();
             if (!ModelState.IsValid) return View();
 
-            var email = model.Email;
+            var email = viewModel.Email;
             var id = _service.GetUserId(email);
-            var pass = model.Password;
+            var pass = viewModel.Password;
             var salt = _service.GetUserSalt(id);
 
             var result = await _signInManager.PasswordSignInAsync(email, PasswordProtocol.CalculateHash(pass, salt), false, true);
 
             if (result.Succeeded)
             {
-                return RedirectToLocal(returnUrl);
+                return RedirectToLocal(null);
             }
 
             if (result.IsLockedOut)
@@ -150,7 +155,7 @@ namespace AMMS.Controllers
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return View(model);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -164,12 +169,8 @@ namespace AMMS.Controllers
         [Authorize(Roles = "Admin")]
         public IActionResult Register(string id = null)
         {
-            if (id == null)
-            {
-                ViewBag.Status = "Not Found";
-                return View();
-            }
-            ViewBag.Status = "Found";
+            if (id == null) return NotFound();
+
             ViewBag.Request = _service.GetRequest(id);
 
             return View();
@@ -178,12 +179,13 @@ namespace AMMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public IActionResult Register(RegisterViewModel model, string id = null)
+        public IActionResult Register(RegisterViewModel viewModel, string id)
         {
-            if (!ModelState.IsValid || id == null) return View();
+            if (id == null) return NotFound();
+            if (!ModelState.IsValid) return View();
 
             ViewBag.Units = _service.GetUnits();
-            _service.SaveUser(model);
+            _service.SaveUser(viewModel);
             _service.DeleteRequest(id);
 
             return RedirectToAction("Requests");
@@ -209,11 +211,11 @@ namespace AMMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult ForgotPassword(ForgotPasswordViewModel model)
+        public IActionResult ForgotPassword(ForgotPasswordViewModel viewModel)
         {
-            if (!ModelState.IsValid) return View(model);
+            if (!ModelState.IsValid) return View(viewModel);
 
-            var user = _service.GetUserId(model.Email);
+            var user = _service.GetUserId(viewModel.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist or is not confirmed
@@ -249,13 +251,14 @@ namespace AMMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult RequestAccount(RequestViewModel request)
+        public IActionResult RequestAccount(RequestViewModel viewModel)
         {
-            if (!ModelState.IsValid) return View();
+            if (viewModel == null) return NotFound();
+            if (!ModelState.IsValid) return View(viewModel);
 
-            if (_service.RequestExists(request.Email)) return View("RequestDenied");
+            if (_service.RequestExists(viewModel.Email)) return View("RequestDenied");
 
-            _service.SaveRequest(request);
+            _service.SaveRequest(viewModel);
 
             return View("RequestConfirmation");
         }
@@ -267,15 +270,17 @@ namespace AMMS.Controllers
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult ApproveRequest(string id = null)
+        public IActionResult ApproveRequest(string id)
         {
+            if (id == null) return NotFound();
             return RedirectToAction("Register",
                 new RouteValueDictionary(new { controller = "Account", action = "Register", id }));
         }
 
         [Authorize(Roles = "Admin")]
-        public IActionResult DenyRequest(string id = null)
+        public IActionResult DenyRequest(string id)
         {
+            if (id == null) return NotFound();
             _service.DeleteRequest(id);
 
             return RedirectToAction("Requests");
