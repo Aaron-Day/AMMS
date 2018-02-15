@@ -1,4 +1,5 @@
 ﻿using AMMS.Models;
+using AMMS.Models.AccountViewModels;
 using AMMS.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace AMMS.Repository
         void DeleteRole(string id);
 
         // Set user role(s)
-        void UpdateUserRoles(IList<UserRolesViewModel> roles);
+        void UpdateUserRoles(IList<UserRolesViewModel> assignments);
 
         // Set user request(s)
         void CreateRequest(Request request);
@@ -58,5 +59,12 @@ namespace AMMS.Repository
         void CreateUnit(Unit unit);
         void UpdateUnit(Unit unit);
         void DeleteUnit(string id);
+
+
+        /*----------ACCOUNT----------*/
+        SignInResult Login(LoginViewModel login);
+        void Logout(ApplicationUser user);
+        void ResetPassword(string id);
+        void ChangePassword(ChangePasswordViewModel change);
     }
 }

@@ -179,13 +179,13 @@ namespace AMMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin")]
-        public IActionResult Register(RegisterViewModel viewModel, string id)
+        public IActionResult Register(RegisterViewModel registration, string id)
         {
             if (id == null) return NotFound();
             if (!ModelState.IsValid) return View();
 
             ViewBag.Units = _service.GetUnits();
-            _service.SaveUser(viewModel);
+            _service.SaveUser(registration);
             _service.DeleteRequest(id);
 
             return RedirectToAction("Requests");
@@ -233,11 +233,42 @@ namespace AMMS.Controllers
         }
 
         [HttpGet]
+        [Authorize]
+        public IActionResult ChangePassword(string id)
+        {
+            if (id == null) return NotFound();
+            ViewBag.Id = id;
+
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public IActionResult ChangePassword(ChangePasswordViewModel change)
+        {
+            if (change == null) return NotFound();
+            if (change.OldPassword == change.NewPassword)
+                ModelState.AddModelError(string.Empty, "Old password cannot match new password!");
+            if (!ModelState.IsValid) return View(change);
+            //_service.ChangePassword(change);
+            return RedirectToAction("ChangePasswordConfirmation");
+        }
+
+        public IActionResult ChangePasswordConfirmation()
+        {
+            return View();
+        }
+
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()
         {
             return View();
         }
+
+        //-----------------------------------------------------------------------------------//
+        // ACCOUNT REQUEST
 
         [HttpGet]
         [AllowAnonymous]
@@ -251,14 +282,14 @@ namespace AMMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult RequestAccount(RequestViewModel viewModel)
+        public IActionResult RequestAccount(RequestViewModel request)
         {
-            if (viewModel == null) return NotFound();
-            if (!ModelState.IsValid) return View(viewModel);
+            if (request == null) return NotFound();
+            if (!ModelState.IsValid) return View(request);
 
-            if (_service.RequestExists(viewModel.Email)) return View("RequestDenied");
+            if (_service.RequestExists(request.Email)) return View("RequestDenied");
 
-            _service.SaveRequest(viewModel);
+            _service.SaveRequest(request);
 
             return View("RequestConfirmation");
         }
