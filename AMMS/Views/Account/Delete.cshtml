@@ -87,6 +87,6 @@
 
     <form asp-action="Delete">
         <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="List" asp-route-uic="Model.AssignedUnit">Back to List</a>
+        <a asp-action="List" asp-route-value="@ViewData["Return Value"]">Back to List</a>
     </form>
 </div>

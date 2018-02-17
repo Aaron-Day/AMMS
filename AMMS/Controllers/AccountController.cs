@@ -1,5 +1,4 @@
-﻿using AMMS.Models;
-using AMMS.Models.AccountViewModels;
+﻿using AMMS.Models.AccountViewModels;
 using AMMS.Models.ViewModels;
 using AMMS.Services;
 using Microsoft.AspNetCore.Authentication;
@@ -18,35 +17,84 @@ namespace AMMS.Controllers
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(typeof(AccountController));
 
-        private readonly IUserService _service;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IAccountService _service;
 
-        public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            IUserService service)
+        public AccountController(IAccountService service)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
             _service = service;
         }
 
-        [Authorize(Roles = "Admin, PC, QC")]
-        public IActionResult List(string uic = null)
+        public IActionResult Index(string value = null)
         {
-            if (uic == null && TempData["Assigned Unit"] != null)
-                uic = (string)TempData["Assigned Unit"];
-            var users = _service.GetUsers(uic);
+            return RedirectToAction("List", new { value });
+        }
 
-            return View(users);
+        [Authorize(Roles = "Admin, PC, QC")]
+        public IActionResult List(string value = null)
+        {
+            // TODO: only display users for the same unit as the user
+            if (value == null && TempData["Assigned Unit"] != null)
+            {
+                ViewData["Return Value"] = TempData["Assigned Unit"];
+                ViewData["Filter"] = "- By UIC";
+                return View(_service.GetUsersByUic((string)TempData["Assigned Unit"]));
+            }
+            switch (_service.GetType(value))
+            {
+                case "AllUsers":
+                    ViewData["Return Value"] = null;
+                    ViewData["Filter"] = "- All Users";
+                    return View(_service.GetAllUsers());
+                case "UserId":
+                    var user1 = _service.GetUserById(value);
+                    if (user1.AssignedUnit != "ADMIN")
+                    {
+                        ViewData["Return Value"] = user1.AssignedUnit;
+                        ViewData["Filter"] = "- By UIC";
+                        return View(_service.GetUsersByUic(user1.AssignedUnit));
+                    }
+                    ViewData["Return Value"] = null;
+                    ViewData["Filter"] = "- All Users";
+                    return View(_service.GetAllUsers());
+                case "UserEmail":
+                    var user2 = _service.GetUserByEmail(value);
+                    if (user2.AssignedUnit != "ADMIN")
+                    {
+                        ViewData["Return Value"] = user2.AssignedUnit;
+                        ViewData["Filter"] = "- By UIC";
+                        return View(_service.GetUsersByUic(user2.AssignedUnit));
+                    }
+                    ViewData["Return Value"] = null;
+                    ViewData["Filter"] = "- All Users";
+                    return View(_service.GetAllUsers());
+                case "UnitId":
+                    var unit = _service.GetUnitById(value);
+                    ViewData["Return Value"] = unit.UIC;
+                    ViewData["Filter"] = "- By UIC";
+                    return View(_service.GetUsersByUic(unit.UIC));
+                case "UnitUIC":
+                    ViewData["Return Value"] = value;
+                    ViewData["Filter"] = "- By UIC";
+                    return View(_service.GetUsersByUic(value));
+                case "RoleId":
+                    var role = _service.GetRoleById(value);
+                    ViewData["Return Value"] = role.RoleName;
+                    ViewData["Filter"] = "- By Role";
+                    return View(_service.GetUsersByRole(role.RoleName));
+                case "RoleName":
+                    ViewData["Return Value"] = value;
+                    ViewData["Filter"] = "- By Role";
+                    return View(_service.GetUsersByRole(value));
+                default:
+                    return NotFound();
+            }
         }
 
         [Authorize]
         public IActionResult Details(string id)
         {
             if (id == null) return NotFound();
-            var user = _service.GetUser(id);
+            var user = _service.GetUserById(id);
 
             return View(user);
         }
@@ -56,7 +104,7 @@ namespace AMMS.Controllers
         public IActionResult Edit(string id)
         {
             if (id == null) return NotFound();
-            var user = _service.GetUser(id);
+            var user = _service.GetUserById(id);
 
             return View(user);
         }
@@ -77,7 +125,7 @@ namespace AMMS.Controllers
         public IActionResult Delete(string id)
         {
             if (id == null) return NotFound();
-            var user = _service.GetUser(id);
+            var user = _service.GetUserById(id);
 
             return View(user);
         }
@@ -97,7 +145,7 @@ namespace AMMS.Controllers
         public IActionResult ManageRoles(string id)
         {
             if (id == null) return NotFound();
-            var user = _service.GetUser(id);
+            var user = _service.GetUserById(id);
             ViewBag.User = user;
             TempData["Assigned Unit"] = user.AssignedUnit;
             var roles = _service.GetUserRoles(id);
@@ -131,21 +179,16 @@ namespace AMMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(LoginViewModel viewModel)
+        public IActionResult Login(LoginViewModel viewModel)
         {
             if (viewModel == null) return NotFound();
             if (!ModelState.IsValid) return View();
 
-            var email = viewModel.Email;
-            var id = _service.GetUserId(email);
-            var pass = viewModel.Password;
-            var salt = _service.GetUserSalt(id);
-
-            var result = await _signInManager.PasswordSignInAsync(email, PasswordProtocol.CalculateHash(pass, salt), false, true);
+            var result = _service.Login(viewModel);
 
             if (result.Succeeded)
             {
-                return RedirectToLocal(null);
+                return RedirectToAction(nameof(HomeController.Index), "Home");
             }
 
             if (result.IsLockedOut)
@@ -166,26 +209,26 @@ namespace AMMS.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, PC, QC")]
         public IActionResult Register(string id = null)
         {
             if (id == null) return NotFound();
 
-            ViewBag.Request = _service.GetRequest(id);
+            ViewBag.Request = _service.GetRequestById(id);
 
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, PC, QC")]
         public IActionResult Register(RegisterViewModel registration, string id)
         {
             if (id == null) return NotFound();
             if (!ModelState.IsValid) return View();
 
-            ViewBag.Units = _service.GetUnits();
-            _service.SaveUser(registration);
+            ViewBag.Units = _service.GetAllUnits();
+            _service.CreateUser(registration);
             _service.DeleteRequest(id);
 
             return RedirectToAction("Requests");
@@ -193,11 +236,10 @@ namespace AMMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
+        public IActionResult Logout(string id)
         {
             // Prevent any auto-login from working
-            await _userManager.UpdateSecurityStampAsync(await _userManager.GetUserAsync(User));
-            await _signInManager.SignOutAsync();
+            _service.Logout(id);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
@@ -215,7 +257,7 @@ namespace AMMS.Controllers
         {
             if (!ModelState.IsValid) return View(viewModel);
 
-            var user = _service.GetUserId(viewModel.Email);
+            var user = _service.GetUserByEmail(viewModel.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist or is not confirmed
@@ -274,7 +316,7 @@ namespace AMMS.Controllers
         [AllowAnonymous]
         public IActionResult RequestAccount()
         {
-            ViewBag.Units = _service.GetUnits();
+            ViewBag.Units = _service.GetAllUnits();
 
             return View();
         }
@@ -287,9 +329,9 @@ namespace AMMS.Controllers
             if (request == null) return NotFound();
             if (!ModelState.IsValid) return View(request);
 
-            if (_service.RequestExists(request.Email)) return View("RequestDenied");
+            if (_service.GetRequestByEmail(request.Email) != null) return View("RequestDenied");
 
-            _service.SaveRequest(request);
+            _service.CreateRequest(request);
 
             return View("RequestConfirmation");
         }
@@ -304,8 +346,7 @@ namespace AMMS.Controllers
         public IActionResult ApproveRequest(string id)
         {
             if (id == null) return NotFound();
-            return RedirectToAction("Register",
-                new RouteValueDictionary(new { controller = "Account", action = "Register", id }));
+            return RedirectToAction("Register", new { id });
         }
 
         [Authorize(Roles = "Admin")]
@@ -316,29 +357,5 @@ namespace AMMS.Controllers
 
             return RedirectToAction("Requests");
         }
-
-        #region Helpers
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-        }
-
-        private IActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
-        }
-
-        #endregion
     }
 }

@@ -63,8 +63,9 @@ namespace AMMS.Repository
 
         /*----------ACCOUNT----------*/
         SignInResult Login(LoginViewModel login);
-        void Logout(ApplicationUser user);
+        void Logout(string id);
         void ResetPassword(string id);
         void ChangePassword(ChangePasswordViewModel change);
+        string GetType(string value);
     }
 }

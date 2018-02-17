@@ -79,10 +79,14 @@ namespace AMMS.Repository
         {
             try
             {
-                return (from userrole
-                        in _context.UserRoles
-                        where userrole.RoleId == GetRoleByName(role).Id
-                        select GetUserById(userrole.UserId)).ToList();
+                var list = new List<ApplicationUser>();
+                var roleid = GetRoleByName(role).Id;
+                foreach (var userrole in _context.UserRoles.Where(userrole => userrole.RoleId == roleid))
+                {
+                    var user = GetUserById(userrole.UserId);
+                    list.Add(user);
+                }
+                return list;
             }
             catch (Exception e)
             {
@@ -501,8 +505,10 @@ namespace AMMS.Repository
                 var pass = login.Password;
                 var salt = GetUserByEmail(email).Salt;
                 var hash = PasswordProtocol.CalculateHash(pass, salt);
-
-                return _signInManager.PasswordSignInAsync(email, hash, false, true).Result;
+                var result = _signInManager.PasswordSignInAsync(email.ToUpper(), hash, false, true).Result;
+                if (result == SignInResult.Success)
+                    GetUserByEmail(email).LastActive = DateTime.UtcNow;
+                return result;
             }
             catch (Exception e)
             {
@@ -511,10 +517,11 @@ namespace AMMS.Repository
             }
         }
 
-        public void Logout(ApplicationUser user)
+        public void Logout(string id)
         {
             try
             {
+                var user = GetUserById(id);
                 _userManager.UpdateSecurityStampAsync(user).Wait();
                 _signInManager.SignOutAsync().Wait();
             }
@@ -558,6 +565,26 @@ namespace AMMS.Repository
                 Log.Error("ChangePassword: Failed!", e);
                 throw;
             }
+        }
+
+        public string GetType(string value)
+        {
+            if (value == null || value == "ADMIN")
+                return "AllUsers";
+            if (_context.Users.Count(u => u.Id == value) > 0)
+                return "UserId";
+            if (_context.Users.Count(u => u.Email == value) > 0)
+                return "UserEmail";
+            if (_context.Units.Count(u => u.Id == value) > 0)
+                return "UnitId";
+            if (_context.Units.Count(u => u.UIC == value) > 0)
+                return "UnitUIC";
+            if (_context.Roles.Count(r => r.Id == value) > 0)
+                return "RoleId";
+            if (_context.Roles.Count(r => r.Name == value) > 0)
+                return "RoleName";
+
+            return string.Empty;
         }
     }
 }

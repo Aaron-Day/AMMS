@@ -7,9 +7,9 @@ namespace AMMS.Controllers
     // TODO: Restrict all to admin
     public class RoleController : Controller
     {
-        private readonly IRoleService _service;
+        private readonly IAccountService _service;
 
-        public RoleController(IRoleService service)
+        public RoleController(IAccountService service)
         {
             _service = service;
         }
@@ -21,7 +21,7 @@ namespace AMMS.Controllers
 
         public IActionResult List()
         {
-            return View();
+            return View(_service.GetAllRoles());
         }
 
         // <C>RUD
@@ -32,9 +32,9 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(RoleListViewModel viewModel)
+        public IActionResult Create(RoleListViewModel role)
         {
-            _service.SaveRole(viewModel);
+            _service.CreateRole(role);
 
             return RedirectToAction("List");
         }
@@ -42,7 +42,7 @@ namespace AMMS.Controllers
         // C<R>UD
         public IActionResult Details(string id)
         {
-            var role = _service.GetRole(id);
+            var role = _service.GetRoleById(id);
 
             return View(role);
         }
@@ -51,15 +51,15 @@ namespace AMMS.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            var role = _service.GetRole(id);
+            var role = _service.GetRoleById(id);
 
             return View(role);
         }
 
         [HttpPost]
-        public IActionResult Edit(RoleListViewModel viewModel)
+        public IActionResult Edit(RoleListViewModel role)
         {
-            _service.UpdateRole(viewModel);
+            _service.UpdateRole(role);
 
             return RedirectToAction("List");
         }
@@ -68,15 +68,15 @@ namespace AMMS.Controllers
         [HttpGet]
         public IActionResult Delete(string id)
         {
-            var role = _service.GetRole(id);
+            var role = _service.GetRoleById(id);
 
             return View(role);
         }
 
         [HttpPost]
-        public IActionResult Delete(RoleListViewModel viewModel)
+        public IActionResult Delete(RoleListViewModel role)
         {
-            _service.DeleteRole(viewModel.Id);
+            _service.DeleteRole(role.Id);
 
             return RedirectToAction("List");
         }

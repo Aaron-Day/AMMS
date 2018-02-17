@@ -22,6 +22,18 @@ namespace AMMS.Data
             {
                 InitializeUsers(context);
             }
+            if (!context.AircraftModels.Any())
+            {
+                InitializeAircraftModels(context);
+            }
+            if (!context.Units.Any())
+            {
+                InitializeUnits(context);
+            }
+            if (!context.Aircraft.Any())
+            {
+                InitializeAircraft(context);
+            }
         }
 
         public static void InitializeRoles(ApplicationDbContext context)
@@ -47,7 +59,7 @@ namespace AMMS.Data
         {
             const string email = "admin@us.army.mil";
 
-            var user = new ApplicationUser()
+            var admin = new ApplicationUser()
             {
                 FirstName = "Admin",
                 LastName = "User",
@@ -65,15 +77,176 @@ namespace AMMS.Data
             };
 
             var password = new PasswordHasher<ApplicationUser>();
-            var hashed = password.HashPassword(user, PasswordProtocol.CalculateHash("Secret123$", user.Salt));
-            user.PasswordHash = hashed;
+            var hashed = password.HashPassword(admin, PasswordProtocol.CalculateHash("Secret123$", admin.Salt));
+            admin.PasswordHash = hashed;
 
             var userManager = context.GetService<UserManager<ApplicationUser>>();
-            var userStore = new UserStore<ApplicationUser>(context);
-            userStore.CreateAsync(user).Wait();
-            userManager.AddToRoleAsync(user, "ADMIN").Wait();
+            userManager.CreateAsync(admin).Wait();
+            userManager.AddToRoleAsync(admin, "ADMIN").Wait();
 
             context.SaveChanges();
+
+            var qc = new ApplicationUser()
+            {
+                Rank = "SPC",
+                FirstName = "Aaron",
+                MiddleName = "Lloyd",
+                LastName = "Day",
+                Email = "aaron.l.day@us.army.mil",
+                NormalizedEmail = "AARON.L.DAY@US.ARMY.MIL",
+                PhoneNumber = "+19717067846",
+                PhoneNumberConfirmed = true,
+                SocialSecurityNumber = "000005327",
+                DateOfBirth = new DateTime(1983, 07, 06),
+                UserName = "aaron.l.day@us.army.mil",
+                NormalizedUserName = "AARON.L.DAY@US.ARMY.MIL",
+                SecurityStamp = Guid.NewGuid().ToString("D"),
+                FullName = "SPC Day, Aaron",
+                AssignedUnit = "WFJ5B0"
+            };
+
+            hashed = password.HashPassword(qc, PasswordProtocol.CalculateHash("Secret123$", qc.Salt));
+            qc.PasswordHash = hashed;
+
+            userManager.CreateAsync(qc).Wait();
+            userManager.AddToRoleAsync(qc, "QC").Wait();
+            userManager.AddToRoleAsync(qc, "TI").Wait();
+            userManager.AddToRoleAsync(qc, "CE").Wait();
+
+            context.SaveChanges();
+        }
+
+        public static void InitializeAircraftModels(ApplicationDbContext context)
+        {
+            var models = new[] { "UH-60A", "UH-60L", "EH-60A", "HH-60A", "HH-60L" };
+            var nsns = new[] { "1520010350266", "1520012984532", "1520010820686", "1520014599468", "1520014716743" };
+            var eics = new[] { "RSA", "RSM", "RSB", "RSN", "RSI" };
+            for (var i = 0; i < models.Length; ++i)
+            {
+                var model = new AircraftModel
+                {
+                    Id = models[i] + "ID",
+                    Eic = eics[i],
+                    Mds = models[i],
+                    Nsn = nsns[i],
+                    Name = "Blackhawk",
+                    AllThisModelAircraft = new List<Aircraft>(),
+                    MasterInspectionList = new List<DA2408_18>()
+                };
+
+                context.AircraftModels.Add(model);
+                context.SaveChanges();
+            }
+        }
+
+        public static void InitializeUnits(ApplicationDbContext context)
+        {
+            var units = new List<Unit>
+            {
+                new Unit
+                {
+                    Id = "WFJ5A0ID",
+                    CompanyName = "Blue Stars",
+                    UnitName = "Aco 3/158 AVN REGT",
+                    Station = "GAAF",
+                    UIC = "WFJ5A0",
+                    UnitPhone = "9717067843"
+                },
+                new Unit
+                {
+                    Id = "WFJ5B0ID",
+                    CompanyName = "Catfish",
+                    UnitName = "Bco 3/158 AVN REGT",
+                    Station = "GAAF",
+                    UIC = "WFJ5B0",
+                    UnitPhone = "9717067844"
+                },
+                new Unit
+                {
+                    Id = "WFJ5D0ID",
+                    CompanyName = "Rebels",
+                    UnitName = "Dco 3/158 AVN REGT",
+                    Station = "GAAF",
+                    UIC = "WFJ5D0",
+                    UnitPhone = "9717067846"
+                }
+            };
+
+            foreach (var unit in units)
+            {
+                context.Units.Add(unit);
+                context.SaveChanges();
+            }
+        }
+
+        public static void InitializeAircraft(ApplicationDbContext context)
+        {
+            var aircraft = new List<Aircraft>
+            {
+                new Aircraft
+                {
+                    SerialNumber = "9626674",
+                    AcftHrs = 3452.8,
+                    AircraftModelId = "UH-60LID",
+                    UnitId = "WFJ5B0ID",
+                    Modifications = new List<DA2408_5>(),
+                    Flights = new List<DA2408_12>(),
+                    Status = new DA2408_13(),
+                    Faults = new List<DA2408_13_1>(),
+                    UncorrectedFaults = new List<DA2408_14_1>(),
+                    Historicals = new List<DA2408_15>(),
+                    ComponentHistoricals = new List<DA2408_16>(),
+                    HistoryRecorders = new List<DA2408_16_1>(),
+                    Inventory = new List<DA2408_17>(),
+                    Inspections = new List<DA2408_18>(),
+                    EngineAnalysisChecks = new List<DA2408_19_2>(),
+                    EngineComponentOpHrs = new List<DA2408_19_3>(),
+                    OilAnalysisLogs = new List<DA2408_20>(),
+                    IdCard = new DA2408_31()
+                },
+                new Aircraft
+                {
+                    SerialNumber = "9626677",
+                    AcftHrs = 4390.1,
+                    AircraftModelId = "UH-60LID",
+                    UnitId = "WFJ5B0ID",
+                    Modifications = new List<DA2408_5>(),
+                    Flights = new List<DA2408_12>(),
+                    Status = new DA2408_13(),
+                    Faults = new List<DA2408_13_1>(),
+                    UncorrectedFaults = new List<DA2408_14_1>(),
+                    Historicals = new List<DA2408_15>(),
+                    ComponentHistoricals = new List<DA2408_16>(),
+                    HistoryRecorders = new List<DA2408_16_1>(),
+                    Inventory = new List<DA2408_17>(),
+                    Inspections = new List<DA2408_18>(),
+                    EngineAnalysisChecks = new List<DA2408_19_2>(),
+                    EngineComponentOpHrs = new List<DA2408_19_3>(),
+                    OilAnalysisLogs = new List<DA2408_20>(),
+                    IdCard = new DA2408_31()
+                },
+                new Aircraft
+                {
+                    SerialNumber = "9526682",
+                    AcftHrs = 4882.0,
+                    AircraftModelId = "UH-60LID",
+                    UnitId = "WFJ5A0ID",
+                    Modifications = new List<DA2408_5>(),
+                    Flights = new List<DA2408_12>(),
+                    Status = new DA2408_13(),
+                    Faults = new List<DA2408_13_1>(),
+                    UncorrectedFaults = new List<DA2408_14_1>(),
+                    Historicals = new List<DA2408_15>(),
+                    ComponentHistoricals = new List<DA2408_16>(),
+                    HistoryRecorders = new List<DA2408_16_1>(),
+                    Inventory = new List<DA2408_17>(),
+                    Inspections = new List<DA2408_18>(),
+                    EngineAnalysisChecks = new List<DA2408_19_2>(),
+                    EngineComponentOpHrs = new List<DA2408_19_3>(),
+                    OilAnalysisLogs = new List<DA2408_20>(),
+                    IdCard = new DA2408_31()
+                }
+            };
         }
     }
 }

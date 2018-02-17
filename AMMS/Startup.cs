@@ -2,9 +2,11 @@
 using AMMS.Models;
 using AMMS.Repository;
 using AMMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,18 +57,20 @@ namespace AMMS
                 .AddDefaultTokenProviders();
 
             services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IRoleRepository, RoleRepository>();
-            services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<IUnitRepository, UnitRepository>();
-            services.AddScoped<IUnitService, UnitService>();
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IAircraftModelRepository, AircraftModelRepository>();
             services.AddScoped<IAircraftModelService, AircraftModelService>();
             services.AddScoped<IAircraftRepository, AircraftRepository>();
             services.AddScoped<IAircraftService, AircraftService>();
 
-            services.AddMvc();
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

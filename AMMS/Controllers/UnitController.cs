@@ -6,9 +6,9 @@ namespace AMMS.Controllers
 {
     public class UnitController : Controller
     {
-        private readonly IUnitService _service;
+        private readonly IAccountService _service;
 
-        public UnitController(IUnitService service)
+        public UnitController(IAccountService service)
         {
             _service = service;
         }
@@ -20,7 +20,7 @@ namespace AMMS.Controllers
 
         public IActionResult List()
         {
-            var viewModels = _service.GetUnits();
+            var viewModels = _service.GetAllUnits();
 
             return View(viewModels);
         }
@@ -33,11 +33,11 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(UnitViewModel viewModel)
+        public IActionResult Create(UnitViewModel unit)
         {
             if (!ModelState.IsValid) { return View(); }
 
-            _service.SaveUnit(viewModel);
+            _service.CreateUnit(unit);
 
             return RedirectToAction("List");
         }
@@ -45,7 +45,7 @@ namespace AMMS.Controllers
         // C<R>UD
         public IActionResult Details(string id)
         {
-            var viewModel = _service.GetUnit(id);
+            var viewModel = _service.GetUnitById(id);
 
             return View(viewModel);
         }
@@ -54,17 +54,17 @@ namespace AMMS.Controllers
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            var viewModel = _service.GetUnit(id);
+            var viewModel = _service.GetUnitById(id);
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(UnitViewModel viewModel)
+        public IActionResult Edit(UnitViewModel unit)
         {
             if (!ModelState.IsValid) { return View(); }
 
-            _service.UpdateUnit(viewModel);
+            _service.UpdateUnit(unit);
 
             return RedirectToAction("List");
         }
@@ -73,15 +73,15 @@ namespace AMMS.Controllers
         [HttpGet]
         public IActionResult Delete(string id)
         {
-            var viewModel = _service.GetUnit(id);
+            var viewModel = _service.GetUnitById(id);
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Delete(UnitViewModel viewModel)
+        public IActionResult Delete(UnitViewModel unit)
         {
-            _service.DeleteUnit(viewModel.Id);
+            _service.DeleteUnit(unit.Id);
 
             return RedirectToAction("List");
         }
