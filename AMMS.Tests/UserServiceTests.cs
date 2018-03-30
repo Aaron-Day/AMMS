@@ -9,19 +9,19 @@ namespace AMMS.Tests
     [TestFixture]
     public class UserServiceTests
     {
-        private IUserRepository _repository;
+        private IAccountRepository _repository;
 
         [SetUp]
         public void Setup()
         {
-            _repository = A.Fake<IUserRepository>();
+            _repository = A.Fake<IAccountRepository>();
         }
 
         [Test]
         public void Pid_IsValid()
         {
             // Arrange
-            A.CallTo(() => _repository.GetUser(A<string>.Ignored)).Returns(new ApplicationUser
+            A.CallTo(() => _repository.GetUserById(A<string>.Ignored)).Returns(new ApplicationUser
             {
                 FirstName = "Aaron",
                 LastName = "Day",
@@ -29,8 +29,8 @@ namespace AMMS.Tests
             });
 
             // Act
-            var service = new UserService(_repository);
-            var view = service.GetUser("a");
+            var service = new AccountService(_repository);
+            var view = service.GetUserById("a");
 
             // Assert
             Assert.AreEqual(view.Pid, "AD1234");
