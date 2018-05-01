@@ -52,6 +52,17 @@ namespace AMMS.Services
             return _repository.GetUnitId(id);
         }
 
+        public UnitViewModel GetUnitById(string id)
+        {
+            return MapToUnitViewModel(_repository.GetUnitById(id));
+        }
+
+        public IEnumerable<UnitViewModel> GetAllUnits()
+        {
+            var units = _repository.GetAllUnits();
+            return units.Select(MapToUnitViewModel).ToList();
+        }
+
         public IEnumerable<AircraftModelViewModel> GetAllModels()
         {
             var models = _repository.GetAllModels();
@@ -103,6 +114,19 @@ namespace AMMS.Services
                 Mds = model.Mds,
                 Name = model.Name,
                 Nsn = model.Nsn
+            };
+        }
+
+        private static UnitViewModel MapToUnitViewModel(Unit unit)
+        {
+            return new UnitViewModel
+            {
+                Id = unit.Id,
+                UIC = unit.UIC,
+                UnitName = unit.UnitName,
+                CompanyName = unit.CompanyName,
+                UnitPhone = unit.UnitPhone,
+                Station = unit.Station
             };
         }
     }

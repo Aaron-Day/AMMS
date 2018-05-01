@@ -17,6 +17,10 @@ namespace AMMS.Services
 
         string GetUnitId(string id);
 
+        UnitViewModel GetUnitById(string id);
+
+        IEnumerable<UnitViewModel> GetAllUnits();
+
         IEnumerable<AircraftModelViewModel> GetAllModels();
     }
 }

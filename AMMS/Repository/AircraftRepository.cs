@@ -59,6 +59,16 @@ namespace AMMS.Repository
                 : id;
         }
 
+        public Unit GetUnitById(string id)
+        {
+            return _context.Units.Find(id);
+        }
+
+        public IEnumerable<Unit> GetAllUnits()
+        {
+            return _context.Units.ToList();
+        }
+
         public IEnumerable<AircraftModel> GetAllModels()
         {
             return _context.AircraftModels.ToList();

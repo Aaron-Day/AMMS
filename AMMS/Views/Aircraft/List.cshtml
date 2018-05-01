@@ -4,7 +4,7 @@
     ViewData["Title"] = "List";
 }
 
-<h2>List</h2>
+<h2>Aircraft List: @ViewBag.Unit.UnitName</h2>
 
 <p>
     <a asp-action="Create" asp-route-parentId="@TempData["ParentId"]">Create New</a>
@@ -13,19 +13,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
+                Model
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.SerialNumber)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AcftHrs)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AircraftModelId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UnitId)
             </th>
             <th></th>
         </tr>
@@ -35,7 +29,15 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @Html.HiddenFor(modelItem => item.AircraftModelId)
+                    @foreach (var acft in ViewBag.Models)
+                    {
+                        if (acft.Id == item.AircraftModelId)
+                        {
+                            @acft.Mds
+                            break;
+                        }
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SerialNumber)
@@ -44,12 +46,8 @@
                     @Html.DisplayFor(modelItem => item.AcftHrs)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AircraftModelId)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UnitId)
-                </td>
-                <td>
+                    @Html.HiddenFor(modelItem => item.Id)
+                    @Html.HiddenFor(modelItem => item.UnitId)
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.Id })

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 
 namespace AMMS.Services
 {
@@ -23,6 +24,19 @@ namespace AMMS.Services
         #region Getters
         /*----------GETTERS----------*/
         // Get user(s)
+        public ApplicationUser GetCurrentUser(ClaimsPrincipal user)
+        {
+            try
+            {
+                return _repository.GetCurrentUser(user);
+            }
+            catch (Exception e)
+            {
+                Log.Error("GetCurrentUser: Failed!", e);
+                throw;
+            }
+        }
+
         public RegisterViewModel GetUserById(string id)
         {
             try
@@ -659,10 +673,167 @@ namespace AMMS.Services
             };
         }
 
-        public string GetType(string value)
+        public string GetType(string value, ClaimsPrincipal user)
         {
-            return _repository.GetType(value);
+            var current = GetCurrentUser(user);
+            var admin = current.AssignedUnit == "ADMIN";
+
+            var showAll = admin && (current.Id == value || current.Email == value || current.AssignedUnit == value);
+
+            if (showAll)
+                return "All Users";
+
+            switch (_repository.GetType(value))
+            {
+                case "AllUsers":
+                    if (admin)
+                        return "All Users";
+                    return $"By UIC: {current.AssignedUnit}";
+                case "UserId":
+                    if (GetUserById(value).AssignedUnit == current.AssignedUnit)
+                        return $"By UIC: {current.AssignedUnit}";
+                    break;
+                case "UserEmail":
+                    if (GetUserByEmail(value).AssignedUnit == current.AssignedUnit)
+                        return $"By UIC: {current.AssignedUnit}";
+                    break;
+                case "UnitId":
+                    if (GetUnitById(value).UIC == current.AssignedUnit)
+                        return $"By UIC: {current.AssignedUnit}";
+                    break;
+                case "UnitUIC":
+                    if (value == current.AssignedUnit)
+                        return $"By UIC: {current.AssignedUnit}";
+                    break;
+                case "RoleId":
+                    if (admin)
+                        return $"By role: {GetRoleById(value).RoleName}";
+                    return $"By role: {GetRoleById(value).RoleName} and UIC: {current.AssignedUnit}";
+                case "RoleName":
+                    if (admin)
+                        return $"By role: {value}";
+                    return $"By role: {value} and UIC: {current.AssignedUnit}";
+                default:
+                    return "";
+            }
+
+            return "";
         }
+
+        public IEnumerable<RegisterViewModel> GetUsers(string value, ClaimsPrincipal user)
+        {
+            var current = GetCurrentUser(user);
+            var admin = current.AssignedUnit == "ADMIN";
+
+            var showAll = admin && (current.Id == value || current.Email == value || current.AssignedUnit == value);
+
+            if (showAll)
+                return GetAllUsers();
+
+            switch (_repository.GetType(value))
+            {
+                case "AllUsers":
+                    if (admin)
+                        return GetAllUsers();
+                    return GetUsersByUic(current.AssignedUnit);
+                case "UserId":
+                    if (GetUserById(value).AssignedUnit == current.AssignedUnit)
+                        return GetUsersByUic(current.AssignedUnit);
+                    break;
+                case "UserEmail":
+                    if (GetUserByEmail(value).AssignedUnit == current.AssignedUnit)
+                        return GetUsersByUic(current.AssignedUnit);
+                    break;
+                case "UnitId":
+                    if (GetUnitById(value).UIC == current.AssignedUnit)
+                        return GetUsersByUic(current.AssignedUnit);
+                    break;
+                case "UnitUIC":
+                    if (value == current.AssignedUnit)
+                        return GetUsersByUic(current.AssignedUnit);
+                    break;
+                case "RoleId":
+                    if (admin)
+                        return GetUsersByRole(GetRoleById(value).RoleName);
+                    return GetUsersByRole(GetRoleById(value).RoleName).Where(u => u.AssignedUnit == current.AssignedUnit);
+                case "RoleName":
+                    if (admin)
+                        return GetUsersByRole(value);
+                    return GetUsersByRole(value).Where(u => u.AssignedUnit == current.AssignedUnit);
+                default:
+                    return new List<RegisterViewModel>();
+            }
+            return new List<RegisterViewModel>();
+        }
+
+
+        /*
+
+        if (value == null && TempData["Assigned Unit"] != null)
+            {
+                ViewData["Return Value"] = TempData["Assigned Unit"];
+                ViewData["Filter"] = "- By UIC";
+                return View(_service.GetUsersByUic((string)TempData["Assigned Unit"]));
+            }
+            switch (_service.GetType(value))
+            {
+                case "AllUsers":
+                    ViewData["Return Value"] = null;
+                    if (current.AssignedUnit == "ADMIN")
+                    {
+                        ViewData["Filter"] = "- All Users";
+                        return View(_service.GetAllUsers());
+                    }
+                    else
+                    {
+                        ViewData["Return Value"] = current.AssignedUnit;
+                        ViewData["Filter"] = "- By UIC";
+                        return View(_service.GetUsersByUic(current.AssignedUnit));
+                    }
+                case "UserId":
+                    var user1 = _service.GetUserById(value);
+                    if (user1.AssignedUnit != "ADMIN")
+                    {
+                        ViewData["Return Value"] = user1.AssignedUnit;
+                        ViewData["Filter"] = "- By UIC";
+                        return View(_service.GetUsersByUic(user1.AssignedUnit));
+                    }
+                    ViewData["Return Value"] = null;
+                    ViewData["Filter"] = "- All Users";
+                    return View(_service.GetAllUsers());
+                case "UserEmail":
+                    var user2 = _service.GetUserByEmail(value);
+                    if (user2.AssignedUnit != "ADMIN")
+                    {
+                        ViewData["Return Value"] = user2.AssignedUnit;
+                        ViewData["Filter"] = "- By UIC";
+                        return View(_service.GetUsersByUic(user2.AssignedUnit));
+                    }
+                    ViewData["Return Value"] = null;
+                    ViewData["Filter"] = "- All Users";
+                    return View(_service.GetAllUsers());
+                case "UnitId":
+                    var unit = _service.GetUnitById(value);
+                    ViewData["Return Value"] = unit.UIC;
+                    ViewData["Filter"] = "- By UIC";
+                    return View(_service.GetUsersByUic(unit.UIC));
+                case "UnitUIC":
+                    ViewData["Return Value"] = value;
+                    ViewData["Filter"] = "- By UIC";
+                    return View(_service.GetUsersByUic(value));
+                case "RoleId":
+                    var role = _service.GetRoleById(value);
+                    ViewData["Return Value"] = role.RoleName;
+                    ViewData["Filter"] = "- By Role";
+                    return View(_service.GetUsersByRole(role.RoleName));
+                case "RoleName":
+                    ViewData["Return Value"] = value;
+                    ViewData["Filter"] = "- By Role";
+                    return View(_service.GetUsersByRole(value));
+                default:
+                    return NotFound();
+            }
+         */
         #endregion
     }
 }

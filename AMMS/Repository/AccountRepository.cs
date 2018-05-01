@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace AMMS.Repository
@@ -33,6 +34,20 @@ namespace AMMS.Repository
 
         /*----------GETTERS----------*/
         // Get user(s)
+        public ApplicationUser GetCurrentUser(ClaimsPrincipal user)
+        {
+            try
+            {
+                var userId = _userManager.GetUserId(user);
+                return _context.Users.Find(userId);
+            }
+            catch (Exception e)
+            {
+                Log.Error("GetCurrentUser: Failed!", e);
+                throw;
+            }
+        }
+
         public ApplicationUser GetUserById(string id)
         {
             try
@@ -586,5 +601,6 @@ namespace AMMS.Repository
 
             return string.Empty;
         }
+
     }
 }

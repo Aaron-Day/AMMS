@@ -1,7 +1,9 @@
-﻿using AMMS.Models.AccountViewModels;
+﻿using AMMS.Models;
+using AMMS.Models.AccountViewModels;
 using AMMS.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace AMMS.Services
 {
@@ -9,6 +11,7 @@ namespace AMMS.Services
     {
         /*----------GETTERS----------*/
         // Get user(s)
+        ApplicationUser GetCurrentUser(ClaimsPrincipal user);
         RegisterViewModel GetUserById(string id);
         RegisterViewModel GetUserByPid(string pid);
         RegisterViewModel GetUserByEmail(string email);
@@ -65,6 +68,7 @@ namespace AMMS.Services
         void Logout(string id);
         void ResetPassword(string id);
         void ChangePassword(ChangePasswordViewModel change);
-        string GetType(string value);
+        string GetType(string value, ClaimsPrincipal user);
+        IEnumerable<RegisterViewModel> GetUsers(string value, ClaimsPrincipal user);
     }
 }

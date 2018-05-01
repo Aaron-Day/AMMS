@@ -27,6 +27,8 @@ namespace AMMS.Controllers
              * or aircraft's owning unit)
              */
             parentId = _service.GetUnitId(parentId);
+            ViewBag.Unit = _service.GetUnitById(parentId);
+            ViewBag.Models = _service.GetAllModels();
 
             TempData["ParentId"] = parentId;
 

@@ -3,6 +3,7 @@ using AMMS.Models.AccountViewModels;
 using AMMS.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
+using System.Security.Claims;
 
 namespace AMMS.Repository
 {
@@ -10,6 +11,7 @@ namespace AMMS.Repository
     {
         /*----------GETTERS----------*/
         // Get user(s)
+        ApplicationUser GetCurrentUser(ClaimsPrincipal user);
         ApplicationUser GetUserById(string id);
         ApplicationUser GetUserByPid(string pid);
         ApplicationUser GetUserByEmail(string email);

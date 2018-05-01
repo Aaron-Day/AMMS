@@ -12,6 +12,7 @@ namespace AMMS.Models.ViewModels
         public string SerialNumber { get; set; }
 
         [Required]
+        [Display(Name = "Aircraft Hours")]
         public double AcftHrs { get; set; }
 
         [Required]

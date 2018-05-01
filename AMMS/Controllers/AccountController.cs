@@ -32,62 +32,11 @@ namespace AMMS.Controllers
         [Authorize(Roles = "Admin, PC, QC")]
         public IActionResult List(string value = null)
         {
-            // TODO: only display users for the same unit as the user
-            if (value == null && TempData["Assigned Unit"] != null)
-            {
-                ViewData["Return Value"] = TempData["Assigned Unit"];
-                ViewData["Filter"] = "- By UIC";
-                return View(_service.GetUsersByUic((string)TempData["Assigned Unit"]));
-            }
-            switch (_service.GetType(value))
-            {
-                case "AllUsers":
-                    ViewData["Return Value"] = null;
-                    ViewData["Filter"] = "- All Users";
-                    return View(_service.GetAllUsers());
-                case "UserId":
-                    var user1 = _service.GetUserById(value);
-                    if (user1.AssignedUnit != "ADMIN")
-                    {
-                        ViewData["Return Value"] = user1.AssignedUnit;
-                        ViewData["Filter"] = "- By UIC";
-                        return View(_service.GetUsersByUic(user1.AssignedUnit));
-                    }
-                    ViewData["Return Value"] = null;
-                    ViewData["Filter"] = "- All Users";
-                    return View(_service.GetAllUsers());
-                case "UserEmail":
-                    var user2 = _service.GetUserByEmail(value);
-                    if (user2.AssignedUnit != "ADMIN")
-                    {
-                        ViewData["Return Value"] = user2.AssignedUnit;
-                        ViewData["Filter"] = "- By UIC";
-                        return View(_service.GetUsersByUic(user2.AssignedUnit));
-                    }
-                    ViewData["Return Value"] = null;
-                    ViewData["Filter"] = "- All Users";
-                    return View(_service.GetAllUsers());
-                case "UnitId":
-                    var unit = _service.GetUnitById(value);
-                    ViewData["Return Value"] = unit.UIC;
-                    ViewData["Filter"] = "- By UIC";
-                    return View(_service.GetUsersByUic(unit.UIC));
-                case "UnitUIC":
-                    ViewData["Return Value"] = value;
-                    ViewData["Filter"] = "- By UIC";
-                    return View(_service.GetUsersByUic(value));
-                case "RoleId":
-                    var role = _service.GetRoleById(value);
-                    ViewData["Return Value"] = role.RoleName;
-                    ViewData["Filter"] = "- By Role";
-                    return View(_service.GetUsersByRole(role.RoleName));
-                case "RoleName":
-                    ViewData["Return Value"] = value;
-                    ViewData["Filter"] = "- By Role";
-                    return View(_service.GetUsersByRole(value));
-                default:
-                    return NotFound();
-            }
+            var users = _service.GetUsers(value, User);
+            var filter = _service.GetType(value, User);
+
+            ViewData["Filter"] = $" - {filter}";
+            return View(users);
         }
 
         [Authorize]
