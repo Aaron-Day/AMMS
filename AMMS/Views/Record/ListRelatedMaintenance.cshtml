@@ -1,0 +1,114 @@
+﻿@model IEnumerable<AMMS.Models.ViewModels.RelatedMaintenanceViewModel>
+
+@{
+    ViewData["Title"] = "Related Maintenance List";
+}
+
+<h2>Related Maintenance List</h2>
+
+<p>
+    <a asp-action="CreateRelatedMaintenance" asp-route-parentId="@ViewBag.ParentId">Create New Related Maintenance Task</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultStatus)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SystemCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RelatedMaintenanceAction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CorrectiveAction)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MMH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaultStatus)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerialNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SystemCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaultDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaultNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaultText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RelatedMaintenanceAction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CorrectiveAction)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MMH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaultId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditRelatedMaintenance", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "DetailsRelatedMaintenance", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteRelatedMaintenance", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

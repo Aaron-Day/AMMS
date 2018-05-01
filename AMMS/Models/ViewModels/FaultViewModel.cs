@@ -1,10 +1,12 @@
 ﻿using System;
 
-namespace AMMS.Models
+namespace AMMS.Models.ViewModels
 {
-    public class Fault
+    public class FaultViewModel
     {
         public string Id { get; set; }
+        public string AcftSerialNumber { get; set; }
+        public string AcftModel { get; set; }
         public string Status { get; set; }
         public string SystemCode { get; set; }
         public DateTime? FaultDate { get; set; }
@@ -29,6 +31,5 @@ namespace AMMS.Models
         public string CompCat { get; set; }
         public double? CompHrs { get; set; }
         public string AircraftId { get; set; }
-        private Aircraft Aircraft { get; set; }
     }
 }

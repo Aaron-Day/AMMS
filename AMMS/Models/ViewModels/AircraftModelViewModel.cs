@@ -19,17 +19,6 @@ namespace AMMS.Models.ViewModels
 
         public string Eic { get; set; }
 
-        public List<DA2408_18> MasterInspectionList { get; set; }
-
         public List<Aircraft> AllThisModelAircraft { get; set; }
-
-        public void AddInspection(DA2408_18 inspection)
-        {
-            MasterInspectionList.Add(inspection);
-            foreach (var aircraft in AllThisModelAircraft)
-            {
-                aircraft.AddInspection(inspection);
-            }
-        }
     }
 }

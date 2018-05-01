@@ -1,0 +1,80 @@
+﻿@model AMMS.Models.ViewModels.InspectionViewModel
+
+@{
+    ViewData["Title"] = "Edit Inspection";
+}
+
+<h2>Edit Inspection</h2>
+
+<h4>Inspection</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditInspection">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nomenclature" class="control-label"></label>
+                <input asp-for="Nomenclature" class="form-control" />
+                <span asp-validation-for="Nomenclature" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model" class="control-label"></label>
+                <input asp-for="Model" class="form-control" />
+                <span asp-validation-for="Model" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SerialNumber" class="control-label"></label>
+                <input asp-for="SerialNumber" class="form-control" />
+                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InspectionNumber" class="control-label"></label>
+                <input asp-for="InspectionNumber" class="form-control" />
+                <span asp-validation-for="InspectionNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemToBeInspected" class="control-label"></label>
+                <input asp-for="ItemToBeInspected" class="form-control" />
+                <span asp-validation-for="ItemToBeInspected" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Reference" class="control-label"></label>
+                <input asp-for="Reference" class="form-control" />
+                <span asp-validation-for="Reference" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Frequency" class="control-label"></label>
+                <input asp-for="Frequency" class="form-control" />
+                <span asp-validation-for="Frequency" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NextDue" class="control-label"></label>
+                <input asp-for="NextDue" class="form-control" />
+                <span asp-validation-for="NextDue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CompletedAt" class="control-label"></label>
+                <input asp-for="CompletedAt" class="form-control" />
+                <span asp-validation-for="CompletedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AircraftId" class="control-label"></label>
+                <input asp-for="AircraftId" class="form-control" />
+                <span asp-validation-for="AircraftId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ListInspection" asp-route-parentId="@Model.AircraftId">Back to List</a>
+</div>
+

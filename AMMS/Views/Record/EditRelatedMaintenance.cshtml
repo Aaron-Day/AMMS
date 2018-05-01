@@ -1,0 +1,95 @@
+﻿@model AMMS.Models.ViewModels.RelatedMaintenanceViewModel
+
+@{
+    ViewData["Title"] = "Edit Related Maintenance";
+}
+
+<h2>Edit Related Maintenance</h2>
+
+<h4>Related Maintenance</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditRelatedMaintenance">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaultStatus" class="control-label"></label>
+                <input asp-for="FaultStatus" class="form-control" />
+                <span asp-validation-for="FaultStatus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SerialNumber" class="control-label"></label>
+                <input asp-for="SerialNumber" class="form-control" />
+                <span asp-validation-for="SerialNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SystemCode" class="control-label"></label>
+                <input asp-for="SystemCode" class="form-control" />
+                <span asp-validation-for="SystemCode" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaultDate" class="control-label"></label>
+                <input asp-for="FaultDate" class="form-control" />
+                <span asp-validation-for="FaultDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaultNumber" class="control-label"></label>
+                <input asp-for="FaultNumber" class="form-control" />
+                <span asp-validation-for="FaultNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaultText" class="control-label"></label>
+                <input asp-for="FaultText" class="form-control" />
+                <span asp-validation-for="FaultText" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RelatedMaintenanceAction" class="control-label"></label>
+                <input asp-for="RelatedMaintenanceAction" class="form-control" />
+                <span asp-validation-for="RelatedMaintenanceAction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CorrectiveAction" class="control-label"></label>
+                <input asp-for="CorrectiveAction" class="form-control" />
+                <span asp-validation-for="CorrectiveAction" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PID" class="control-label"></label>
+                <input asp-for="PID" class="form-control" />
+                <span asp-validation-for="PID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MMH" class="control-label"></label>
+                <input asp-for="MMH" class="form-control" />
+                <span asp-validation-for="MMH" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FaultId" class="control-label"></label>
+                <input asp-for="FaultId" class="form-control" />
+                <span asp-validation-for="FaultId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ListRelatedMaintenance" asp-route-parentId="@Model.FaultId">Back to List</a>
+</div>
+

@@ -45,4 +45,8 @@
 <div>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Back to List", "Index", new { parentId = Model.UnitId })
+    <br />
+    @Html.ActionLink("Flights", "ListFlight", "Record", new { parentId = Model.Id }) |
+    @Html.ActionLink("Inspections", "ListInspection", "Record", new { parentId = Model.Id }) |
+    @Html.ActionLink("Faults", "ListFault", "Record", new { parentId = Model.Id })
 </div>

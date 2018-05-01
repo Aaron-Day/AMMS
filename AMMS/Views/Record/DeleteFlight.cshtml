@@ -1,0 +1,98 @@
+﻿@model AMMS.Models.ViewModels.FlightViewModel
+
+@{
+    ViewData["Title"] = "DeleteFlight";
+}
+
+<h2>Delete Flight</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Flight</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SerialNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Organization)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Organization)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Station)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Station)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FlightNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.From)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.From)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.To)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.To)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Start)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Start)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.End)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.End)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FlightHours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AircraftId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AircraftId)
+        </dd>
+    </dl>
+
+    <form asp-action="DeleteFlight">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-action="ListFlight">Back to List</a>
+    </form>
+</div>

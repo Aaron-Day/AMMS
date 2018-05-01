@@ -130,8 +130,7 @@ namespace AMMS.Data
                     Mds = models[i],
                     Nsn = nsns[i],
                     Name = "Blackhawk",
-                    AllThisModelAircraft = new List<Aircraft>(),
-                    MasterInspectionList = new List<DA2408_18>()
+                    AllThisModelAircraft = new List<Aircraft>()
                 };
 
                 context.AircraftModels.Add(model);
@@ -188,63 +187,21 @@ namespace AMMS.Data
                     SerialNumber = "9626674",
                     AcftHrs = 3452.8,
                     AircraftModelId = "UH-60LID",
-                    UnitId = "WFJ5B0ID",
-                    Modifications = new List<DA2408_5>(),
-                    Flights = new List<DA2408_12>(),
-                    Status = new DA2408_13(),
-                    Faults = new List<DA2408_13_1>(),
-                    UncorrectedFaults = new List<DA2408_14_1>(),
-                    Historicals = new List<DA2408_15>(),
-                    ComponentHistoricals = new List<DA2408_16>(),
-                    HistoryRecorders = new List<DA2408_16_1>(),
-                    Inventory = new List<DA2408_17>(),
-                    Inspections = new List<DA2408_18>(),
-                    EngineAnalysisChecks = new List<DA2408_19_2>(),
-                    EngineComponentOpHrs = new List<DA2408_19_3>(),
-                    OilAnalysisLogs = new List<DA2408_20>(),
-                    IdCard = new DA2408_31()
+                    UnitId = "WFJ5B0ID"
                 },
                 new Aircraft
                 {
                     SerialNumber = "9626677",
                     AcftHrs = 4390.1,
                     AircraftModelId = "UH-60LID",
-                    UnitId = "WFJ5B0ID",
-                    Modifications = new List<DA2408_5>(),
-                    Flights = new List<DA2408_12>(),
-                    Status = new DA2408_13(),
-                    Faults = new List<DA2408_13_1>(),
-                    UncorrectedFaults = new List<DA2408_14_1>(),
-                    Historicals = new List<DA2408_15>(),
-                    ComponentHistoricals = new List<DA2408_16>(),
-                    HistoryRecorders = new List<DA2408_16_1>(),
-                    Inventory = new List<DA2408_17>(),
-                    Inspections = new List<DA2408_18>(),
-                    EngineAnalysisChecks = new List<DA2408_19_2>(),
-                    EngineComponentOpHrs = new List<DA2408_19_3>(),
-                    OilAnalysisLogs = new List<DA2408_20>(),
-                    IdCard = new DA2408_31()
+                    UnitId = "WFJ5B0ID"
                 },
                 new Aircraft
                 {
                     SerialNumber = "9526682",
                     AcftHrs = 4882.0,
                     AircraftModelId = "UH-60LID",
-                    UnitId = "WFJ5A0ID",
-                    Modifications = new List<DA2408_5>(),
-                    Flights = new List<DA2408_12>(),
-                    Status = new DA2408_13(),
-                    Faults = new List<DA2408_13_1>(),
-                    UncorrectedFaults = new List<DA2408_14_1>(),
-                    Historicals = new List<DA2408_15>(),
-                    ComponentHistoricals = new List<DA2408_16>(),
-                    HistoryRecorders = new List<DA2408_16_1>(),
-                    Inventory = new List<DA2408_17>(),
-                    Inspections = new List<DA2408_18>(),
-                    EngineAnalysisChecks = new List<DA2408_19_2>(),
-                    EngineComponentOpHrs = new List<DA2408_19_3>(),
-                    OilAnalysisLogs = new List<DA2408_20>(),
-                    IdCard = new DA2408_31()
+                    UnitId = "WFJ5A0ID"
                 }
             };
         }

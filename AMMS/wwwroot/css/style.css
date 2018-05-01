@@ -1,0 +1,17 @@
+main {
+    padding: 60px 0;
+}
+
+footer .navbar .nav {
+    padding: 0 15px;
+}
+
+.navbar-right {
+    padding-right: 15px;
+}
+
+#copy {
+    color: #9d9d9d;
+    padding: 20px 15px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .25);
+}

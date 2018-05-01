@@ -1,0 +1,96 @@
+﻿@model AMMS.Models.ViewModels.FlightViewModel
+
+@{
+    ViewData["Title"] = "Details Flight";
+}
+
+<h2>Flight Details</h2>
+
+<div>
+    <h4>Flight</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SerialNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Model)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Model)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Organization)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Organization)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Station)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Station)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FlightNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.From)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.From)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.To)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.To)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Start)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Start)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.End)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.End)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.FlightHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FlightHours)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.AircraftId)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AircraftId)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "EditFlight", new { id = Model.Id }) |
+    <a asp-action="ListFlight">Back to List</a>
+</div>

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<AMMS.Models.ViewModels.InspectionViewModel>
+
+@{
+    ViewData["Title"] = "Inspection List";
+}
+
+<h2>Inspection List</h2>
+
+<p>
+    <a asp-action="CreateInspection" asp-route-parentId="@ViewBag.ParentId">Create New Inspection</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nomenclature)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Model)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.InspectionNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ItemToBeInspected)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Reference)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Frequency)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NextDue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompletedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AircraftId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nomenclature)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerialNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.InspectionNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemToBeInspected)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Reference)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Frequency)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NextDue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompletedAt)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AircraftId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditInspection", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "DetailsInspection", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteInspection", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

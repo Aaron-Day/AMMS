@@ -1,0 +1,192 @@
+﻿@model IEnumerable<AMMS.Models.ViewModels.FaultViewModel>
+
+@{
+    ViewData["Title"] = "Fault List";
+}
+
+<h2>Fault List</h2>
+
+<p>
+    <a asp-action="CreateFault" asp-route-parentId="@ViewBag.ParentId">Create New Inspection</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AcftSerialNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AcftModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SystemCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscPID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FaultText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiscAcftHrs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WhenDisc)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HowRecog)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MalEff)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Delay)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WUC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompAcftHrs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rounds)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ActionCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompWUC)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Action)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompPID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompCat)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompHrs)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AircraftId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AcftSerialNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AcftModel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SystemCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaultDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaultNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaultTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscPID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FaultText)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiscAcftHrs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WhenDisc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HowRecog)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MalEff)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Delay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WUC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompAcftHrs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rounds)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ActionCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompWUC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Action)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompPID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompCat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompHrs)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AircraftId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditFault", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "DetailsFault", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeleteFault", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

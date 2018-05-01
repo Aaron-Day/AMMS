@@ -6,48 +6,37 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-area="" asp-controller="Account" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)" method="post" id="logoutForm" class="navbar-right">
+    <form asp-controller="Account" asp-action="Logout" asp-route-id="@UserManager.GetUserId(User)" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             @if (User.IsInRole("Admin"))
             {
-                <li>
-                    <a asp-area="" asp-controller="Role" asp-action="List">Roles</a>
-                </li>
-                <li>
-                    <a asp-area="" asp-controller="Unit" asp-action="List">Units</a>
-                </li>
-                <li>
-                    <a asp-area="" asp-controller="AircraftModel" asp-action="List">Aircraft Models</a>
-                </li>
-                <li>
-                    <a asp-area="" asp-controller="Account" asp-action="Requests">Access Requests</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">ADMIN<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a asp-controller="Account" asp-action="Requests">Access Requests</a></li>
+                        <li><a asp-controller="Role" asp-action="List">User Roles</a></li>
+                        <li><a asp-controller="Unit" asp-action="List">Aviation Units</a></li>
+                        <li><a asp-controller="AircraftModel" asp-action="List">Aircraft Models</a></li>
+                    </ul>
                 </li>
             }
             @if (User.IsInRole("Admin") || User.IsInRole("PC") || User.IsInRole("QC"))
             {
-                <li>
-                    <a asp-area="" asp-controller="Account" asp-action="List">Users</a>
-                </li>
+                <li><a asp-controller="Account" asp-action="List">User Admin</a></li>
             }
             @if (!User.IsInRole("Admin"))
             {
-                <li>
-                    <a asp-area="" asp-controller="Aircraft" asp-action="List" asp-route-parentId="@UserManager.GetUserId(User)">Logbooks</a>
-                </li>
+                <li><a asp-controller="Aircraft" asp-action="List" asp-route-parentId="@UserManager.GetUserId(User)">Logbooks</a></li>
             }
-            <li>
-                <a asp-area="" asp-controller="Home" asp-action="Index" title="Manage">Hello @UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result.FullName</a>
-            </li>
-            <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
-            </li>
+            <li><a asp-controller="Home" asp-action="Index" title="Home">Hello @UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result.FullName</a></li>
+            <li><button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button></li>
         </ul>
     </form>
 }
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="" asp-controller="Account" asp-action="RequestAccount">Request Account</a></li>
-        <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+        <li><a asp-controller="Account" asp-action="RequestAccount">Request Account</a></li>
+        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
     </ul>
 }
