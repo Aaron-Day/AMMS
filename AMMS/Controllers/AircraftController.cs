@@ -6,9 +6,9 @@ namespace AMMS.Controllers
 {
     public class AircraftController : Controller
     {
-        private readonly IAircraftService _service;
+        private readonly IMasterService _service;
 
-        public AircraftController(IAircraftService service)
+        public AircraftController(IMasterService service)
         {
             _service = service;
         }
@@ -28,11 +28,11 @@ namespace AMMS.Controllers
              */
             parentId = _service.GetUnitId(parentId);
             ViewBag.Unit = _service.GetUnitById(parentId);
-            ViewBag.Models = _service.GetAllModels();
+            ViewBag.Models = _service.GetAllAircraftModels();
 
             TempData["ParentId"] = parentId;
 
-            var viewModels = _service.GetAllAircraft(parentId);
+            var viewModels = _service.GetAircraftByUnitId(parentId);
 
             return View(viewModels);
         }
@@ -44,7 +44,7 @@ namespace AMMS.Controllers
         {
             TempData["ParentId"] = parentId;
 
-            ViewBag.Models = _service.GetAllModels();
+            ViewBag.Models = _service.GetAllAircraftModels();
 
             return View();
         }
@@ -52,22 +52,22 @@ namespace AMMS.Controllers
         [HttpPost]
         // TODO: Restrict access to PC anc QC (users that have an assigned unit)
         // TODO: Validate antiforgery token similar to account controler HttpPost methods
-        public IActionResult Create(AircraftViewModel viewModel)
+        public IActionResult Create(AircraftViewModel aircraft)
         {
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View(aircraft);
 
-            _service.SaveAircraft(viewModel);
+            _service.CreateAircraft(aircraft);
 
-            return RedirectToAction("List", new { parentId = viewModel.UnitId });
+            return RedirectToAction("List", new { parentId = aircraft.UnitId });
         }
 
         // C<R>UD
         // TODO: Modify view to remove edit option for all but PC and QC
         public IActionResult Details(string id)
         {
-            var viewModel = _service.GetAircraft(id);
+            var aircraft = _service.GetAircraftById(id);
 
-            return View(viewModel);
+            return View(aircraft);
         }
 
         // CR<U>D
@@ -75,25 +75,25 @@ namespace AMMS.Controllers
         // TODO: Restrict access to PC anc QC (users that have an assigned unit)
         public IActionResult Edit(string id)
         {
-            var viewModel = _service.GetAircraft(id);
+            var aircraft = _service.GetAircraftById(id);
 
-            ViewBag.Models = _service.GetAllModels();
+            ViewBag.Models = _service.GetAllAircraftModels();
 
-            //TODO: Add units to a viewbab so aircraft can be transfered to another unit
+            //TODO: Add units to a viewbag so aircraft can be transfered to another unit
 
-            return View(viewModel);
+            return View(aircraft);
         }
 
         [HttpPost]
         // TODO: Restrict access to PC anc QC (users that have an assigned unit)
         // TODO: Validate antiforgery token similar to account controler HttpPost methods
-        public IActionResult Edit(AircraftViewModel viewModel)
+        public IActionResult Edit(AircraftViewModel aircraft)
         {
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View(aircraft);
 
-            _service.UpdateAircraft(viewModel);
+            _service.UpdateAircraft(aircraft);
 
-            return RedirectToAction("List", new { parentId = viewModel.UnitId });
+            return RedirectToAction("List", new { parentId = aircraft.UnitId });
         }
 
         // CRU<D>
@@ -101,19 +101,19 @@ namespace AMMS.Controllers
         // TODO: Restrict access to PC anc QC (users that have an assigned unit)
         public IActionResult Delete(string id)
         {
-            var viewModel = _service.GetAircraft(id);
+            var aircraft = _service.GetAircraftById(id);
 
-            return View(viewModel);
+            return View(aircraft);
         }
 
         [HttpPost]
         // TODO: Restrict access to PC anc QC (users that have an assigned unit)
         // TODO: Validate antiforgery token similar to account controler HttpPost methods
-        public IActionResult Delete(AircraftViewModel viewModel)
+        public IActionResult Delete(AircraftViewModel aircraft)
         {
-            _service.DeleteAircraft(viewModel.Id);
+            _service.DeleteAircraft(aircraft.Id);
 
-            return RedirectToAction("List", new { parentId = viewModel.UnitId });
+            return RedirectToAction("List", new { parentId = aircraft.UnitId });
         }
     }
 }

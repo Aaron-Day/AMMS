@@ -65,6 +65,8 @@ namespace AMMS
             services.AddScoped<IAircraftService, AircraftService>();
             services.AddScoped<IRecordService, RecordService>();
             services.AddScoped<IRecordRepository, RecordRepository>();
+            services.AddScoped<IMasterService, MasterService>();
+            services.AddScoped<IMasterRepository, MasterRepository>();
 
             services.AddMvc(config =>
             {

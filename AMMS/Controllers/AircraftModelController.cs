@@ -6,9 +6,9 @@ namespace AMMS.Controllers
 {
     public class AircraftModelController : Controller
     {
-        private readonly IAircraftModelService _service;
+        private readonly IMasterService _service;
 
-        public AircraftModelController(IAircraftModelService service)
+        public AircraftModelController(IMasterService service)
         {
             _service = service;
         }
@@ -20,11 +20,13 @@ namespace AMMS.Controllers
 
         public IActionResult List(string parentId)
         {
-            var viewModels = _service.GetModels(parentId);
-
             TempData["ParentId"] = parentId;
 
-            return View(viewModels);
+            var models = parentId == null
+                ? _service.GetAllAircraftModels()
+                : _service.GetAircraftModelsByUIC(parentId);
+
+            return View(models);
         }
 
         // <C>RUD
@@ -35,57 +37,57 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(AircraftModelViewModel viewModel)
+        public IActionResult Create(AircraftModelViewModel model)
         {
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View(model);
 
-            _service.SaveModel(viewModel);
+            _service.CreateAircraftModel(model);
 
-            return RedirectToAction("List");
+            return RedirectToAction("List", new { parentId = TempData["ParentId"] });
         }
 
         // C<R>UD
         public IActionResult Details(string id)
         {
-            var viewModel = _service.GetModel(id);
+            var model = _service.GetAircraftModelById(id);
 
-            return View(viewModel);
+            return View(model);
         }
 
         // CR<U>D
         [HttpGet]
         public IActionResult Edit(string id)
         {
-            var viewModel = _service.GetModel(id);
+            var viewModel = _service.GetAircraftModelById(id);
 
             return View(viewModel);
         }
 
         [HttpPost]
-        public IActionResult Edit(AircraftModelViewModel viewModel)
+        public IActionResult Edit(AircraftModelViewModel model)
         {
             if (!ModelState.IsValid) return View();
 
-            _service.UpdateModel(viewModel);
+            _service.UpdateAircraftModel(model);
 
-            return RedirectToAction("List");
+            return RedirectToAction("List", new { parentId = TempData["ParentId"] });
         }
 
         // CRU<D>
         [HttpGet]
         public IActionResult Delete(string id)
         {
-            var viewModel = _service.GetModel(id);
+            var model = _service.GetAircraftModelById(id);
 
-            return View(viewModel);
+            return View(model);
         }
 
         [HttpPost]
         public IActionResult Delete(AircraftModelViewModel model)
         {
-            _service.DeleteModel(model.Id);
+            _service.DeleteAircraftModel(model.Id);
 
-            return RedirectToAction("List");
+            return RedirectToAction("List", new { parentId = TempData["ParentId"] });
         }
     }
 }
