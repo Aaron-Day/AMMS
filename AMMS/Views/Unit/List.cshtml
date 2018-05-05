@@ -13,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.UIC)
             </th>
             <th>
@@ -38,9 +35,6 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.UIC)
                 </td>
                 <td>
@@ -56,10 +50,11 @@
                     @Html.DisplayFor(modelItem => item.Station)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                    @Html.ActionLink("Aircraft", "Index", "Aircraft", new { parentId = item.Id }, null)
+                    @Html.ActionLink("", "Index", "Aircraft", new { parentId = item.Id }, new { @class = "btn btn-default fa fa-fighter-jet", title = "Aircraft" }) |
+                    @Html.ActionLink("", "Details", new { id = item.Id }, new { @class = "btn btn-info fa fa-info", title = "Details" })
+                    @Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "btn btn-warning fa fa-edit", title = "Edit" })
+                    @Html.ActionLink("", "Delete", new { id = item.Id }, new { @class = "btn btn-danger fa fa-trash", title = "Delete" })
+                    @Html.HiddenFor(modelItem => item.Id)
                 </td>
             </tr>
         }

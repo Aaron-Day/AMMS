@@ -1,9 +1,11 @@
 ﻿using AMMS.Models.ViewModels;
 using AMMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AMMS.Controllers
 {
+    [Authorize]
     public class AircraftController : Controller
     {
         private readonly IMasterService _service;
@@ -39,7 +41,7 @@ namespace AMMS.Controllers
 
         // <C>RUD
         [HttpGet]
-        // TODO: Restrict access to PC anc QC (users that have an assigned unit)
+        [Authorize(Roles = "PC, QC")]
         public IActionResult Create(string parentId)
         {
             TempData["ParentId"] = parentId;
@@ -50,8 +52,8 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
-        // TODO: Restrict access to PC anc QC (users that have an assigned unit)
-        // TODO: Validate antiforgery token similar to account controler HttpPost methods
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PC, QC")]
         public IActionResult Create(AircraftViewModel aircraft)
         {
             if (!ModelState.IsValid) return View(aircraft);
@@ -72,7 +74,7 @@ namespace AMMS.Controllers
 
         // CR<U>D
         [HttpGet]
-        // TODO: Restrict access to PC anc QC (users that have an assigned unit)
+        [Authorize(Roles = "PC, QC")]
         public IActionResult Edit(string id)
         {
             var aircraft = _service.GetAircraftById(id);
@@ -85,8 +87,8 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
-        // TODO: Restrict access to PC anc QC (users that have an assigned unit)
-        // TODO: Validate antiforgery token similar to account controler HttpPost methods
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PC, QC")]
         public IActionResult Edit(AircraftViewModel aircraft)
         {
             if (!ModelState.IsValid) return View(aircraft);
@@ -98,7 +100,7 @@ namespace AMMS.Controllers
 
         // CRU<D>
         [HttpGet]
-        // TODO: Restrict access to PC anc QC (users that have an assigned unit)
+        [Authorize(Roles = "PC, QC")]
         public IActionResult Delete(string id)
         {
             var aircraft = _service.GetAircraftById(id);
@@ -107,8 +109,8 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
-        // TODO: Restrict access to PC anc QC (users that have an assigned unit)
-        // TODO: Validate antiforgery token similar to account controler HttpPost methods
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "PC, QC")]
         public IActionResult Delete(AircraftViewModel aircraft)
         {
             _service.DeleteAircraft(aircraft.Id);

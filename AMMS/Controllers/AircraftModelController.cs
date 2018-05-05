@@ -1,9 +1,11 @@
 ﻿using AMMS.Models.ViewModels;
 using AMMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AMMS.Controllers
 {
+    [Authorize]
     public class AircraftModelController : Controller
     {
         private readonly IMasterService _service;
@@ -37,6 +39,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(AircraftModelViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
@@ -64,6 +67,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(AircraftModelViewModel model)
         {
             if (!ModelState.IsValid) return View();
@@ -83,6 +87,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(AircraftModelViewModel model)
         {
             _service.DeleteAircraftModel(model.Id);

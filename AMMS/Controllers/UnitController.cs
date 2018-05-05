@@ -1,9 +1,11 @@
 ﻿using AMMS.Models.ViewModels;
 using AMMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AMMS.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UnitController : Controller
     {
         private readonly IAccountService _service;
@@ -33,6 +35,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(UnitViewModel unit)
         {
             if (!ModelState.IsValid) { return View(); }
@@ -60,6 +63,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(UnitViewModel unit)
         {
             if (!ModelState.IsValid) { return View(); }
@@ -79,6 +83,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(UnitViewModel unit)
         {
             _service.DeleteUnit(unit.Id);

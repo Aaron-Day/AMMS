@@ -13,9 +13,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.RoleName)
             </th>
             <th>
@@ -29,19 +26,17 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.RoleName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NumberOfUsers)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
-                    @Html.ActionLink("Users", "List", "Account", new { value = item.RoleName }, null)
+                    @Html.ActionLink("", "List", "Account", new { value = item.RoleName }, new { @class = "btn btn-default fa fa-users", title = "Users" }) |
+                    @Html.ActionLink("", "Details", new { id = item.Id }, new { @class = "btn btn-info fa fa-info", title = "Details" })
+                    @Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "btn btn-warning fa fa-edit", title = "Edit" })
+                    @Html.ActionLink("", "Delete", new { id = item.Id }, new { @class = "btn btn-danger fa fa-trash", title = "Delete" })
+                    @Html.HiddenFor(modelItem => item.Id)
                 </td>
             </tr>
         }

@@ -35,8 +35,8 @@
                     @Html.DisplayFor(modelItem => request.PhoneNumber)
                 </td>
                 <td>
-                    <a asp-controller="Account" asp-action="ApproveRequest" asp-route-id="@request.Id">Approve</a>
-                    <a asp-controller="Account" asp-action="DenyRequest" asp-route-id="@request.Id">Deny</a>
+                    <a class="btn btn-success fa fa-thumbs-up" asp-controller="Account" asp-action="ApproveRequest" asp-route-id="@request.Id"></a>
+                    <a class="btn btn-danger fa fa-thumbs-down" asp-controller="Account" asp-action="DenyRequest" asp-route-id="@request.Id"></a>
                 </td>
             </tr>
         }

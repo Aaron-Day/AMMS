@@ -1,10 +1,11 @@
 ﻿using AMMS.Models.AccountViewModels;
 using AMMS.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AMMS.Controllers
 {
-    // TODO: Restrict all to admin
+    [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         private readonly IAccountService _service;
@@ -32,6 +33,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(RoleListViewModel role)
         {
             _service.CreateRole(role);
@@ -57,6 +59,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(RoleListViewModel role)
         {
             _service.UpdateRole(role);
@@ -74,6 +77,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Delete(RoleListViewModel role)
         {
             _service.DeleteRole(role.Id);
