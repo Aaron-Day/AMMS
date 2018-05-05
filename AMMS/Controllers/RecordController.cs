@@ -8,9 +8,9 @@ namespace AMMS.Controllers
     [Authorize]
     public class RecordController : Controller
     {
-        private readonly IRecordService _service;
+        private readonly IMasterService _service;
 
-        public RecordController(IRecordService service)
+        public RecordController(IMasterService service)
         {
             _service = service;
         }

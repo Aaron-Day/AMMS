@@ -57,10 +57,6 @@ namespace AMMS
                 .AddDefaultTokenProviders();
 
             services.AddScoped<ApplicationDbContext, ApplicationDbContext>();
-            services.AddScoped<IAccountRepository, AccountRepository>();
-            services.AddScoped<IAccountService, AccountService>();
-            services.AddScoped<IRecordService, RecordService>();
-            services.AddScoped<IRecordRepository, RecordRepository>();
             services.AddScoped<IMasterService, MasterService>();
             services.AddScoped<IMasterRepository, MasterRepository>();
 

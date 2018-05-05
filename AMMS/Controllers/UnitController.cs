@@ -8,9 +8,9 @@ namespace AMMS.Controllers
     [Authorize(Roles = "Admin")]
     public class UnitController : Controller
     {
-        private readonly IAccountService _service;
+        private readonly IMasterService _service;
 
-        public UnitController(IAccountService service)
+        public UnitController(IMasterService service)
         {
             _service = service;
         }

@@ -8,9 +8,9 @@ namespace AMMS.Controllers
     [Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
-        private readonly IAccountService _service;
+        private readonly IMasterService _service;
 
-        public RoleController(IAccountService service)
+        public RoleController(IMasterService service)
         {
             _service = service;
         }

@@ -17,9 +17,9 @@ namespace AMMS.Controllers
     {
         private static readonly log4net.ILog Log = log4net.LogManager.GetLogger(typeof(AccountController));
 
-        private readonly IAccountService _service;
+        private readonly IMasterService _service;
 
-        public AccountController(IAccountService service)
+        public AccountController(IMasterService service)
         {
             _service = service;
         }
