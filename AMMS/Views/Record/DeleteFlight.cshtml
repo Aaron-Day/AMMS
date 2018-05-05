@@ -92,7 +92,7 @@
     </dl>
 
     <form asp-action="DeleteFlight">
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        <a asp-action="ListFlight">Back to List</a>
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="ListFlight" asp-route-parentId="@Model.AircraftId">Back to List</a>
     </form>
 </div>

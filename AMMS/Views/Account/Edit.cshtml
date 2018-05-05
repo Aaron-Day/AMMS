@@ -12,11 +12,9 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Id" class="form-control" />
+            <input type="hidden" asp-for="Password" class="form-control" />
+            <input type="hidden" asp-for="Pid" class="form-control" />
             <div class="form-group">
                 <label asp-for="Rank" class="control-label"></label>
                 <input asp-for="Rank" class="form-control" />
@@ -58,22 +56,12 @@
                 <span asp-validation-for="SocialSecurityNumber" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
                 <label asp-for="AssignedUnit" class="control-label"></label>
                 <input asp-for="AssignedUnit" class="form-control" />
                 <span asp-validation-for="AssignedUnit" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Pid" class="control-label"></label>
-                <input asp-for="Pid" class="form-control" />
-                <span asp-validation-for="Pid" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-warning" />
             </div>
         </form>
     </div>

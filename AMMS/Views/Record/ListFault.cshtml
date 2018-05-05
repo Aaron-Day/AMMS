@@ -1,26 +1,17 @@
 ﻿@model IEnumerable<AMMS.Models.ViewModels.FaultViewModel>
 
 @{
-    ViewData["Title"] = "Fault List";
+    ViewData["Title"] = "Open Fault List";
 }
 
-<h2>Fault List</h2>
+<h2>Open Fault List: @ViewBag.SerialNumber</h2>
 
 <p>
-    <a asp-action="CreateFault" asp-route-parentId="@ViewBag.ParentId">Create New Inspection</a>
+    <a asp-action="CreateFault" asp-route-parentId="@ViewBag.ParentId">Log New Fault</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AcftSerialNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AcftModel)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
@@ -91,7 +82,10 @@
                 @Html.DisplayNameFor(model => model.CompHrs)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AircraftId)
+                @Html.DisplayNameFor(model => model.TIPID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TIManHrs)
             </th>
             <th></th>
         </tr>
@@ -100,15 +94,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AcftSerialNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AcftModel)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
@@ -179,12 +164,20 @@
                     @Html.DisplayFor(modelItem => item.CompHrs)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AircraftId)
+                    @Html.DisplayFor(modelItem => item.TIPID)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditFault", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "DetailsFault", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteFault", new { id = item.Id })
+                    @Html.DisplayFor(modelItem => item.TIManHrs)
+                </td>
+                <td>
+                    @Html.ActionLink("", "DetailsFault", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-info", title = "Details" })
+                    @Html.ActionLink("", "EditFault", new { id = item.Id }, new { @class = "btn btn-warning btn-sm fa fa-edit", title = "Edit" })
+                    @Html.ActionLink("", "DeleteFault", new { id = item.Id }, new { @class = "btn btn-danger btn-sm fa fa-trash", title = "Delete" })
+                    @Html.HiddenFor(modelItem => item.Id)
+                    @Html.HiddenFor(modelItem => item.AcftSerialNumber)
+                    @Html.HiddenFor(modelItem => item.AcftModel)
+                    @Html.HiddenFor(modelItem => item.TIPassword)
+                    @Html.HiddenFor(modelItem => item.AircraftId)
                 </td>
             </tr>
         }

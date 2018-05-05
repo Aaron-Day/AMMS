@@ -18,6 +18,7 @@ namespace AMMS.Controllers
         public IActionResult ListFlight(string parentId)
         {
             ViewBag.ParentId = parentId;
+            ViewBag.SerialNumber = _service.GetAircraftById(parentId).SerialNumber;
             var viewModels = _service.GetFlightsByAircraftId(parentId);
             return View(viewModels);
         }
@@ -92,6 +93,7 @@ namespace AMMS.Controllers
         public IActionResult ListInspection(string parentId)
         {
             ViewBag.ParentId = parentId;
+            ViewBag.SerialNumber = _service.GetAircraftById(parentId).SerialNumber;
             var viewModels = _service.GetInspectionsByAircraftId(parentId);
             return View(viewModels);
         }
@@ -163,6 +165,8 @@ namespace AMMS.Controllers
 
         public IActionResult ListFault(string parentId)
         {
+            ViewBag.ParentId = parentId;
+            ViewBag.SerialNumber = _service.GetAircraftById(parentId).SerialNumber;
             var faults = _service.GetFaultsByAircraftId(parentId);
 
             return View(faults);
@@ -235,6 +239,7 @@ namespace AMMS.Controllers
 
         public IActionResult ListRelatedMaintenance(string parentId)
         {
+            ViewBag.FaultText = _service.GetFaultById(parentId).FaultText;
             var related = _service.GetRelatedMaintenanceByFaultId(parentId);
 
             return View(related);

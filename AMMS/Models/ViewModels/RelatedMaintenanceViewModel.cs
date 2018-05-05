@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AMMS.Models.ViewModels
+﻿namespace AMMS.Models.ViewModels
 {
     public class RelatedMaintenanceViewModel
     {
@@ -8,7 +6,7 @@ namespace AMMS.Models.ViewModels
         public string FaultStatus { get; set; }
         public string SerialNumber { get; set; }
         public string SystemCode { get; set; }
-        public DateTime? FaultDate { get; set; }
+        public string FaultDate { get; set; }
         public int? FaultNumber { get; set; }
         public string FaultText { get; set; }
         public string Status { get; set; }
@@ -17,6 +15,9 @@ namespace AMMS.Models.ViewModels
         public string PID { get; set; }
         public string Category { get; set; }
         public double? MMH { get; set; }
+        public string TIPID { get; set; }
+        public double? TIManHrs { get; set; }
+        public string TIPassword { get; set; }
         public string FaultId { get; set; }
     }
 }

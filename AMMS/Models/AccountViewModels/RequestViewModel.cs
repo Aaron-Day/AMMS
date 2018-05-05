@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AMMS.Services;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AMMS.Models.AccountViewModels
@@ -7,12 +8,12 @@ namespace AMMS.Models.AccountViewModels
     {
         public RequestViewModel()
         {
-            Requested = DateTime.UtcNow;
+            Requested = Formatting.AsMilDateTime(DateTime.UtcNow);
         }
 
         public string Id { get; set; }
 
-        public DateTime Requested { get; set; }
+        public string Requested { get; set; }
 
         [Required]
         [EmailAddress]

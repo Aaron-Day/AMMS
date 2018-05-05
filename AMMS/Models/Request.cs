@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AMMS.Models
 {
@@ -8,7 +7,7 @@ namespace AMMS.Models
         [Key]
         public string Id { get; set; }
 
-        public DateTime Requested { get; set; }
+        public string Requested { get; set; }
 
         [Required]
         [EmailAddress]

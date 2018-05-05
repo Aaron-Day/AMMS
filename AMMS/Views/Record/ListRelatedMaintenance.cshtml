@@ -5,34 +5,13 @@
 }
 
 <h2>Related Maintenance List</h2>
-
+<p>@ViewBag.FaultText</p>
 <p>
     <a asp-action="CreateRelatedMaintenance" asp-route-parentId="@ViewBag.ParentId">Create New Related Maintenance Task</a>
 </p>
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FaultStatus)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SerialNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SystemCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FaultDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FaultNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FaultText)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
             </th>
@@ -52,7 +31,10 @@
                 @Html.DisplayNameFor(model => model.MMH)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FaultId)
+                @Html.DisplayNameFor(model => model.TIPID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TIManHrs)
             </th>
             <th></th>
         </tr>
@@ -61,27 +43,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FaultStatus)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SerialNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SystemCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FaultDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FaultNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FaultText)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
@@ -101,12 +62,24 @@
                     @Html.DisplayFor(modelItem => item.MMH)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FaultId)
+                    @Html.DisplayFor(modelItem => item.TIPID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TIManHrs)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditRelatedMaintenance", new { id = item.Id }) |
                     @Html.ActionLink("Details", "DetailsRelatedMaintenance", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "DeleteRelatedMaintenance", new { id = item.Id })
+                    @Html.HiddenFor(modelItem => item.Id)
+                    @Html.HiddenFor(modelItem => item.FaultStatus)
+                    @Html.HiddenFor(modelItem => item.SerialNumber)
+                    @Html.HiddenFor(modelItem => item.SystemCode)
+                    @Html.HiddenFor(modelItem => item.FaultDate)
+                    @Html.HiddenFor(modelItem => item.FaultNumber)
+                    @Html.HiddenFor(modelItem => item.FaultText)
+                    @Html.HiddenFor(modelItem => item.TIPassword)
+                    @Html.HiddenFor(modelItem => item.FaultId)
                 </td>
             </tr>
         }

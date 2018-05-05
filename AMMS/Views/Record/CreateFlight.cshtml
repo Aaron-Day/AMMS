@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create Flight";
 }
 
-<h2>Create Flight</h2>
+<h2>Create Flight: @ViewBag.Aircraft.SerialNumber</h2>
 
 <h4>Flight</h4>
 <hr />
@@ -12,35 +12,16 @@
     <div class="col-md-4">
         <form asp-action="CreateFlight">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Id" class="form-control" />
+            <input type="hidden" asp-for="SerialNumber" value="@ViewBag.Aircraft.SerialNumber" class="form-control" />
+            <input type="hidden" asp-for="Model" value="@ViewBag.AcftModel.Mds" class="form-control" />
+            <input type="hidden" asp-for="Organization" value="@ViewBag.Unit.UnitName" class="form-control" />
+            <input type="hidden" asp-for="Station" value="@ViewBag.Unit.Station" class="form-control" />
+            <input type="hidden" asp-for="AircraftId" value="@ViewBag.Aircraft.Id" class="form-control" />
             <div class="form-group">
                 <label asp-for="Date" class="control-label"></label>
                 <input asp-for="Date" class="form-control" />
                 <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SerialNumber" class="control-label"></label>
-                <input asp-for="SerialNumber" value="@ViewBag.Aircraft.SerialNumber" class="form-control" />
-                <span asp-validation-for="SerialNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Model" class="control-label"></label>
-                <input asp-for="Model" value="@ViewBag.AcftModel.Mds" class="form-control" />
-                <span asp-validation-for="Model" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Organization" class="control-label"></label>
-                <input asp-for="Organization" value="@ViewBag.Unit.UnitName" class="form-control" />
-                <span asp-validation-for="Organization" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Station" class="control-label"></label>
-                <input asp-for="Station" value="@ViewBag.Unit.Station" class="form-control" />
-                <span asp-validation-for="Station" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="FlightNumber" class="control-label"></label>
@@ -73,18 +54,13 @@
                 <span asp-validation-for="FlightHours" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="AircraftId" class="control-label"></label>
-                <input asp-for="AircraftId" value="@ViewBag.Aircraft.Id" class="form-control" />
-                <span asp-validation-for="AircraftId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="ListFlight">Back to List</a>
+    <a asp-action="ListFlight" asp-route-parentId="@ViewBag.Aircraft.Id">Back to List</a>
 </div>
 

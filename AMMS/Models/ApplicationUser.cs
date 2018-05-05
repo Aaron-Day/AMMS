@@ -23,8 +23,8 @@ namespace AMMS.Models
             TwoFactorEnabled = false;
             ActiveEntries = false;
             Closed = null;
-            Created = DateTime.UtcNow;
-            LastActive = DateTime.UtcNow;
+            Created = Formatting.AsMilDateTime(DateTime.UtcNow);
+            LastActive = Formatting.AsMilDateTime(DateTime.UtcNow);
             Salt = PasswordProtocol.PasswordSalt;
             // ConcurrencyStamp (nvarchar(max), null)
             /* page loads with stamp,
@@ -52,7 +52,6 @@ namespace AMMS.Models
         public string FullName { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
         [Display(Name = "SSN")]
         [RegularExpression(@"^\d{9}$", ErrorMessage = "Invalid Social Security Number")]
         public string SocialSecurityNumber { get; set; }
@@ -64,18 +63,17 @@ namespace AMMS.Models
 
         [Required]
         [Display(Name = "DOB")]
-        [DataType(DataType.Date)]
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         [Display(Name = "Account Created")]
-        public DateTime Created { get; set; }
+        public string Created { get; set; }
 
         // DateTime the user last did anything with account
         [Display(Name = "Last Active")]
-        public DateTime LastActive { get; set; }
+        public string LastActive { get; set; }
 
         [Display(Name = "Account Closed")]
-        public DateTime? Closed { get; set; }
+        public string Closed { get; set; }
 
         // Returns true if there are any flights, faults, or other documents still on record
         [Display(Name = "Active")]

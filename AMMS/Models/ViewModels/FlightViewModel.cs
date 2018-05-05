@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace AMMS.Models.ViewModels
+﻿namespace AMMS.Models.ViewModels
 {
     public class FlightViewModel
     {
         public string Id { get; set; }
 
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         public string SerialNumber { get; set; }
 
@@ -22,9 +20,9 @@ namespace AMMS.Models.ViewModels
 
         public string To { get; set; }
 
-        public DateTime Start { get; set; }
+        public string Start { get; set; }
 
-        public DateTime End { get; set; }
+        public string End { get; set; }
 
         public double FlightHours { get; set; }
 

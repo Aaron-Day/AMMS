@@ -4,49 +4,23 @@
     ViewData["Title"] = "Edit Related Maintenance";
 }
 
-<h2>Edit Related Maintenance</h2>
+<h2>Edit Related Maintenance: @Model.SerialNumber</h2>
 
 <h4>Related Maintenance</h4>
+<p>@Model.FaultText</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditRelatedMaintenance">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FaultStatus" class="control-label"></label>
-                <input asp-for="FaultStatus" class="form-control" />
-                <span asp-validation-for="FaultStatus" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SerialNumber" class="control-label"></label>
-                <input asp-for="SerialNumber" class="form-control" />
-                <span asp-validation-for="SerialNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SystemCode" class="control-label"></label>
-                <input asp-for="SystemCode" class="form-control" />
-                <span asp-validation-for="SystemCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FaultDate" class="control-label"></label>
-                <input asp-for="FaultDate" class="form-control" />
-                <span asp-validation-for="FaultDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FaultNumber" class="control-label"></label>
-                <input asp-for="FaultNumber" class="form-control" />
-                <span asp-validation-for="FaultNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FaultText" class="control-label"></label>
-                <input asp-for="FaultText" class="form-control" />
-                <span asp-validation-for="FaultText" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Id" class="form-control" />
+            <input type="hidden" asp-for="FaultStatus" class="form-control" />
+            <input type="hidden" asp-for="SerialNumber" class="form-control" />
+            <input type="hidden" asp-for="SystemCode" class="form-control" />
+            <input type="hidden" asp-for="FaultDate" class="form-control" />
+            <input type="hidden" asp-for="FaultNumber" class="form-control" />
+            <input type="hidden" asp-for="FaultText" class="form-control" />
+            <input type="hidden" asp-for="FaultId" class="form-control" />
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
                 <input asp-for="Status" class="form-control" />
@@ -78,12 +52,22 @@
                 <span asp-validation-for="MMH" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="FaultId" class="control-label"></label>
-                <input asp-for="FaultId" class="form-control" />
-                <span asp-validation-for="FaultId" class="text-danger"></span>
+                <label asp-for="TIPID" class="control-label"></label>
+                <input asp-for="TIPID" class="form-control" />
+                <span asp-validation-for="TIPID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <label asp-for="TIManHrs" class="control-label"></label>
+                <input asp-for="TIManHrs" class="form-control" />
+                <span asp-validation-for="TIManHrs" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TIPassword" class="control-label"></label>
+                <input asp-for="TIPassword" class="form-control" />
+                <span asp-validation-for="TIPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-warning" />
             </div>
         </form>
     </div>

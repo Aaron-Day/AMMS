@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace AMMS.Models
+﻿namespace AMMS.Models
 {
     public class Flight
     {
         public string Id { get; set; }
 
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
         public int FlightNumber { get; set; }
 
@@ -14,9 +12,9 @@ namespace AMMS.Models
 
         public string To { get; set; }
 
-        public DateTime Start { get; set; }
+        public string Start { get; set; }
 
-        public DateTime End { get; set; }
+        public string End { get; set; }
 
         public double FlightHours { get; set; }
 

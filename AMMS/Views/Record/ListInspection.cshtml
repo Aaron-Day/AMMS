@@ -4,7 +4,7 @@
     ViewData["Title"] = "Inspection List";
 }
 
-<h2>Inspection List</h2>
+<h2>Inspection List: @ViewBag.SerialNumber</h2>
 
 <p>
     <a asp-action="CreateInspection" asp-route-parentId="@ViewBag.ParentId">Create New Inspection</a>
@@ -12,18 +12,6 @@
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Nomenclature)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SerialNumber)
-            </th>
             <th>
                 @Html.DisplayNameFor(model => model.InspectionNumber)
             </th>
@@ -39,12 +27,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.NextDue)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CompletedAt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AircraftId)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -52,18 +34,6 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nomenclature)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Model)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SerialNumber)
-                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.InspectionNumber)
                 </td>
@@ -80,15 +50,15 @@
                     @Html.DisplayFor(modelItem => item.NextDue)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CompletedAt)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AircraftId)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditInspection", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "DetailsInspection", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteInspection", new { id = item.Id })
+                    @Html.ActionLink("", "DetailsInspection", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-info", title = "Details" })
+                    @Html.ActionLink("", "EditInspection", new { id = item.Id }, new { @class = "btn btn-warning btn-sm fa fa-edit", title = "Edit" })
+                    @Html.ActionLink("", "DeleteInspection", new { id = item.Id }, new { @class = "btn btn-danger btn-sm fa fa-trash", title = "Delete" })
+                    @Html.HiddenFor(modelItem => item.Id)
+                    @Html.HiddenFor(modelItem => item.Nomenclature)
+                    @Html.HiddenFor(modelItem => item.Model)
+                    @Html.HiddenFor(modelItem => item.SerialNumber)
+                    @Html.HiddenFor(modelItem => item.CompletedAt)
+                    @Html.HiddenFor(modelItem => item.AircraftId)
                 </td>
             </tr>
         }

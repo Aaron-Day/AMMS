@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AMMS.Models.AccountViewModels
 {
@@ -30,12 +29,9 @@ namespace AMMS.Models.AccountViewModels
         public string PhoneNumber { get; set; }
 
         [Display(Name = "DOB")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:yymmdd}")]
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
 
         [Required]
-        [DataType(DataType.Password)]
         [Display(Name = "SSN")]
         [RegularExpression(@"^\d{9}$", ErrorMessage = "Invalid Social Security Number")]
         public string SocialSecurityNumber { get; set; }

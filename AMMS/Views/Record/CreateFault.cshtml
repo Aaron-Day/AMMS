@@ -4,7 +4,7 @@
     ViewData["Title"] = "Create Fault";
 }
 
-<h2>Create Fault</h2>
+<h2>Create Fault: @ViewBag.Aircraft.SerialNumber</h2>
 
 <h4>Fault</h4>
 <hr />
@@ -12,29 +12,41 @@
     <div class="col-md-4">
         <form asp-action="CreateFault">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
-                <span asp-validation-for="Id" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AcftSerialNumber" class="control-label"></label>
-                <input asp-for="AcftSerialNumber" value="@ViewBag.Aircraft.SerialNumber" class="form-control" />
-                <span asp-validation-for="AcftSerialNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AcftModel" class="control-label"></label>
-                <input asp-for="AcftModel" value="@ViewBag.AcftModel.Mds" class="form-control" />
-                <span asp-validation-for="AcftModel" class="text-danger"></span>
-            </div>
+            <input type="hidden" asp-for="Id" class="form-control" />
+            <input type="hidden" asp-for="AircraftId" value="@ViewBag.Aircraft.Id" class="form-control" />
+            <input type="hidden" asp-for="AcftSerialNumber" value="@ViewBag.Aircraft.SerialNumber" class="form-control" />
+            <input type="hidden" asp-for="AcftModel" value="@ViewBag.AcftModel.Mds" class="form-control" />
+            <input type="hidden" asp-for="CompDate" class="form-control" />
+            <input type="hidden" asp-for="CompTime" class="form-control" />
+            <input type="hidden" asp-for="CompAcftHrs" class="form-control" />
+            <input type="hidden" asp-for="Rounds" class="form-control" />
+            <input type="hidden" asp-for="ActionCode" class="form-control" />
+            <input type="hidden" asp-for="CompWUC" class="form-control" />
+            <input type="hidden" asp-for="Action" class="form-control" />
+            <input type="hidden" asp-for="CompPID" class="form-control" />
+            <input type="hidden" asp-for="CompCat" class="form-control" />
+            <input type="hidden" asp-for="CompHrs" class="form-control" />
+            <input type="hidden" asp-for="TIPID" class="form-control" />
+            <input type="hidden" asp-for="TIManHrs" class="form-control" />
+            <input type="hidden" asp-for="TIPassword" class="form-control" />
             <div class="form-group">
                 <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
+                <select asp-for="Status" class="form-control">
+                    <option value="-">-</option>
+                    <option value="/">/</option>
+                    <option value="X">X</option>
+                    <option value="+">+</option>
+                </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SystemCode" class="control-label"></label>
-                <input asp-for="SystemCode" class="form-control" />
+                <select asp-for="SystemCode" class="form-control">
+                    <option value="A">Aircraft</option>
+                    <option value="W">Armament</option>
+                    <option value="E">Electronic</option>
+                    <option value="O">Other</option>
+                </select>
                 <span asp-validation-for="SystemCode" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -64,22 +76,66 @@
             </div>
             <div class="form-group">
                 <label asp-for="DiscAcftHrs" class="control-label"></label>
-                <input asp-for="DiscAcftHrs" class="form-control" />
+                <input asp-for="DiscAcftHrs" value="@ViewBag.Aircraft.AcftHrs" class="form-control" />
                 <span asp-validation-for="DiscAcftHrs" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="WhenDisc" class="control-label"></label>
-                <input asp-for="WhenDisc" class="form-control" />
+                <select asp-for="WhenDisc" class="form-control">
+                    <option value="W">Acceptance Inspection</option>
+                    <option value="N">AOAP Results</option>
+                    <option value="J">Calibration</option>
+                    <option value="X">Daily/PMS Inspection</option>
+                    <option value="P">Diagnostic Test</option>
+                    <option value="D">Depot Level Repair</option>
+                    <option value="G">Flight</option>
+                    <option value="B">Handling</option>
+                    <option value="Y">Intermediate Inspection</option>
+                    <option value="L">Maintenance Operational Check</option>
+                    <option value="M">Maintenance Test Flight</option>
+                    <option value="Z">Periodic Inspection</option>
+                    <option value="H">Phase/PPM Inspection</option>
+                    <option value="T">Preflight Inspection</option>
+                    <option value="V">Postflight Inspection</option>
+                    <option value="R">Rearmament</option>
+                    <option value="S">Reconfiguration</option>
+                    <option value="Q">Servicing</option>
+                    <option value="O">Special Inspection</option>
+                    <option value="E">Storage</option>
+                    <option value="U">Thru Flight Inspection</option>
+                    <option value="K">Unscheduled Maintenance</option>
+                </select>
                 <span asp-validation-for="WhenDisc" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="HowRecog" class="control-label"></label>
-                <input asp-for="HowRecog" class="form-control" />
+                <select asp-for="HowRecog" class="form-control">
+                    <option value="A">Aerodynamic/Vibration</option>
+                    <option value="B">Audio/Hearing</option>
+                    <option value="C">Std Cockpit Instruments</option>
+                    <option value="D">Onboard Test Equipment</option>
+                    <option value="F">Ground Support Test Equipment</option>
+                    <option value="G">Visual</option>
+                    <option value="H">Odor</option>
+                    <option value="K">Feel</option>
+                    <option value="M">Off Aircraft Maintenance</option>
+                    <option value="O">Special Inspection</option>
+                </select>
                 <span asp-validation-for="HowRecog" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="MalEff" class="control-label"></label>
-                <input asp-for="MalEff" class="form-control" />
+                <select asp-for="MalEff" class="form-control">
+                    <option value="1">No Malfunction</option>
+                    <option value="2">No Effect</option>
+                    <option value="3">Partial Failure</option>
+                    <option value="4">Reduced Performance</option>
+                    <option value="5">Mission Abort</option>
+                    <option value="6">Precautionary Landing</option>
+                    <option value="7">Forced Landing</option>
+                    <option value="8">Incident/Accident</option>
+                    <option value="9">Off Aircraft Maintenance</option>
+                </select>
                 <span asp-validation-for="MalEff" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -93,68 +149,13 @@
                 <span asp-validation-for="WUC" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CompDate" class="control-label"></label>
-                <input asp-for="CompDate" class="form-control" />
-                <span asp-validation-for="CompDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompTime" class="control-label"></label>
-                <input asp-for="CompTime" class="form-control" />
-                <span asp-validation-for="CompTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompAcftHrs" class="control-label"></label>
-                <input asp-for="CompAcftHrs" class="form-control" />
-                <span asp-validation-for="CompAcftHrs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rounds" class="control-label"></label>
-                <input asp-for="Rounds" class="form-control" />
-                <span asp-validation-for="Rounds" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ActionCode" class="control-label"></label>
-                <input asp-for="ActionCode" class="form-control" />
-                <span asp-validation-for="ActionCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompWUC" class="control-label"></label>
-                <input asp-for="CompWUC" class="form-control" />
-                <span asp-validation-for="CompWUC" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Action" class="control-label"></label>
-                <input asp-for="Action" class="form-control" />
-                <span asp-validation-for="Action" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompPID" class="control-label"></label>
-                <input asp-for="CompPID" class="form-control" />
-                <span asp-validation-for="CompPID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompCat" class="control-label"></label>
-                <input asp-for="CompCat" class="form-control" />
-                <span asp-validation-for="CompCat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompHrs" class="control-label"></label>
-                <input asp-for="CompHrs" class="form-control" />
-                <span asp-validation-for="CompHrs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="AircraftId" class="control-label"></label>
-                <input asp-for="AircraftId" value="@ViewBag.Aircraft.Id" class="form-control" />
-                <span asp-validation-for="AircraftId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="ListFault" asp-route-parentId="@Model.AircraftId">Back to List</a>
+    <a asp-action="ListFault" asp-route-parentId="@ViewBag.Aircraft.Id">Back to List</a>
 </div>
 

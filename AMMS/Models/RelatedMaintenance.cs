@@ -9,6 +9,8 @@
         public string PID { get; set; }
         public string Category { get; set; }
         public double? MMH { get; set; }
+        public string TIPID { get; set; }
+        public double? TIManHrs { get; set; }
         public string FaultId { get; set; }
         private Fault Fault { get; set; }
     }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Flight List";
 }
 
-<h2>Flight List</h2>
+<h2>Flight List: @ViewBag.SerialNumber</h2>
 
 <p>
     <a asp-action="CreateFlight" asp-route-parentId="@ViewBag.ParentId">Create New Flight</a>
@@ -13,22 +13,7 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Date)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SerialNumber)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Model)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Organization)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Station)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.FlightNumber)
@@ -48,9 +33,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.FlightHours)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AircraftId)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -59,22 +41,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.SerialNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Model)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Organization)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Station)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FlightNumber)
@@ -95,12 +62,15 @@
                     @Html.DisplayFor(modelItem => item.FlightHours)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.AircraftId)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "EditFlight", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "DetailsFlight", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteFlight", new { id = item.Id })
+                    @Html.ActionLink("", "DetailsFlight", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-info", title = "Details" })
+                    @Html.ActionLink("", "EditFlight", new { id = item.Id }, new { @class = "btn btn-warning btn-sm fa fa-edit", title = "Edit" })
+                    @Html.ActionLink("", "DeleteFlight", new { id = item.Id }, new { @class = "btn btn-danger btn-sm fa fa-trash", title = "Delete" })
+                    @Html.HiddenFor(modelItem => item.Id)
+                    @Html.HiddenFor(modelItem => item.SerialNumber)
+                    @Html.HiddenFor(modelItem => item.Model)
+                    @Html.HiddenFor(modelItem => item.Organization)
+                    @Html.HiddenFor(modelItem => item.Station)
+                    @Html.HiddenFor(modelItem => item.AircraftId)
                 </td>
             </tr>
         }

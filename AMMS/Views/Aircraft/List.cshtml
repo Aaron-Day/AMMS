@@ -38,9 +38,12 @@
                 <td>@Html.DisplayFor(modelItem => item.SerialNumber)</td>
                 <td>@Html.DisplayFor(modelItem => item.AcftHrs)</td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("", "ListFlight", "Record", new { parentId = item.Id }, new { @class = "btn btn-default btn-sm fa fa-fighter-jet", title = "Flights" })
+                    @Html.ActionLink("", "ListInspection", "Record", new { parentId = item.Id }, new { @class = "btn btn-default btn-sm fa fa-search", title = "Inspections" })
+                    @Html.ActionLink("", "ListFault", "Record", new { parentId = item.Id }, new { @class = "btn btn-default btn-sm fa fa-wrench", title = "Faults" }) |
+                    @Html.ActionLink("", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-info", title = "Details" })
+                    @Html.ActionLink("", "Edit", new { id = item.Id }, new { @class = "btn btn-warning btn-sm fa fa-edit", title = "Edit" })
+                    @Html.ActionLink("", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm fa fa-trash", title = "Delete" })
                 </td>
             </tr>
         }

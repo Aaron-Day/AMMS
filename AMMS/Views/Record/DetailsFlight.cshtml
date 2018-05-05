@@ -92,5 +92,5 @@
 </div>
 <div>
     @Html.ActionLink("Edit", "EditFlight", new { id = Model.Id }) |
-    <a asp-action="ListFlight">Back to List</a>
+    <a asp-action="ListFlight" asp-route-parentId="@Model.AircraftId">Back to List</a>
 </div>

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace AMMS.Models.ViewModels
+﻿namespace AMMS.Models.ViewModels
 {
     public class InspectionViewModel
     {
@@ -13,7 +11,7 @@ namespace AMMS.Models.ViewModels
         public string Reference { get; set; }
         public string Frequency { get; set; }
         public string NextDue { get; set; }
-        public DateTime? CompletedAt { get; set; }
+        public string CompletedAt { get; set; }
         public string AircraftId { get; set; }
     }
 }

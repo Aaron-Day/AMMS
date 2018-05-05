@@ -279,6 +279,7 @@ namespace AMMS.Controllers
             if (!ModelState.IsValid) return View(request);
 
             if (_service.GetRequestByEmail(request.Email) != null) return View("RequestDenied");
+            if (_service.GetUserByEmail(request.Email) != null) return View("AccountExists");
 
             _service.CreateRequest(request);
 

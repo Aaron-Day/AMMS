@@ -522,7 +522,7 @@ namespace AMMS.Repository
                 var hash = PasswordProtocol.CalculateHash(pass, salt);
                 var result = _signInManager.PasswordSignInAsync(email.ToUpper(), hash, false, true).Result;
                 if (result == SignInResult.Success)
-                    GetUserByEmail(email).LastActive = DateTime.UtcNow;
+                    GetUserByEmail(email).LastActive = Formatting.AsMilDateTime(DateTime.UtcNow);
                 return result;
             }
             catch (Exception e)
