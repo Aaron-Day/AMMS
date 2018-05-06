@@ -1,4 +1,5 @@
-﻿using AMMS.Models.ViewModels;
+﻿using System.Linq;
+using AMMS.Models.ViewModels;
 using AMMS.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,6 +39,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateFlight(FlightViewModel flight)
         {
             if (!ModelState.IsValid) return View(flight);
@@ -63,6 +65,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditFlight(FlightViewModel flight)
         {
             if (!ModelState.IsValid) return View(flight);
@@ -81,6 +84,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteFlight(FlightViewModel flight)
         {
             var parent = _service.GetFlightById(flight.Id).AircraftId;
@@ -111,6 +115,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateInspection(InspectionViewModel inspection)
         {
             if (!ModelState.IsValid) return View(inspection);
@@ -136,6 +141,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditInspection(InspectionViewModel inspection)
         {
             if (!ModelState.IsValid) return View(inspection);
@@ -154,6 +160,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteInspection(InspectionViewModel inspection)
         {
             var parent = _service.GetInspectionById(inspection.Id).AircraftId;
@@ -163,11 +170,26 @@ namespace AMMS.Controllers
             return RedirectToAction("ListInspection", new { parentId = parent });
         }
 
-        public IActionResult ListFault(string parentId)
+        public IActionResult ListOpenFault(string parentId)
         {
             ViewBag.ParentId = parentId;
-            ViewBag.SerialNumber = _service.GetAircraftById(parentId).SerialNumber;
-            var faults = _service.GetFaultsByAircraftId(parentId);
+            var aircraft = _service.GetAircraftById(parentId);
+            var model = _service.GetAircraftModelById(aircraft.AircraftModelId);
+            ViewBag.SerialNumber = aircraft.SerialNumber;
+            ViewBag.Model = model.Mds;
+            var faults = _service.GetFaultsByAircraftId(parentId).Where(f => f.isOpen());
+
+            return View(faults);
+        }
+
+        public IActionResult ListClosedFault(string parentId)
+        {
+            ViewBag.ParentId = parentId;
+            var aircraft = _service.GetAircraftById(parentId);
+            var model = _service.GetAircraftModelById(aircraft.AircraftModelId);
+            ViewBag.SerialNumber = aircraft.SerialNumber;
+            ViewBag.Model = model.Mds;
+            var faults = _service.GetFaultsByAircraftId(parentId).Where(f => f.isClosed());
 
             return View(faults);
         }
@@ -185,13 +207,14 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateFault(FaultViewModel fault)
         {
             if (!ModelState.IsValid) return View(fault);
 
             _service.CreateFault(fault);
 
-            return RedirectToAction("ListFault", new { parentId = fault.AircraftId });
+            return RedirectToAction("ListOpenFault", new { parentId = fault.AircraftId });
         }
 
         public IActionResult DetailsFault(string id)
@@ -205,18 +228,26 @@ namespace AMMS.Controllers
         public IActionResult EditFault(string id)
         {
             var fault = _service.GetFaultById(id);
+            var userId = _service.GetCurrentUser(User).Id;
+            ViewBag.PID = _service.GetUserById(userId).Pid;
 
             return View(fault);
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditFault(FaultViewModel fault)
         {
             if (!ModelState.IsValid) return View(fault);
+            if ((!fault.isFull() && !fault.isEmpty()) || !fault.isValidTI())
+            {
+                ModelState.AddModelError("Incomplete", "Incomplete Form");
+                return View(fault);
+            }
 
             _service.UpdateFault(fault);
 
-            return RedirectToAction("ListFault", new { parentId = fault.AircraftId });
+            return RedirectToAction("ListOpenFault", new { parentId = fault.AircraftId });
         }
 
         [HttpGet]
@@ -228,13 +259,14 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteFault(FaultViewModel fault)
         {
             var parent = _service.GetFaultById(fault.Id).AircraftId;
 
             _service.DeleteFault(fault.Id);
 
-            return RedirectToAction("ListFault", new { parentId = parent });
+            return RedirectToAction("ListOpenFault", new { parentId = parent });
         }
 
         public IActionResult ListRelatedMaintenance(string parentId)
@@ -258,6 +290,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult CreateRelatedMaintenance(RelatedMaintenanceViewModel related)
         {
             if (!ModelState.IsValid) return View(related);
@@ -283,6 +316,7 @@ namespace AMMS.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult EditRelatedMaintenance(RelatedMaintenanceViewModel related)
         {
             if (!ModelState.IsValid) return View(related);
@@ -300,7 +334,9 @@ namespace AMMS.Controllers
             return View(related);
         }
 
+        //TODO: Recursive delete from fault
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult DeleteRelatedMaintenance(RelatedMaintenanceViewModel related)
         {
             var parent = _service.GetRelatedMaintenanceById(related.Id).FaultId;

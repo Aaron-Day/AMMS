@@ -4,237 +4,242 @@
     ViewData["Title"] = "Edit Fault";
 }
 
-<h2>Edit Fault: @Model.AcftSerialNumber</h2>
-
-<h4>Fault</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="EditFault">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" class="form-control" />
-            <input type="hidden" asp-for="AcftSerialNumber" class="form-control" />
-            <input type="hidden" asp-for="AcftModel" class="form-control" />
-            <input type="hidden" asp-for="AircraftId" class="form-control" />
-            <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" readonly />
-                <span asp-validation-for="Status" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SystemCode" class="control-label"></label>
-                <select asp-for="SystemCode" class="form-control">
-                    <option value="A">Aircraft</option>
-                    <option value="W">Armament</option>
-                    <option value="E">Electronic</option>
-                    <option value="O">Other</option>
-                </select>
-                <span asp-validation-for="SystemCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FaultDate" class="control-label"></label>
-                <input asp-for="FaultDate" class="form-control" />
-                <span asp-validation-for="FaultDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FaultNumber" class="control-label"></label>
-                <input asp-for="FaultNumber" class="form-control" />
-                <span asp-validation-for="FaultNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FaultTime" class="control-label"></label>
-                <input asp-for="FaultTime" class="form-control" />
-                <span asp-validation-for="FaultTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscPID" class="control-label"></label>
-                <input asp-for="DiscPID" class="form-control" />
-                <span asp-validation-for="DiscPID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FaultText" class="control-label"></label>
-                <input asp-for="FaultText" class="form-control" />
-                <span asp-validation-for="FaultText" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiscAcftHrs" class="control-label"></label>
-                <input asp-for="DiscAcftHrs" class="form-control" />
-                <span asp-validation-for="DiscAcftHrs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WhenDisc" class="control-label"></label>
-                <select asp-for="WhenDisc" class="form-control">
-                    <option value="W">Acceptance Inspection</option>
-                    <option value="N">AOAP Results</option>
-                    <option value="J">Calibration</option>
-                    <option value="X">Daily/PMS Inspection</option>
-                    <option value="P">Diagnostic Test</option>
-                    <option value="D">Depot Level Repair</option>
-                    <option value="G">Flight</option>
-                    <option value="B">Handling</option>
-                    <option value="Y">Intermediate Inspection</option>
-                    <option value="L">Maintenance Operational Check</option>
-                    <option value="M">Maintenance Test Flight</option>
-                    <option value="Z">Periodic Inspection</option>
-                    <option value="H">Phase/PPM Inspection</option>
-                    <option value="T">Preflight Inspection</option>
-                    <option value="V">Postflight Inspection</option>
-                    <option value="R">Rearmament</option>
-                    <option value="S">Reconfiguration</option>
-                    <option value="Q">Servicing</option>
-                    <option value="O">Special Inspection</option>
-                    <option value="E">Storage</option>
-                    <option value="U">Thru Flight Inspection</option>
-                    <option value="K">Unscheduled Maintenance</option>
-                </select>
-                <span asp-validation-for="WhenDisc" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HowRecog" class="control-label"></label>
-                <select asp-for="HowRecog" class="form-control">
-                    <option value="A">Aerodynamic/Vibration</option>
-                    <option value="B">Audio/Hearing</option>
-                    <option value="C">Std Cockpit Instruments</option>
-                    <option value="D">Onboard Test Equipment</option>
-                    <option value="F">Ground Support Test Equipment</option>
-                    <option value="G">Visual</option>
-                    <option value="H">Odor</option>
-                    <option value="K">Feel</option>
-                    <option value="M">Off Aircraft Maintenance</option>
-                    <option value="O">Special Inspection</option>
-                </select>
-                <span asp-validation-for="HowRecog" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MalEff" class="control-label"></label>
-                <select asp-for="MalEff" class="form-control">
-                    <option value="1">No Malfunction</option>
-                    <option value="2">No Effect</option>
-                    <option value="3">Partial Failure</option>
-                    <option value="4">Reduced Performance</option>
-                    <option value="5">Mission Abort</option>
-                    <option value="6">Precautionary Landing</option>
-                    <option value="7">Forced Landing</option>
-                    <option value="8">Incident/Accident</option>
-                    <option value="9">Off Aircraft Maintenance</option>
-                </select>
-                <span asp-validation-for="MalEff" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Delay" class="control-label"></label>
-                <input asp-for="Delay" class="form-control" />
-                <span asp-validation-for="Delay" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="WUC" class="control-label"></label>
-                <input asp-for="WUC" class="form-control" />
-                <span asp-validation-for="WUC" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompDate" class="control-label"></label>
-                <input asp-for="CompDate" class="form-control" />
-                <span asp-validation-for="CompDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompTime" class="control-label"></label>
-                <input asp-for="CompTime" class="form-control" />
-                <span asp-validation-for="CompTime" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompAcftHrs" class="control-label"></label>
-                <input asp-for="CompAcftHrs" class="form-control" />
-                <span asp-validation-for="CompAcftHrs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Rounds" class="control-label"></label>
-                <input asp-for="Rounds" class="form-control" />
-                <span asp-validation-for="Rounds" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ActionCode" class="control-label"></label>
-                <select asp-for="ActionCode" class="form-control">
-                    <option value="A">Replaced</option>
-                    <option value="B">Adjusted</option>
-                    <option value="C">Repaired</option>
-                    <option value="D">Manufacture/Fabrication</option>
-                    <option value="F">Initial Inspection</option>
-                    <option value="G">Final Inspection</option>
-                    <option value="H">MWO Applied</option>
-                    <option value="J">Tested</option>
-                    <option value="K">In Process Inspection</option>
-                    <option value="L">Removed and Reinstalled</option>
-                    <option value="M">Checked NRTS</option>
-                    <option value="N">Checked - Not Repairable</option>
-                    <option value="O">Overhauled/Rebuilt/Remanufactured</option>
-                    <option value="P">Checked - Serviceable</option>
-                    <option value="Q">MWO Removal</option>
-                    <option value="R">Removed</option>
-                    <option value="S">Installed</option>
-                    <option value="T">SOF/ASAM/TB SOU/TB Compliance</option>
-                    <option value="U">Decontamination</option>
-                    <option value="W">Hour Meter Change</option>
-                    <option value="X">Gun Change</option>
-                    <option value="Y">Special Mission Alteration Apply/Applied</option>
-                    <option value="1">Servicing/Scheduled</option>
-                    <option value="2">Servicing/Unscheduled</option>
-                    <option value="3">PMD/PMS/PMS-1</option>
-                    <option value="4">Maintenance Test Flight/MOC</option>
-                    <option value="5">Periodic/Phase/PPM Inspection</option>
-                    <option value="6">Special Inspection</option>
-                    <option value="7">Ground Handling</option>
-                    <option value="8">SAMS Unique Code</option>
-                    <option value="9">Modification By Replacement</option>
-                </select>
-                <span asp-validation-for="ActionCode" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompWUC" class="control-label"></label>
-                <input asp-for="CompWUC" class="form-control" />
-                <span asp-validation-for="CompWUC" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Action" class="control-label"></label>
-                <input asp-for="Action" class="form-control" />
-                <span asp-validation-for="Action" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompPID" class="control-label"></label>
-                <input asp-for="CompPID" class="form-control" />
-                <span asp-validation-for="CompPID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompCat" class="control-label"></label>
-                <input asp-for="CompCat" class="form-control" />
-                <span asp-validation-for="CompCat" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CompHrs" class="control-label"></label>
-                <input asp-for="CompHrs" class="form-control" />
-                <span asp-validation-for="CompHrs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TIPID" class="control-label"></label>
-                <input asp-for="TIPID" class="form-control" />
-                <span asp-validation-for="TIPID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TIManHrs" class="control-label"></label>
-                <input asp-for="TIManHrs" class="form-control" />
-                <span asp-validation-for="TIManHrs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TIPassword" class="control-label"></label>
-                <input asp-for="TIPassword" class="form-control" />
-                <span asp-validation-for="TIPassword" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-warning" />
-            </div>
-        </form>
+    <div class="col-sm-10">
+        <h2>AIRCRAFT INSPECTION AND MAINTENANCE RECORD</h2>
+    </div>
+    <div class="col-sm-2 text-right">
+        <a asp-action="ListOpenFault" asp-route-parentId="@Model.AircraftId">Back to List</a>
     </div>
 </div>
-
-<div>
-    <a asp-action="ListFault" asp-route-parentId="@Model.AircraftId">Back to List</a>
+<div class="form-view">
+    <form asp-action="EditFault">
+        <div class="row">
+            <div class="col-sm-6">
+                <h6>AIRCRAFT SERIAL NUMBER</h6>
+                <h5>@Model.AcftSerialNumber</h5>
+            </div>
+            <div class="col-sm-5">
+                <h6>MODEL</h6>
+                <h5>@Model.AcftModel</h5>
+            </div>
+            <div class="col-sm-1 form-group">
+                <input type="submit" value="Save" class="btn btn-warning" />
+            </div>
+        </div>
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Id" class="form-control" />
+        <input type="hidden" asp-for="AircraftId" value="@Model.AircraftId" class="form-control" />
+        <input type="hidden" asp-for="AcftSerialNumber" value="@Model.AcftSerialNumber" class="form-control" />
+        <input type="hidden" asp-for="AcftModel" value="@Model.AcftModel" class="form-control" />
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <h5 class="text-center">FAULT INFORMATION</h5>
+                    <div class="col-sm-2 form-group">
+                        <label asp-for="Status" class="control-label">STATUS</label>
+                        <input asp-for="Status" class="form-control" readonly />
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <label asp-for="SystemCode" class="control-label">SYS</label>
+                        <select asp-for="SystemCode" class="form-control">
+                            <option value="A">Aircraft</option>
+                            <option value="W">Armament</option>
+                            <option value="E">Electronic</option>
+                            <option value="O">Other</option>
+                        </select>
+                        <span asp-validation-for="SystemCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label asp-for="FaultDate" class="control-label">DATE</label>
+                        <input asp-for="FaultDate" class="form-control" />
+                        <span asp-validation-for="FaultDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <label asp-for="FaultNumber" class="control-label">NO.</label>
+                        <input asp-for="FaultNumber" class="form-control" />
+                        <span asp-validation-for="FaultNumber" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label asp-for="FaultTime" class="control-label">TIME</label>
+                        <input asp-for="FaultTime" class="form-control" />
+                        <span asp-validation-for="FaultTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label asp-for="DiscPID" class="control-label">PID</label>
+                        <input asp-for="DiscPID" class="form-control" />
+                        <span asp-validation-for="DiscPID" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label asp-for="FaultText" class="control-label">FAULTS/REMARKS</label>
+                        <textarea rows="5" asp-for="FaultText" class="form-control"></textarea>
+                        <span asp-validation-for="FaultText" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <label asp-for="DiscAcftHrs" class="control-label">ACFT HRS</label>
+                        <input asp-for="DiscAcftHrs" class="form-control" />
+                        <span asp-validation-for="DiscAcftHrs" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label asp-for="WhenDisc" class="control-label">WHEN DISC</label>
+                        <select asp-for="WhenDisc" class="form-control">
+                            <option value="W">Acceptance Inspection</option>
+                            <option value="N">AOAP Results</option>
+                            <option value="J">Calibration</option>
+                            <option value="X">Daily/PMS Inspection</option>
+                            <option value="P">Diagnostic Test</option>
+                            <option value="D">Depot Level Repair</option>
+                            <option value="G">Flight</option>
+                            <option value="B">Handling</option>
+                            <option value="Y">Intermediate Inspection</option>
+                            <option value="L">Maintenance Operational Check</option>
+                            <option value="M">Maintenance Test Flight</option>
+                            <option value="Z">Periodic Inspection</option>
+                            <option value="H">Phase/PPM Inspection</option>
+                            <option value="T">Preflight Inspection</option>
+                            <option value="V">Postflight Inspection</option>
+                            <option value="R">Rearmament</option>
+                            <option value="S">Reconfiguration</option>
+                            <option value="Q">Servicing</option>
+                            <option value="O">Special Inspection</option>
+                            <option value="E">Storage</option>
+                            <option value="U">Thru Flight Inspection</option>
+                            <option value="K">Unscheduled Maintenance</option>
+                        </select>
+                        <span asp-validation-for="WhenDisc" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label asp-for="HowRecog" class="control-label">HOW REC</label>
+                        <select asp-for="HowRecog" class="form-control">
+                            <option value="A">Aerodynamic/Vibration</option>
+                            <option value="B">Audio/Hearing</option>
+                            <option value="C">Std Cockpit Instruments</option>
+                            <option value="D">Onboard Test Equipment</option>
+                            <option value="F">Ground Support Test Equipment</option>
+                            <option value="G">Visual</option>
+                            <option value="H">Odor</option>
+                            <option value="K">Feel</option>
+                            <option value="M">Off Aircraft Maintenance</option>
+                            <option value="O">Special Inspection</option>
+                        </select>
+                        <span asp-validation-for="HowRecog" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label asp-for="MalEff" class="control-label">MAL EFF</label>
+                        <select asp-for="MalEff" class="form-control">
+                            <option value="1">No Malfunction</option>
+                            <option value="2">No Effect</option>
+                            <option value="3">Partial Failure</option>
+                            <option value="4">Reduced Performance</option>
+                            <option value="5">Mission Abort</option>
+                            <option value="6">Precautionary Landing</option>
+                            <option value="7">Forced Landing</option>
+                            <option value="8">Incident/Accident</option>
+                            <option value="9">Off Aircraft Maintenance</option>
+                        </select>
+                        <span asp-validation-for="MalEff" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 form-group">
+                        <label asp-for="Delay" class="control-label">DELAY</label>
+                        <input asp-for="Delay" class="form-control" />
+                        <span asp-validation-for="Delay" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="WUC" class="control-label">WUC</label>
+                        <input asp-for="WUC" class="form-control" />
+                        <span asp-validation-for="WUC" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <h5 class="text-center">CORRECTING INFORMATION</h5>
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="CompDate" class="control-label">DATE</label>
+                        <input asp-for="CompDate" class="form-control" />
+                        <span asp-validation-for="CompDate" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="CompTime" class="control-label">TIME</label>
+                        <input asp-for="CompTime" class="form-control" />
+                        <span asp-validation-for="CompTime" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="CompAcftHrs" class="control-label">ACFT HRS</label>
+                        <input asp-for="CompAcftHrs" class="form-control" />
+                        <span asp-validation-for="CompAcftHrs" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="Rounds" class="control-label">ROUNDS</label>
+                        <input asp-for="Rounds" class="form-control" />
+                        <span asp-validation-for="Rounds" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="ActionCode" class="control-label">ACTION CODE</label>
+                        <input asp-for="ActionCode" class="form-control" />
+                        <span asp-validation-for="ActionCode" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label asp-for="CompWUC" class="control-label">WUC</label>
+                        <input asp-for="CompWUC" class="form-control" />
+                        <span asp-validation-for="CompWUC" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label asp-for="Action" class="control-label">ACTION</label>
+                        <textarea rows="5" asp-for="Action" class="form-control"></textarea>
+                        <span asp-validation-for="Action" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <label asp-for="CompPID" class="control-label">PID</label>
+                        <input asp-for="CompPID" class="form-control" />
+                        <span asp-validation-for="CompPID" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label asp-for="CompCat" class="control-label">CAT</label>
+                        <input asp-for="CompCat" class="form-control" />
+                        <span asp-validation-for="CompCat" class="text-danger"></span>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label asp-for="CompHrs" class="control-label">HRS</label>
+                        <input asp-for="CompHrs" class="form-control" />
+                        <span asp-validation-for="CompHrs" class="text-danger"></span>
+                    </div>
+                    @if (User.IsInRole("TI") && Model.isTIReady() && Model.CompPID != ViewBag.PID)
+                    {
+                        <div class="col-sm-3 form-group">
+                            <label asp-for="TIPID" class="control-label">TI PID</label>
+                            <input asp-for="TIPID" value="@ViewBag.PID" class="form-control" />
+                        </div>
+                        <div class="col-sm-2 form-group">
+                            <label asp-for="TIManHrs" class="control-label">TI HRS</label>
+                            <input asp-for="TIManHrs" class="form-control" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-3 form-group">
+                            <label asp-for="TIPID" class="control-label">TI PID</label>
+                            <input asp-for="TIPID" class="form-control" readonly />
+                        </div>
+                        <div class="col-sm-2 form-group">
+                            <label asp-for="TIManHrs" class="control-label">TI HRS</label>
+                            <input asp-for="TIManHrs" class="form-control" readonly />
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
-

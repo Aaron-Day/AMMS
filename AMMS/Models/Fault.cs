@@ -10,7 +10,7 @@
         public string FaultTime { get; set; }
         public string DiscPID { get; set; }
         public string FaultText { get; set; }
-        public double? DiscAcftHrs { get; set; }
+        public double DiscAcftHrs { get; set; }
         public string WhenDisc { get; set; }
         public string HowRecog { get; set; }
         public string MalEff { get; set; }

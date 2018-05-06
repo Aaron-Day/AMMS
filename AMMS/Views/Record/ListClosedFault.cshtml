@@ -1,0 +1,157 @@
+﻿@model IEnumerable<AMMS.Models.ViewModels.FaultViewModel>
+
+@{
+    ViewData["Title"] = "Closed Fault List";
+}
+
+<h2>CLOSED FAULTS</h2>
+<div class="form-view">
+    <div class="row">
+        <div class="col-sm-6">
+            <h6>AIRCRAFT SERIAL NUMBER</h6>
+            <h5>@ViewBag.SerialNumber</h5>
+        </div>
+        <div class="col-sm-6">
+            <h6>MODEL</h6>
+            <h5>@ViewBag.Model</h5>
+        </div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-3">
+                        @Html.ActionLink("", "DeleteFault", new { id = item.Id }, new { @class = "btn btn-danger btn-sm fa fa-trash", title = "Delete" })
+                    </div>
+                    <div class="col-sm-6">
+                        <h5 class="text-center">FAULT INFORMATION</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 form-group">
+                        <label class="control-label">STATUS</label>
+                        <h5 class="text-center">@item.Status</h5>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <label class="control-label">SYS</label>
+                        <h5 class="text-center">@item.SystemCode</h5>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label class="control-label">DATE</label>
+                        <h5 class="text-center">@item.FaultDate</h5>
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <label class="control-label">NO.</label>
+                        <h5 class="text-center">@item.FaultNumber</h5>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label class="control-label">TIME</label>
+                        <h5 class="text-center">@item.FaultTime</h5>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label class="control-label">PID</label>
+                        <h5 class="text-center">@item.DiscPID</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label class="control-label">FAULTS/REMARKS</label>
+                        <p>@item.FaultText</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <label class="control-label">ACFT HRS</label>
+                        <h5 class="text-center">@item.DiscAcftHrs</h5>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label class="control-label">WHEN DISC</label>
+                        <h5 class="text-center">@item.WhenDisc</h5>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label class="control-label">HOW REC</label>
+                        <h5 class="text-center">@item.HowRecog</h5>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label class="control-label">MAL EFF</label>
+                        <h5 class="text-center">@item.MalEff</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-8 form-group">
+                        <label class="control-label">DELAY</label>
+                        <h5 class="text-center">@item.Delay</h5>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label class="control-label">WUC</label>
+                        <h5 class="text-center">@item.WUC</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <h5 class="text-center">CORRECTING INFORMATION</h5>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label class="control-label">DATE</label>
+                        <h5 class="text-center">@item.CompDate</h5>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label class="control-label">TIME</label>
+                        <h5 class="text-center">@item.CompTime</h5>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label class="control-label">ACFT HRS</label>
+                        <h5 class="text-center">@item.CompAcftHrs</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label class="control-label">ROUNDS</label>
+                        <h5 class="text-center">@item.Rounds</h5>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label class="control-label">ACTION CODE</label>
+                        <h5 class="text-center">@item.ActionCode</h5>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label class="control-label">WUC</label>
+                        <h5 class="text-center">@item.CompWUC</h5>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <label class="control-label">ACTION</label>
+                        <p>@item.Action</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 form-group">
+                        <label class="control-label">PID</label>
+                        <h5 class="text-center">@item.CompPID</h5>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label class="control-label">CAT</label>
+                        <h5 class="text-center">@item.CompCat</h5>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label class="control-label">HRS</label>
+                        <h5 class="text-center">@item.CompHrs</h5>
+                    </div>
+                    <div class="col-sm-3 form-group">
+                        <label class="control-label">TI PID</label>
+                        <h5 class="text-center">@item.TIPID</h5>
+                    </div>
+                    <div class="col-sm-2 form-group">
+                        <label class="control-label">TI HRS</label>
+                        <h5 class="text-center">@item.TIManHrs</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

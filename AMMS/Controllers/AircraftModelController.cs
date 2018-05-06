@@ -77,6 +77,7 @@ namespace AMMS.Controllers
             return RedirectToAction("List", new { parentId = TempData["ParentId"] });
         }
 
+        //TODO: Recursively delete aircraft
         // CRU<D>
         [HttpGet]
         public IActionResult Delete(string id)

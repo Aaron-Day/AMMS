@@ -4,177 +4,150 @@
     ViewData["Title"] = "Fault Details";
 }
 
-<h2>Fault Details</h2>
-
-<div>
-    <h4>Fault</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AcftSerialNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AcftSerialNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AcftModel)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AcftModel)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.SystemCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.SystemCode)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FaultDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FaultDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FaultNumber)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FaultNumber)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FaultTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FaultTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DiscPID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DiscPID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.FaultText)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FaultText)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.DiscAcftHrs)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.DiscAcftHrs)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WhenDisc)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WhenDisc)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.HowRecog)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.HowRecog)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.MalEff)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.MalEff)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Delay)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Delay)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.WUC)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.WUC)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CompDate)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CompDate)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CompTime)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CompTime)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CompAcftHrs)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CompAcftHrs)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Rounds)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Rounds)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.ActionCode)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.ActionCode)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CompWUC)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CompWUC)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Action)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Action)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CompPID)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CompPID)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CompCat)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CompCat)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.CompHrs)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.CompHrs)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.AircraftId)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.AircraftId)
-        </dd>
-    </dl>
+<div class="row">
+    <div class="col-sm-10">
+        <h2>AIRCRAFT INSPECTION AND MAINTENANCE RECORD</h2>
+    </div>
+    <div class="col-sm-2 text-right">
+        <a asp-action="ListOpenFault" asp-route-parentId="@Model.AircraftId">Back to List</a>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "EditFault", new { id = Model.Id }) |
-    <a asp-action="ListFault" asp-route-parentId="@Model.AircraftId">Back to List</a>
+<div class="form-view">
+    <div class="row">
+        <div class="col-sm-6">
+            <h6>AIRCRAFT SERIAL NUMBER</h6>
+            <h5>@Model.AcftSerialNumber</h5>
+        </div>
+        <div class="col-sm-5">
+            <h6>MODEL</h6>
+            <h5>@Model.AcftModel</h5>
+        </div>
+        <div class="col-sm-1">
+            @Html.ActionLink("Edit", "EditFault", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="row">
+                <h5 class="text-center">FAULT INFORMATION</h5>
+                <div class="col-sm-2 form-group">
+                    <label asp-for="Status" class="control-label">STATUS</label>
+                    <h5 class="text-center">@Model.Status</h5>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <label asp-for="SystemCode" class="control-label">SYS</label>
+                    <h5 class="text-center">@Model.SystemCode</h5>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label asp-for="FaultDate" class="control-label">DATE</label>
+                    <h5 class="text-center">@Model.FaultDate</h5>
+                </div>
+                <div class="col-sm-1 form-group">
+                    <label asp-for="FaultNumber" class="control-label">NO.</label>
+                    <h5 class="text-center">@Model.FaultNumber</h5>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label asp-for="FaultTime" class="control-label">TIME</label>
+                    <h5 class="text-center">@Model.FaultTime</h5>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label asp-for="DiscPID" class="control-label">PID</label>
+                    <h5 class="text-center">@Model.DiscPID</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label asp-for="FaultText" class="control-label">FAULTS/REMARKS</label>
+                    <p>@Model.FaultText</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <label asp-for="DiscAcftHrs" class="control-label">ACFT HRS</label>
+                    <h5 class="text-center">@Model.DiscAcftHrs</h5>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label asp-for="WhenDisc" class="control-label">WHEN DISC</label>
+                    <h5 class="text-center">@Model.WhenDisc</h5>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label asp-for="HowRecog" class="control-label">HOW REC</label>
+                    <h5 class="text-center">@Model.HowRecog</h5>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label asp-for="MalEff" class="control-label">MAL EFF</label>
+                    <h5 class="text-center">@Model.MalEff</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8 form-group">
+                    <label asp-for="Delay" class="control-label">DELAY</label>
+                    <h5 class="text-center">@Model.Delay</h5>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label asp-for="WUC" class="control-label">WUC</label>
+                    <h5 class="text-center">@Model.WUC</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <h5 class="text-center">CORRECTING INFORMATION</h5>
+                <div class="col-sm-4 form-group">
+                    <label asp-for="CompDate" class="control-label">DATE</label>
+                    <h5 class="text-center">@Model.CompDate</h5>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label asp-for="CompTime" class="control-label">TIME</label>
+                    <h5 class="text-center">@Model.CompTime</h5>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label asp-for="CompAcftHrs" class="control-label">ACFT HRS</label>
+                    <h5 class="text-center">@Model.CompAcftHrs</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-4 form-group">
+                    <label asp-for="Rounds" class="control-label">ROUNDS</label>
+                    <h5 class="text-center">@Model.Rounds</h5>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label asp-for="ActionCode" class="control-label">ACTION CODE</label>
+                    <h5 class="text-center">@Model.ActionCode</h5>
+                </div>
+                <div class="col-sm-4 form-group">
+                    <label asp-for="CompWUC" class="control-label">WUC</label>
+                    <h5 class="text-center">@Model.CompWUC</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 form-group">
+                    <label asp-for="Action" class="control-label">ACTION</label>
+                    <p>@Model.Action</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 form-group">
+                    <label asp-for="CompPID" class="control-label">PID</label>
+                    <h5 class="text-center">@Model.CompPID</h5>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label asp-for="CompCat" class="control-label">CAT</label>
+                    <h5 class="text-center">@Model.CompCat</h5>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label asp-for="CompHrs" class="control-label">HRS</label>
+                    <h5 class="text-center">@Model.CompHrs</h5>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label asp-for="TIPID" class="control-label">TI PID</label>
+                    <h5 class="text-center">@Model.TIPID</h5>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label asp-for="TIManHrs" class="control-label">TI HRS</label>
+                    <h5 class="text-center">@Model.TIManHrs</h5>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

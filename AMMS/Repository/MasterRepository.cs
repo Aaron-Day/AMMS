@@ -633,6 +633,7 @@ namespace AMMS.Repository
         {
             try
             {
+                _context.Units.Update(unit);
                 _context.SaveChanges();
             }
             catch (Exception e)
@@ -731,6 +732,7 @@ namespace AMMS.Repository
 
         public void UpdateAircraftModel(AircraftModel model)
         {
+            _context.AircraftModels.Update(model);
             _context.SaveChanges();
         }
 
@@ -817,6 +819,7 @@ namespace AMMS.Repository
 
         public void UpdateAircraft(Aircraft aircraft)
         {
+            _context.Aircraft.Update(aircraft);
             _context.SaveChanges();
         }
 
@@ -858,6 +861,7 @@ namespace AMMS.Repository
 
         public void UpdateFlight(Flight flight)
         {
+            _context.Flights.Update(flight);
             _context.SaveChanges();
         }
 
@@ -899,6 +903,7 @@ namespace AMMS.Repository
 
         public void UpdateInspection(Inspection inspection)
         {
+            _context.Inspections.Update(inspection);
             _context.SaveChanges();
         }
 
@@ -940,6 +945,7 @@ namespace AMMS.Repository
 
         public void UpdateFault(Fault fault)
         {
+            _context.Faults.Update(fault);
             _context.SaveChanges();
         }
 
@@ -981,6 +987,7 @@ namespace AMMS.Repository
 
         public void UpdateRelatedMaintenance(RelatedMaintenance related)
         {
+            _context.RelatedMaintenance.Update(related);
             _context.SaveChanges();
         }
 

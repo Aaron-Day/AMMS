@@ -69,6 +69,7 @@ namespace AMMS.Controllers
             return RedirectToAction("List", new { uic = viewModel.AssignedUnit });
         }
 
+        //TODO: Recursively delete user roles
         [HttpGet]
         [Authorize(Roles = "Admin, PC, QC")]
         public IActionResult Delete(string id)
