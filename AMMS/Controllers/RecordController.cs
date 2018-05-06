@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using AMMS.Models.ViewModels;
+﻿using AMMS.Models.ViewModels;
 using AMMS.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace AMMS.Controllers
 {
@@ -98,6 +98,7 @@ namespace AMMS.Controllers
         {
             ViewBag.ParentId = parentId;
             ViewBag.SerialNumber = _service.GetAircraftById(parentId).SerialNumber;
+
             var viewModels = _service.GetInspectionsByAircraftId(parentId);
             return View(viewModels);
         }
@@ -130,6 +131,20 @@ namespace AMMS.Controllers
             var inspection = _service.GetInspectionById(id);
 
             return View(inspection);
+        }
+
+        public IActionResult RefreshInspection(string id)
+        {
+            var insp = _service.GetInspectionById(id);
+            var acft = _service.GetAircraftById(insp.AircraftId);
+
+            insp.Update(acft.AcftHrs);
+            insp.Id = null;
+
+            _service.CreateInspection(insp);
+            _service.DeleteInspection(id);
+
+            return RedirectToAction("ListInspection", new { parentId = acft.Id });
         }
 
         [HttpGet]
@@ -230,6 +245,7 @@ namespace AMMS.Controllers
             var fault = _service.GetFaultById(id);
             var userId = _service.GetCurrentUser(User).Id;
             ViewBag.PID = _service.GetUserById(userId).Pid;
+            ViewBag.Lock = _service.GetRelatedMaintenanceByFaultId(id).Any(r => r.isOpen());
 
             return View(fault);
         }
@@ -271,7 +287,9 @@ namespace AMMS.Controllers
 
         public IActionResult ListRelatedMaintenance(string parentId)
         {
+            ViewBag.ParentId = parentId;
             ViewBag.FaultText = _service.GetFaultById(parentId).FaultText;
+            ViewBag.Lock = _service.GetFaultById(parentId).isFull();
             var related = _service.GetRelatedMaintenanceByFaultId(parentId);
 
             return View(related);
@@ -282,7 +300,6 @@ namespace AMMS.Controllers
         {
             var fault = _service.GetFaultById(parentId);
             var aircraft = _service.GetAircraftById(fault.AircraftId);
-
             ViewBag.Fault = fault;
             ViewBag.Aircraft = aircraft;
 
@@ -311,6 +328,8 @@ namespace AMMS.Controllers
         public IActionResult EditRelatedMaintenance(string id)
         {
             var related = _service.GetRelatedMaintenanceById(id);
+            var userId = _service.GetCurrentUser(User).Id;
+            ViewBag.PID = _service.GetUserById(userId).Pid;
 
             return View(related);
         }
@@ -320,6 +339,11 @@ namespace AMMS.Controllers
         public IActionResult EditRelatedMaintenance(RelatedMaintenanceViewModel related)
         {
             if (!ModelState.IsValid) return View(related);
+            if ((!related.isFull() && !related.isEmpty()) || !related.isValidTI())
+            {
+                ModelState.AddModelError("Incomplete", "Incomplete Form");
+                return View(related);
+            }
 
             _service.UpdateRelatedMaintenance(related);
 

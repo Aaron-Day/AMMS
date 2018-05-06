@@ -19,12 +19,13 @@
                 <h6>AIRCRAFT SERIAL NUMBER</h6>
                 <h5>@Model.AcftSerialNumber</h5>
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-4">
                 <h6>MODEL</h6>
                 <h5>@Model.AcftModel</h5>
             </div>
-            <div class="col-sm-1 form-group">
-                <input type="submit" value="Save" class="btn btn-warning" />
+            <div class="col-sm-2 form-group">
+                <input type="submit" value="Save" class="btn btn-sm btn-warning" />
+                @Html.ActionLink("", "ListRelatedMaintenance", new { parentId = Model.Id }, new { @class = "btn btn-sm btn-success fa fa-wrench", title = "Related Maintenance" })
             </div>
         </div>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -160,60 +161,168 @@
             <div class="col-sm-6">
                 <div class="row">
                     <h5 class="text-center">CORRECTING INFORMATION</h5>
+
                     <div class="col-sm-4 form-group">
                         <label asp-for="CompDate" class="control-label">DATE</label>
-                        <input asp-for="CompDate" class="form-control" />
+                        @if (ViewBag.Lock)
+                        {
+                            <input asp-for="CompDate" class="form-control" readonly />
+                        }
+                        else
+                        {
+                            <input asp-for="CompDate" class="form-control" />
+                        }
                         <span asp-validation-for="CompDate" class="text-danger"></span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label asp-for="CompTime" class="control-label">TIME</label>
-                        <input asp-for="CompTime" class="form-control" />
+                        @if (ViewBag.Lock)
+                        {
+                            <input asp-for="CompTime" class="form-control" readonly />
+                        }
+                        else
+                        {
+                            <input asp-for="CompTime" class="form-control" />
+                        }
                         <span asp-validation-for="CompTime" class="text-danger"></span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label asp-for="CompAcftHrs" class="control-label">ACFT HRS</label>
-                        <input asp-for="CompAcftHrs" class="form-control" />
+                        @if (ViewBag.Lock)
+                        {
+                            <input asp-for="CompAcftHrs" class="form-control" readonly />
+                        }
+                        else
+                        {
+                            <input asp-for="CompAcftHrs" class="form-control" />
+                        }
                         <span asp-validation-for="CompAcftHrs" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label asp-for="Rounds" class="control-label">ROUNDS</label>
-                        <input asp-for="Rounds" class="form-control" />
+                        @if (ViewBag.Lock)
+                        {
+                            <input asp-for="Rounds" class="form-control" readonly />
+                        }
+                        else
+                        {
+                            <input asp-for="Rounds" class="form-control" />
+                        }
                         <span asp-validation-for="Rounds" class="text-danger"></span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label asp-for="ActionCode" class="control-label">ACTION CODE</label>
-                        <input asp-for="ActionCode" class="form-control" />
+                        @if (ViewBag.Lock)
+                        {
+                            <input asp-for="ActionCode" class="form-control" readonly />
+                        }
+                        else
+                        {
+                            <select asp-for="ActionCode" class="form-control">
+                                <option value="A">REPLACED</option>
+                                <option value="B">ADJUSTED</option>
+                                <option value="C">REPAIRED</option>
+                                <option value="D">MANUFACTURE/FABRICATION</option>
+                                <option value="F">INITIAL INSPECTION</option>
+                                <option value="G">FINAL INSPECTION</option>
+                                <option value="H">MWO APPLIED</option>
+                                <option value="J">TESTED</option>
+                                <option value="K">IN PROCESS INSPECTION</option>
+                                <option value="L">REMOVED AND REINSTALLED</option>
+                                <option value="M">CHECKED NRTS</option>
+                                <option value="N">CHECKED - NOT REPAIRABLE</option>
+                                <option value="O">OVERHAULED/REBUILT/REMANUFACTURED</option>
+                                <option value="P">CHECKED - SERVICEABLE</option>
+                                <option value="Q">MWO REMOVAL</option>
+                                <option value="R">REMOVED</option>
+                                <option value="S">INSTALLED</option>
+                                <option value="T">SOF/ASAM/TB SOU/TB COMPLIANCE</option>
+                                <option value="U">DECONTAMINATION</option>
+                                <option value="W">HOUR METER CHANGE</option>
+                                <option value="X">GUN CHANGE</option>
+                                <option value="Y">SPECIAL MISSION ALTERATION APPLY/APPLIED</option>
+                                <option value="1">SERVICING-SCHEDULED</option>
+                                <option value="2">SERVICING-UNSCHEDULED</option>
+                                <option value="3">PMD/PMS/PMS-1</option>
+                                <option value="4">MAINTENANCE TEST FLIGHT/MOC</option>
+                                <option value="5">PERIODIC/PHASE/PPM INSPECTION</option>
+                                <option value="6">SPECIAL INSPECTION</option>
+                                <option value="7">GROUND HANDLING</option>
+                                <option value="8">SAMS UNIQUE CODE</option>
+                                <option value="9">MODIFICATION BY REPLACEMENT</option>
+                            </select>
+                        }
                         <span asp-validation-for="ActionCode" class="text-danger"></span>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label asp-for="CompWUC" class="control-label">WUC</label>
-                        <input asp-for="CompWUC" class="form-control" />
+                        @if (ViewBag.Lock)
+                        {
+                            <input asp-for="CompWUC" class="form-control" readonly />
+                        }
+                        else
+                        {
+                            <input asp-for="CompWUC" class="form-control" />
+                        }
                         <span asp-validation-for="CompWUC" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-12 form-group">
                         <label asp-for="Action" class="control-label">ACTION</label>
-                        <textarea rows="5" asp-for="Action" class="form-control"></textarea>
+                        @if (ViewBag.Lock)
+                        {
+                            <textarea rows="5" asp-for="Action" placeholder="Open Related Maintenance Actions" class="form-control" readonly></textarea>
+                        }
+                        else
+                        {
+                            <textarea rows="5" asp-for="Action" class="form-control"></textarea>
+                        }
                         <span asp-validation-for="Action" class="text-danger"></span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-3 form-group">
                         <label asp-for="CompPID" class="control-label">PID</label>
-                        <input asp-for="CompPID" class="form-control" />
+                        @if (ViewBag.Lock)
+                        {
+                            <input asp-for="CompPID" class="form-control" readonly />
+                        }
+                        else
+                        {
+                            <input asp-for="CompPID" class="form-control" />
+                        }
                         <span asp-validation-for="CompPID" class="text-danger"></span>
                     </div>
                     <div class="col-sm-2 form-group">
                         <label asp-for="CompCat" class="control-label">CAT</label>
-                        <input asp-for="CompCat" class="form-control" />
+                        @if (ViewBag.Lock)
+                        {
+                            <input asp-for="CompCat" class="form-control" readonly />
+                        }
+                        else
+                        {
+                            <select asp-for="CompCat" class="form-control">
+                                <option value="C">Crew</option>
+                                <option value="O">AVUM</option>
+                                <option value="F">AVIM</option>
+                                <option value="D">Depot</option>
+                            </select>
+                        }
                         <span asp-validation-for="CompCat" class="text-danger"></span>
                     </div>
                     <div class="col-sm-2 form-group">
                         <label asp-for="CompHrs" class="control-label">HRS</label>
-                        <input asp-for="CompHrs" class="form-control" />
+                        @if (ViewBag.Lock)
+                        {
+                            <input asp-for="CompHrs" class="form-control" readonly />
+                        }
+                        else
+                        {
+                            <input asp-for="CompHrs" class="form-control" />
+                        }
                         <span asp-validation-for="CompHrs" class="text-danger"></span>
                     </div>
                     @if (User.IsInRole("TI") && Model.isTIReady() && Model.CompPID != ViewBag.PID)

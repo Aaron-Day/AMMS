@@ -16,7 +16,7 @@
             <h5>@ViewBag.Model</h5>
         </div>
         <div class="col-sm-1">
-            @Html.ActionLink("Create", "CreateFault", new { parentId = ViewBag.ParentId }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Add", "CreateFault", new { parentId = ViewBag.ParentId }, new { @class = "btn btn-sm btn-primary" })
         </div>
     </div>
     @foreach (var item in Model)
@@ -24,12 +24,13 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
+                        @Html.ActionLink("", "ListRelatedMaintenance", new { parentId = item.Id }, new { @class = "btn btn-sm btn-success fa fa-wrench", title = "Related Maintenance" })
                         @Html.ActionLink("", "DetailsFault", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-info", title = "Details" })
                         @Html.ActionLink("", "EditFault", new { id = item.Id }, new { @class = "btn btn-warning btn-sm fa fa-edit", title = "Edit" })
                         @Html.ActionLink("", "DeleteFault", new { id = item.Id }, new { @class = "btn btn-danger btn-sm fa fa-trash", title = "Delete" })
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                         <h5 class="text-center">FAULT INFORMATION</h5>
                     </div>
                 </div>

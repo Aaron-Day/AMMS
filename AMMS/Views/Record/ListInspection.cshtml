@@ -50,6 +50,7 @@
                     @Html.DisplayFor(modelItem => item.NextDue)
                 </td>
                 <td>
+                    @Html.ActionLink("", "RefreshInspection", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-recycle", title = "Update" })
                     @Html.ActionLink("", "DetailsInspection", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-info", title = "Details" })
                     @Html.ActionLink("", "EditInspection", new { id = item.Id }, new { @class = "btn btn-warning btn-sm fa fa-edit", title = "Edit" })
                     @Html.ActionLink("", "DeleteInspection", new { id = item.Id }, new { @class = "btn btn-danger btn-sm fa fa-trash", title = "Delete" })
@@ -57,7 +58,6 @@
                     @Html.HiddenFor(modelItem => item.Nomenclature)
                     @Html.HiddenFor(modelItem => item.Model)
                     @Html.HiddenFor(modelItem => item.SerialNumber)
-                    @Html.HiddenFor(modelItem => item.CompletedAt)
                     @Html.HiddenFor(modelItem => item.AircraftId)
                 </td>
             </tr>

@@ -22,50 +22,66 @@
             <input type="hidden" asp-for="FaultText" class="form-control" />
             <input type="hidden" asp-for="FaultId" class="form-control" />
             <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
+                <label asp-for="Status" class="control-label">STATUS</label>
+                <input asp-for="Status" class="form-control" readonly />
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RelatedMaintenanceAction" class="control-label"></label>
+                <label asp-for="RelatedMaintenanceAction" class="control-label">RELATED MAINTENANCE ACTION</label>
                 <input asp-for="RelatedMaintenanceAction" class="form-control" />
                 <span asp-validation-for="RelatedMaintenanceAction" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="CorrectiveAction" class="control-label"></label>
+                <label asp-for="CorrectiveAction" class="control-label">CORRECTIVE ACTION</label>
                 <input asp-for="CorrectiveAction" class="form-control" />
                 <span asp-validation-for="CorrectiveAction" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PID" class="control-label"></label>
+                <label asp-for="PID" class="control-label">PID</label>
                 <input asp-for="PID" class="form-control" />
                 <span asp-validation-for="PID" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                <label asp-for="Category" class="control-label">CAT</label>
+                <select asp-for="Category" class="form-control">
+                    <option value="C">Crew</option>
+                    <option value="O">AVUM</option>
+                    <option value="F">AVIM</option>
+                    <option value="D">Depot</option>
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MMH" class="control-label"></label>
+                <label asp-for="MMH" class="control-label">MMH</label>
                 <input asp-for="MMH" class="form-control" />
                 <span asp-validation-for="MMH" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="TIPID" class="control-label"></label>
-                <input asp-for="TIPID" class="form-control" />
-                <span asp-validation-for="TIPID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TIManHrs" class="control-label"></label>
-                <input asp-for="TIManHrs" class="form-control" />
-                <span asp-validation-for="TIManHrs" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TIPassword" class="control-label"></label>
-                <input asp-for="TIPassword" class="form-control" />
-                <span asp-validation-for="TIPassword" class="text-danger"></span>
-            </div>
+            @if (User.IsInRole("TI") && Model.isTIReady() && Model.PID != ViewBag.PID)
+            {
+                <div class="form-group">
+                    <label asp-for="TIPID" class="control-label">TI PID</label>
+                    <input asp-for="TIPID" value="@ViewBag.PID" class="form-control" />
+                    <span asp-validation-for="TIPID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TIManHrs" class="control-label">TI MMH</label>
+                    <input asp-for="TIManHrs" class="form-control" />
+                    <span asp-validation-for="TIManHrs" class="text-danger"></span>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <label asp-for="TIPID" class="control-label">TI PID</label>
+                    <input asp-for="TIPID" class="form-control" readonly />
+                    <span asp-validation-for="TIPID" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TIManHrs" class="control-label">TI MMH</label>
+                    <input asp-for="TIManHrs" class="form-control" readonly />
+                    <span asp-validation-for="TIManHrs" class="text-danger"></span>
+                </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-warning" />
             </div>

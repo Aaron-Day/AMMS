@@ -890,7 +890,7 @@ namespace AMMS.Repository
 
         public IEnumerable<Inspection> GetInspectionsByAircraftId(string id)
         {
-            return _context.Inspections.Where(insp => insp.AircraftId == id && insp.CompletedAt == null).ToList();
+            return _context.Inspections.Where(insp => insp.AircraftId == id).ToList();
         }
 
         /***   SETTERS   ***/

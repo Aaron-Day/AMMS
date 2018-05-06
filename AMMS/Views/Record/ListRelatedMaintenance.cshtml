@@ -4,11 +4,16 @@
     ViewData["Title"] = "Related Maintenance List";
 }
 
-<h2>Related Maintenance List</h2>
-<p>@ViewBag.FaultText</p>
-<p>
-    <a asp-action="CreateRelatedMaintenance" asp-route-parentId="@ViewBag.ParentId">Create New Related Maintenance Task</a>
-</p>
+<h2>RELATED MAINTENANCE ACTIONS RECORD</h2>
+<p>@Html.ActionLink("", "DetailsFault", new { id = ViewBag.ParentId }, new { @class = "btn btn-link fa fa-arrow-circle-left fa-2x", title = "Back To Fault" })@ViewBag.FaultText</p>
+@if (ViewBag.Lock)
+{
+    <p>Fault Signed Off. No More Actions.</p>
+}
+else
+{
+    <p><a asp-action="CreateRelatedMaintenance" asp-route-parentId="@ViewBag.ParentId">Add New Action</a></p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -68,9 +73,12 @@
                     @Html.DisplayFor(modelItem => item.TIManHrs)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "EditRelatedMaintenance", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "DetailsRelatedMaintenance", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "DeleteRelatedMaintenance", new { id = item.Id })
+                    @if (item.isOpen())
+                    {
+                        @Html.ActionLink("", "DetailsRelatedMaintenance", new { id = item.Id }, new { @class = "btn btn-sm btn-info fa fa-info", title = "Details" })
+                        @Html.ActionLink("", "EditRelatedMaintenance", new { id = item.Id }, new { @class = "btn btn-sm btn-warning fa fa-edit", title = "Edit" })
+                    }
+                    @Html.ActionLink("", "DeleteRelatedMaintenance", new { id = item.Id }, new { @class = "btn btn-sm btn-danger fa fa-trash", title = "Delete" })
                     @Html.HiddenFor(modelItem => item.Id)
                     @Html.HiddenFor(modelItem => item.FaultStatus)
                     @Html.HiddenFor(modelItem => item.SerialNumber)
@@ -78,7 +86,6 @@
                     @Html.HiddenFor(modelItem => item.FaultDate)
                     @Html.HiddenFor(modelItem => item.FaultNumber)
                     @Html.HiddenFor(modelItem => item.FaultText)
-                    @Html.HiddenFor(modelItem => item.TIPassword)
                     @Html.HiddenFor(modelItem => item.FaultId)
                 </td>
             </tr>

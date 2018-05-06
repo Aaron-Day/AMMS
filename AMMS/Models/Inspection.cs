@@ -8,7 +8,6 @@
         public string Reference { get; set; }
         public string Frequency { get; set; }
         public string NextDue { get; set; }
-        public string CompletedAt { get; set; }
         public string AircraftId { get; set; }
         private Aircraft Aircraft { get; set; }
     }

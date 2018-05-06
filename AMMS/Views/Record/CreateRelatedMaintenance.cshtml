@@ -27,25 +27,29 @@
             <input type="hidden" asp-for="MMH" class="form-control" />
             <input type="hidden" asp-for="TIPID" class="form-control" />
             <input type="hidden" asp-for="TIManHrs" class="form-control" />
-            <input type="hidden" asp-for="TIPassword" class="form-control" />
             <div class="form-group">
-                <label asp-for="Status" class="control-label"></label>
-                <input asp-for="Status" class="form-control" />
+                <label asp-for="Status" class="control-label">STATUS</label>
+                <select asp-for="Status" class="form-control">
+                    <option value="-">-</option>
+                    <option value="/">/</option>
+                    <option value="X">X</option>
+                    <option value="+">+</option>
+                </select>
                 <span asp-validation-for="Status" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RelatedMaintenanceAction" class="control-label"></label>
+                <label asp-for="RelatedMaintenanceAction" class="control-label">RELATED MAINTENANCE ACTION</label>
                 <input asp-for="RelatedMaintenanceAction" class="form-control" />
                 <span asp-validation-for="RelatedMaintenanceAction" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-success" />
+                <input type="submit" value="Add" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="ListRelatedMaintenance" asp-route-parentId="@Model.FaultId">Back to List</a>
+    <a asp-action="ListRelatedMaintenance" asp-route-parentId="@ViewBag.Fault.Id">Back to List</a>
 </div>
 
