@@ -22,13 +22,13 @@
         <div class="row">
             <div class="col-sm-offset-1 col-sm-4 form-group">
                 <label asp-for="Email"></label>
-                <input asp-for="Email" placeholder="username@us.army.mil" class="form-control" value="aaron.l.day@us.army.mil" />
+                <input asp-for="Email" placeholder="username@us.army.mil" class="form-control" />
                 <span asp-validation-for="Email" class="text-danger"></span>
                 <a asp-action="RequestAccount">Request account</a>
             </div>
             <div class="col-sm-4 form-group">
                 <label asp-for="Password"></label>
-                <input asp-for="Password" placeholder="Pa$$w0rd" class="form-control" value="Secret123$" />
+                <input asp-for="Password" placeholder="Pa$$w0rd" class="form-control" />
                 <span asp-validation-for="Password" class="text-danger"></span>
                 <a asp-action="ForgotPassword">Forgot password</a>
             </div>
