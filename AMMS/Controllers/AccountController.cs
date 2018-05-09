@@ -243,7 +243,7 @@ namespace AMMS.Controllers
             if (change.OldPassword == change.NewPassword)
                 ModelState.AddModelError(string.Empty, "Old password cannot match new password!");
             if (!ModelState.IsValid) return View(change);
-            //_service.ChangePassword(change);
+            _service.ChangePassword(change);
             return RedirectToAction("ChangePasswordConfirmation");
         }
 
