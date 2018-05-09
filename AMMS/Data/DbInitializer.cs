@@ -48,7 +48,7 @@ namespace AMMS.Data
                 var idRole = new IdentityRole()
                 {
                     Name = role,
-                    NormalizedName = role.ToUpper()
+                    NormalizedName = role?.ToUpper()
                 };
                 roleStore.CreateAsync(idRole).Wait();
             }
@@ -64,13 +64,13 @@ namespace AMMS.Data
                 FirstName = "Admin",
                 LastName = "User",
                 Email = email.ToLower(),
-                NormalizedEmail = email.ToUpper(),
+                NormalizedEmail = email?.ToUpper(),
                 PhoneNumber = "+19717067846",
                 PhoneNumberConfirmed = true,
                 SocialSecurityNumber = "000000000",
                 DateOfBirth = Formatting.AsMilDate(new DateTime(2001, 11, 01)),
                 UserName = email.ToLower(),
-                NormalizedUserName = email.ToUpper(),
+                NormalizedUserName = email?.ToUpper(),
                 SecurityStamp = Guid.NewGuid().ToString("D"),
                 FullName = "User, Admin",
                 AssignedUnit = "ADMIN"

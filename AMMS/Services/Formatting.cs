@@ -45,7 +45,7 @@ namespace AMMS.Services
 
         public static string AsAbbDate(DateTime date)
         {
-            return date.ToLocalTime().ToString("dd MMM yy").ToUpper();
+            return date.ToLocalTime().ToString("dd MMM yy")?.ToUpper();
         }
 
         public static string TimeStamp(DateTime date)

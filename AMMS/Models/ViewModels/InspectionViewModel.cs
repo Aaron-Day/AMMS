@@ -38,13 +38,13 @@ namespace AMMS.Models.ViewModels
                     NextDue = (hours + FreqValue()).ToString();
                     break;
                 case "D":
-                    NextDue = DateTime.Today.AddDays(FreqValue()).ToString("dd MMM yy").ToUpper();
+                    NextDue = DateTime.Today.AddDays(FreqValue()).ToString("dd MMM yy")?.ToUpper();
                     break;
                 case "M":
-                    NextDue = DateTime.Today.AddMonths(FreqValue()).ToString("dd MMM yy").ToUpper();
+                    NextDue = DateTime.Today.AddMonths(FreqValue()).ToString("dd MMM yy")?.ToUpper();
                     break;
                 case "Y":
-                    NextDue = DateTime.Today.AddYears(FreqValue()).ToString("dd MMM yy").ToUpper();
+                    NextDue = DateTime.Today.AddYears(FreqValue()).ToString("dd MMM yy")?.ToUpper();
                     break;
             }
         }

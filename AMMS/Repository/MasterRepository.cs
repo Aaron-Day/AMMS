@@ -302,7 +302,7 @@ namespace AMMS.Repository
                 var pass = login.Password;
                 var salt = GetUserByEmail(email).Salt;
                 var hash = PasswordProtocol.CalculateHash(pass, salt);
-                var result = _signInManager.PasswordSignInAsync(email.ToUpper(), hash, false, true).Result;
+                var result = _signInManager.PasswordSignInAsync(email?.ToUpper(), hash, false, true).Result;
                 if (result == SignInResult.Success)
                     GetUserByEmail(email).LastActive = Formatting.AsMilDateTime(DateTime.UtcNow);
                 return result;
@@ -525,7 +525,7 @@ namespace AMMS.Repository
                         if (!assignment.Assigned) continue;
                         /*ADD TO USER ROLES*/
                         var user = GetUserById(assignment.UserId);
-                        var role = assignment.RoleName.ToUpper();
+                        var role = assignment.RoleName?.ToUpper();
                         _userManager.AddToRoleAsync(user, role).Wait();
                     }
                     else
@@ -533,7 +533,7 @@ namespace AMMS.Repository
                         if (assignment.Assigned) continue;
                         /*REMOVE FROM USER ROLES*/
                         var user = GetUserById(assignment.UserId);
-                        var role = assignment.RoleName.ToUpper();
+                        var role = assignment.RoleName?.ToUpper();
                         _userManager.RemoveFromRoleAsync(user, role).Wait();
                     }
                 }

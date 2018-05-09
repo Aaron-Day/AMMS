@@ -474,14 +474,14 @@ namespace AMMS.Services
                 MiddleName = user.MiddleName,
                 LastName = user.LastName,
                 Email = user.Email.ToLower(),
-                NormalizedEmail = user.Email.ToUpper(),
+                NormalizedEmail = user.Email?.ToUpper(),
                 PhoneNumber = user.PhoneNumber,
                 PhoneNumberConfirmed = user.PhoneNumber != null,
                 SocialSecurityNumber = user.SocialSecurityNumber,
                 Rank = user.Rank,
                 DateOfBirth = user.DateOfBirth,
                 UserName = user.Email.ToLower(),
-                NormalizedUserName = user.Email.ToUpper(),
+                NormalizedUserName = user.Email?.ToUpper(),
                 SecurityStamp = Guid.NewGuid().ToString("D"),
                 FullName = (user.Rank == null ? "" : $"{user.Rank} ") +
                            $"{user.LastName}, {user.FirstName}",
@@ -622,7 +622,7 @@ namespace AMMS.Services
             {
                 Id = role.Id,
                 Name = role.RoleName,
-                NormalizedName = role.RoleName.ToUpper()
+                NormalizedName = role.RoleName?.ToUpper()
             };
         }
 
@@ -630,7 +630,7 @@ namespace AMMS.Services
         {
             if (role.Id != update.Id) return;
             update.Name = role.RoleName;
-            update.NormalizedName = role.RoleName.ToUpper();
+            update.NormalizedName = role.RoleName?.ToUpper();
         }
 
         /***************************************************************************
@@ -1158,14 +1158,14 @@ namespace AMMS.Services
             return new FlightViewModel
             {
                 Id = record.Id,
-                Date = record.Date.ToUpper(),
+                Date = record.Date?.ToUpper(),
                 SerialNumber = aircraft.SerialNumber,
-                Model = acftModel.Mds.ToUpper(),
+                Model = acftModel.Mds?.ToUpper(),
                 Organization = unit.UnitName,
                 Station = unit.Station,
                 FlightNumber = record.FlightNumber,
-                From = record.From.ToUpper(),
-                To = record.To.ToUpper(),
+                From = record.From?.ToUpper(),
+                To = record.To?.ToUpper(),
                 Start = record.Start,
                 End = record.End,
                 FlightHours = record.FlightHours,
@@ -1178,10 +1178,10 @@ namespace AMMS.Services
             return new Flight
             {
                 Id = flight.Id,
-                Date = flight.Date.ToUpper(),
+                Date = flight.Date?.ToUpper(),
                 FlightNumber = flight.FlightNumber,
-                From = flight.From.ToUpper(),
-                To = flight.To.ToUpper(),
+                From = flight.From?.ToUpper(),
+                To = flight.To?.ToUpper(),
                 Start = flight.Start,
                 End = flight.End,
                 FlightHours = flight.FlightHours,
@@ -1192,10 +1192,10 @@ namespace AMMS.Services
         private static void CopyToFlight(FlightViewModel viewModel, Flight flight)
         {
             flight.Id = viewModel.Id;
-            flight.Date = viewModel.Date.ToUpper();
+            flight.Date = viewModel.Date?.ToUpper();
             flight.FlightNumber = viewModel.FlightNumber;
-            flight.From = viewModel.From.ToUpper();
-            flight.To = viewModel.To.ToUpper();
+            flight.From = viewModel.From?.ToUpper();
+            flight.To = viewModel.To?.ToUpper();
             flight.Start = viewModel.Start;
             flight.End = viewModel.End;
             flight.FlightHours = viewModel.FlightHours;
@@ -1248,13 +1248,13 @@ namespace AMMS.Services
             {
                 Id = inspection.Id,
                 Nomenclature = acftModel.Name,
-                Model = acftModel.Mds.ToUpper(),
+                Model = acftModel.Mds?.ToUpper(),
                 SerialNumber = aircraft.SerialNumber,
-                InspectionNumber = inspection.InspectionNumber.ToUpper(),
-                ItemToBeInspected = inspection.ItemToBeInspected.ToUpper(),
-                Reference = inspection.Reference.ToUpper(),
-                Frequency = inspection.Frequency.ToUpper(),
-                NextDue = inspection.NextDue.ToUpper(),
+                InspectionNumber = inspection.InspectionNumber?.ToUpper(),
+                ItemToBeInspected = inspection.ItemToBeInspected?.ToUpper(),
+                Reference = inspection.Reference?.ToUpper(),
+                Frequency = inspection.Frequency?.ToUpper(),
+                NextDue = inspection.NextDue?.ToUpper(),
                 AircraftId = inspection.AircraftId
             };
         }
@@ -1264,11 +1264,11 @@ namespace AMMS.Services
             return new Inspection
             {
                 Id = inspection.Id,
-                InspectionNumber = inspection.InspectionNumber.ToUpper(),
-                ItemToBeInspected = inspection.ItemToBeInspected.ToUpper(),
-                Reference = inspection.Reference.ToUpper(),
-                Frequency = inspection.Frequency.ToUpper(),
-                NextDue = inspection.NextDue.ToUpper(),
+                InspectionNumber = inspection.InspectionNumber?.ToUpper(),
+                ItemToBeInspected = inspection.ItemToBeInspected?.ToUpper(),
+                Reference = inspection.Reference?.ToUpper(),
+                Frequency = inspection.Frequency?.ToUpper(),
+                NextDue = inspection.NextDue?.ToUpper(),
                 AircraftId = inspection.AircraftId
             };
         }
@@ -1276,11 +1276,11 @@ namespace AMMS.Services
         private static void CopyToInspection(InspectionViewModel viewModel, Inspection inspection)
         {
             inspection.Id = viewModel.Id;
-            inspection.InspectionNumber = viewModel.InspectionNumber.ToUpper();
-            inspection.ItemToBeInspected = viewModel.ItemToBeInspected.ToUpper();
-            inspection.Reference = viewModel.Reference.ToUpper();
-            inspection.Frequency = viewModel.Frequency.ToUpper();
-            inspection.NextDue = viewModel.NextDue.ToUpper();
+            inspection.InspectionNumber = viewModel.InspectionNumber?.ToUpper();
+            inspection.ItemToBeInspected = viewModel.ItemToBeInspected?.ToUpper();
+            inspection.Reference = viewModel.Reference?.ToUpper();
+            inspection.Frequency = viewModel.Frequency?.ToUpper();
+            inspection.NextDue = viewModel.NextDue?.ToUpper();
             inspection.AircraftId = viewModel.AircraftId;
         }
 
@@ -1330,31 +1330,31 @@ namespace AMMS.Services
             {
                 Id = fault.Id,
                 AcftSerialNumber = aircraft.SerialNumber,
-                AcftModel = acftModel.Mds.ToUpper(),
+                AcftModel = acftModel.Mds?.ToUpper(),
                 Status = fault.Status,
-                SystemCode = fault.SystemCode.ToUpper(),
-                FaultDate = fault.FaultDate.ToUpper(),
+                SystemCode = fault.SystemCode?.ToUpper(),
+                FaultDate = fault.FaultDate?.ToUpper(),
                 FaultNumber = fault.FaultNumber,
                 FaultTime = fault.FaultTime,
-                DiscPID = fault.DiscPID.ToUpper(),
-                FaultText = fault.FaultText.ToUpper(),
+                DiscPID = fault.DiscPID?.ToUpper(),
+                FaultText = fault.FaultText?.ToUpper(),
                 DiscAcftHrs = fault.DiscAcftHrs,
-                WhenDisc = fault.WhenDisc.ToUpper(),
-                HowRecog = fault.HowRecog.ToUpper(),
-                MalEff = fault.MalEff.ToUpper(),
-                Delay = fault.Delay.ToUpper(),
-                WUC = fault.WUC.ToUpper(),
-                CompDate = fault.CompDate.ToUpper(),
+                WhenDisc = fault.WhenDisc?.ToUpper(),
+                HowRecog = fault.HowRecog?.ToUpper(),
+                MalEff = fault.MalEff?.ToUpper(),
+                Delay = fault.Delay?.ToUpper(),
+                WUC = fault.WUC?.ToUpper(),
+                CompDate = fault.CompDate?.ToUpper(),
                 CompTime = fault.CompTime,
                 CompAcftHrs = fault.CompAcftHrs,
                 Rounds = fault.Rounds,
-                ActionCode = fault.ActionCode.ToUpper(),
-                CompWUC = fault.CompWUC.ToUpper(),
-                Action = fault.Action.ToUpper(),
-                CompPID = fault.CompPID.ToUpper(),
-                CompCat = fault.CompCat.ToUpper(),
+                ActionCode = fault.ActionCode?.ToUpper(),
+                CompWUC = fault.CompWUC?.ToUpper(),
+                Action = fault.Action?.ToUpper(),
+                CompPID = fault.CompPID?.ToUpper(),
+                CompCat = fault.CompCat?.ToUpper(),
                 CompHrs = fault.CompHrs,
-                TIPID = fault.TIPID.ToUpper(),
+                TIPID = fault.TIPID?.ToUpper(),
                 TIManHrs = fault.TIManHrs,
                 AircraftId = fault.AircraftId
             };
@@ -1366,29 +1366,29 @@ namespace AMMS.Services
             {
                 Id = fault.Id,
                 Status = fault.Status,
-                SystemCode = fault.SystemCode.ToUpper(),
-                FaultDate = fault.FaultDate.ToUpper(),
+                SystemCode = fault.SystemCode?.ToUpper(),
+                FaultDate = fault.FaultDate?.ToUpper(),
                 FaultNumber = fault.FaultNumber,
                 FaultTime = fault.FaultTime,
-                DiscPID = fault.DiscPID.ToUpper(),
-                FaultText = fault.FaultText.ToUpper(),
+                DiscPID = fault.DiscPID?.ToUpper(),
+                FaultText = fault.FaultText?.ToUpper(),
                 DiscAcftHrs = fault.DiscAcftHrs,
-                WhenDisc = fault.WhenDisc.ToUpper(),
-                HowRecog = fault.HowRecog.ToUpper(),
-                MalEff = fault.MalEff.ToUpper(),
-                Delay = fault.Delay.ToUpper(),
-                WUC = fault.WUC.ToUpper(),
-                CompDate = fault.CompDate.ToUpper(),
+                WhenDisc = fault.WhenDisc?.ToUpper(),
+                HowRecog = fault.HowRecog?.ToUpper(),
+                MalEff = fault.MalEff?.ToUpper(),
+                Delay = fault.Delay?.ToUpper(),
+                WUC = fault.WUC?.ToUpper(),
+                CompDate = fault.CompDate?.ToUpper(),
                 CompTime = fault.CompTime,
                 CompAcftHrs = fault.CompAcftHrs,
                 Rounds = fault.Rounds,
-                ActionCode = fault.ActionCode.ToUpper(),
-                CompWUC = fault.CompWUC.ToUpper(),
-                Action = fault.Action.ToUpper(),
-                CompPID = fault.CompPID.ToUpper(),
-                CompCat = fault.CompCat.ToUpper(),
+                ActionCode = fault.ActionCode?.ToUpper(),
+                CompWUC = fault.CompWUC?.ToUpper(),
+                Action = fault.Action?.ToUpper(),
+                CompPID = fault.CompPID?.ToUpper(),
+                CompCat = fault.CompCat?.ToUpper(),
                 CompHrs = fault.CompHrs,
-                TIPID = fault.TIPID.ToUpper(),
+                TIPID = fault.TIPID?.ToUpper(),
                 TIManHrs = fault.TIManHrs,
                 AircraftId = fault.AircraftId
             };
@@ -1398,29 +1398,29 @@ namespace AMMS.Services
         {
             fault.Id = viewModel.Id;
             fault.Status = viewModel.Status;
-            fault.SystemCode = viewModel.SystemCode.ToUpper();
-            fault.FaultDate = viewModel.FaultDate.ToUpper();
+            fault.SystemCode = viewModel.SystemCode?.ToUpper();
+            fault.FaultDate = viewModel.FaultDate?.ToUpper();
             fault.FaultNumber = viewModel.FaultNumber;
             fault.FaultTime = viewModel.FaultTime;
-            fault.DiscPID = viewModel.DiscPID.ToUpper();
-            fault.FaultText = viewModel.FaultText.ToUpper();
+            fault.DiscPID = viewModel.DiscPID?.ToUpper();
+            fault.FaultText = viewModel.FaultText?.ToUpper();
             fault.DiscAcftHrs = viewModel.DiscAcftHrs;
-            fault.WhenDisc = viewModel.WhenDisc.ToUpper();
-            fault.HowRecog = viewModel.HowRecog.ToUpper();
-            fault.MalEff = viewModel.MalEff.ToUpper();
-            fault.Delay = viewModel.Delay.ToUpper();
-            fault.WUC = viewModel.WUC.ToUpper();
-            fault.CompDate = viewModel.CompDate.ToUpper();
+            fault.WhenDisc = viewModel.WhenDisc?.ToUpper();
+            fault.HowRecog = viewModel.HowRecog?.ToUpper();
+            fault.MalEff = viewModel.MalEff?.ToUpper();
+            fault.Delay = viewModel.Delay?.ToUpper();
+            fault.WUC = viewModel.WUC?.ToUpper();
+            fault.CompDate = viewModel.CompDate?.ToUpper();
             fault.CompTime = viewModel.CompTime;
             fault.CompAcftHrs = viewModel.CompAcftHrs;
             fault.Rounds = viewModel.Rounds;
-            fault.ActionCode = viewModel.ActionCode.ToUpper();
-            fault.CompWUC = viewModel.CompWUC.ToUpper();
-            fault.Action = viewModel.Action.ToUpper();
-            fault.CompPID = viewModel.CompPID.ToUpper();
-            fault.CompCat = viewModel.CompCat.ToUpper();
+            fault.ActionCode = viewModel.ActionCode?.ToUpper();
+            fault.CompWUC = viewModel.CompWUC?.ToUpper();
+            fault.Action = viewModel.Action?.ToUpper();
+            fault.CompPID = viewModel.CompPID?.ToUpper();
+            fault.CompCat = viewModel.CompCat?.ToUpper();
             fault.CompHrs = viewModel.CompHrs;
-            fault.TIPID = viewModel.TIPID.ToUpper();
+            fault.TIPID = viewModel.TIPID?.ToUpper();
             fault.TIManHrs = viewModel.TIManHrs;
             fault.AircraftId = viewModel.AircraftId;
         }
@@ -1471,19 +1471,19 @@ namespace AMMS.Services
             return new RelatedMaintenanceViewModel
             {
                 Id = fault.Id,
-                FaultStatus = f.Status.ToUpper(),
+                FaultStatus = f.Status?.ToUpper(),
                 SerialNumber = acft.SerialNumber,
-                SystemCode = f.SystemCode.ToUpper(),
-                FaultDate = f.FaultDate.ToUpper(),
+                SystemCode = f.SystemCode?.ToUpper(),
+                FaultDate = f.FaultDate?.ToUpper(),
                 FaultNumber = f.FaultNumber,
-                FaultText = f.FaultText.ToUpper(),
+                FaultText = f.FaultText?.ToUpper(),
                 Status = fault.Status,
-                RelatedMaintenanceAction = fault.RelatedMaintenanceAction.ToUpper(),
-                CorrectiveAction = fault.CorrectiveAction.ToUpper(),
-                PID = fault.PID.ToUpper(),
-                Category = fault.Category.ToUpper(),
+                RelatedMaintenanceAction = fault.RelatedMaintenanceAction?.ToUpper(),
+                CorrectiveAction = fault.CorrectiveAction?.ToUpper(),
+                PID = fault.PID?.ToUpper(),
+                Category = fault.Category?.ToUpper(),
                 MMH = fault.MMH,
-                TIPID = fault.TIPID.ToUpper(),
+                TIPID = fault.TIPID?.ToUpper(),
                 TIManHrs = fault.TIManHrs,
                 FaultId = fault.FaultId
             };
@@ -1495,12 +1495,12 @@ namespace AMMS.Services
             {
                 Id = fault.Id,
                 Status = fault.Status,
-                RelatedMaintenanceAction = fault.RelatedMaintenanceAction.ToUpper(),
-                CorrectiveAction = fault.CorrectiveAction.ToUpper(),
-                PID = fault.PID.ToUpper(),
-                Category = fault.Category.ToUpper(),
+                RelatedMaintenanceAction = fault.RelatedMaintenanceAction?.ToUpper(),
+                CorrectiveAction = fault.CorrectiveAction?.ToUpper(),
+                PID = fault.PID?.ToUpper(),
+                Category = fault.Category?.ToUpper(),
                 MMH = fault.MMH,
-                TIPID = fault.TIPID.ToUpper(),
+                TIPID = fault.TIPID?.ToUpper(),
                 TIManHrs = fault.TIManHrs,
                 FaultId = fault.FaultId
             };
@@ -1510,12 +1510,12 @@ namespace AMMS.Services
         {
             fault.Id = viewModel.Id;
             fault.Status = viewModel.Status;
-            fault.RelatedMaintenanceAction = viewModel.RelatedMaintenanceAction.ToUpper();
-            fault.CorrectiveAction = viewModel.CorrectiveAction.ToUpper();
-            fault.PID = viewModel.PID.ToUpper();
-            fault.Category = viewModel.Category.ToUpper();
+            fault.RelatedMaintenanceAction = viewModel.RelatedMaintenanceAction?.ToUpper();
+            fault.CorrectiveAction = viewModel.CorrectiveAction?.ToUpper();
+            fault.PID = viewModel.PID?.ToUpper();
+            fault.Category = viewModel.Category?.ToUpper();
             fault.MMH = viewModel.MMH;
-            fault.TIPID = viewModel.TIPID.ToUpper();
+            fault.TIPID = viewModel.TIPID?.ToUpper();
             fault.TIManHrs = viewModel.TIManHrs;
             fault.FaultId = viewModel.FaultId;
         }
