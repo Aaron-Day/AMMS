@@ -39,6 +39,7 @@
                     <div class="col-sm-2 form-group">
                         <label asp-for="Status" class="control-label">STATUS</label>
                         <select asp-for="Status" class="form-control">
+                            <option value=""></option>
                             <option value="-">-</option>
                             <option value="/">/</option>
                             <option value="X">X</option>
@@ -49,16 +50,17 @@
                     <div class="col-sm-1 form-group">
                         <label asp-for="SystemCode" class="control-label">SYS</label>
                         <select asp-for="SystemCode" class="form-control">
-                            <option value="A">Aircraft</option>
-                            <option value="W">Armament</option>
-                            <option value="E">Electronic</option>
-                            <option value="O">Other</option>
+                            <option value=""></option>
+                            <option value="A">A: Aircraft</option>
+                            <option value="W">W: Armament</option>
+                            <option value="E">E: Electronic</option>
+                            <option value="O">O: Other</option>
                         </select>
                         <span asp-validation-for="SystemCode" class="text-danger"></span>
                     </div>
                     <div class="col-sm-3 form-group">
                         <label asp-for="FaultDate" class="control-label">DATE</label>
-                        <input asp-for="FaultDate" class="form-control" />
+                        <input type="date" asp-for="FaultDate" class="form-control" />
                         <span asp-validation-for="FaultDate" class="text-danger"></span>
                     </div>
                     <div class="col-sm-1 form-group">
@@ -68,7 +70,7 @@
                     </div>
                     <div class="col-sm-2 form-group">
                         <label asp-for="FaultTime" class="control-label">TIME</label>
-                        <input asp-for="FaultTime" class="form-control" />
+                        <input type="time" asp-for="FaultTime" class="form-control" />
                         <span asp-validation-for="FaultTime" class="text-danger"></span>
                     </div>
                     <div class="col-sm-3 form-group">
@@ -93,59 +95,62 @@
                     <div class="col-sm-3 form-group">
                         <label asp-for="WhenDisc" class="control-label">WHEN DISC</label>
                         <select asp-for="WhenDisc" class="form-control">
-                            <option value="W">Acceptance Inspection</option>
-                            <option value="N">AOAP Results</option>
-                            <option value="J">Calibration</option>
-                            <option value="X">Daily/PMS Inspection</option>
-                            <option value="P">Diagnostic Test</option>
-                            <option value="D">Depot Level Repair</option>
-                            <option value="G">Flight</option>
-                            <option value="B">Handling</option>
-                            <option value="Y">Intermediate Inspection</option>
-                            <option value="L">Maintenance Operational Check</option>
-                            <option value="M">Maintenance Test Flight</option>
-                            <option value="Z">Periodic Inspection</option>
-                            <option value="H">Phase/PPM Inspection</option>
-                            <option value="T">Preflight Inspection</option>
-                            <option value="V">Postflight Inspection</option>
-                            <option value="R">Rearmament</option>
-                            <option value="S">Reconfiguration</option>
-                            <option value="Q">Servicing</option>
-                            <option value="O">Special Inspection</option>
-                            <option value="E">Storage</option>
-                            <option value="U">Thru Flight Inspection</option>
-                            <option value="K">Unscheduled Maintenance</option>
+                            <option value=""></option>
+                            <option value="W">W: Acceptance Inspection</option>
+                            <option value="N">N: AOAP Results</option>
+                            <option value="J">J: Calibration</option>
+                            <option value="X">X: Daily/PMS Inspection</option>
+                            <option value="P">P: Diagnostic Test</option>
+                            <option value="D">D: Depot Level Repair</option>
+                            <option value="G">G: Flight</option>
+                            <option value="B">B: Handling</option>
+                            <option value="Y">Y: Intermediate Inspection</option>
+                            <option value="L">L: Maintenance Operational Check</option>
+                            <option value="M">M: Maintenance Test Flight</option>
+                            <option value="Z">Z: Periodic Inspection</option>
+                            <option value="H">H: Phase/PPM Inspection</option>
+                            <option value="T">T: Preflight Inspection</option>
+                            <option value="V">V: Postflight Inspection</option>
+                            <option value="R">R: Rearmament</option>
+                            <option value="S">S: Reconfiguration</option>
+                            <option value="Q">Q: Servicing</option>
+                            <option value="O">O: Special Inspection</option>
+                            <option value="E">E: Storage</option>
+                            <option value="U">U: Thru Flight Inspection</option>
+                            <option value="K">K: Unscheduled Maintenance</option>
                         </select>
                         <span asp-validation-for="WhenDisc" class="text-danger"></span>
                     </div>
                     <div class="col-sm-3 form-group">
                         <label asp-for="HowRecog" class="control-label">HOW REC</label>
                         <select asp-for="HowRecog" class="form-control">
-                            <option value="A">Aerodynamic/Vibration</option>
-                            <option value="B">Audio/Hearing</option>
-                            <option value="C">Std Cockpit Instruments</option>
-                            <option value="D">Onboard Test Equipment</option>
-                            <option value="F">Ground Support Test Equipment</option>
-                            <option value="G">Visual</option>
-                            <option value="H">Odor</option>
-                            <option value="K">Feel</option>
-                            <option value="M">Off Aircraft Maintenance</option>
-                            <option value="O">Special Inspection</option>
+                            <option value=""></option>
+                            <option value="A">A: Aerodynamic/Vibration</option>
+                            <option value="B">B: Audio/Hearing</option>
+                            <option value="C">C: Std Cockpit Instruments</option>
+                            <option value="D">D: Onboard Test Equipment</option>
+                            <option value="F">F: Ground Support Test Equipment</option>
+                            <option value="G">G: Visual</option>
+                            <option value="H">H: Odor</option>
+                            <option value="K">K: Feel</option>
+                            <option value="M">M: Off Aircraft Maintenance</option>
+                            <option value="O">O: Special Inspection</option>
                         </select>
                         <span asp-validation-for="HowRecog" class="text-danger"></span>
                     </div>
                     <div class="col-sm-3 form-group">
                         <label asp-for="MalEff" class="control-label">MAL EFF</label>
                         <select asp-for="MalEff" class="form-control">
-                            <option value="1">No Malfunction</option>
-                            <option value="2">No Effect</option>
-                            <option value="3">Partial Failure</option>
-                            <option value="4">Reduced Performance</option>
-                            <option value="5">Mission Abort</option>
-                            <option value="6">Precautionary Landing</option>
-                            <option value="7">Forced Landing</option>
-                            <option value="8">Incident/Accident</option>
-                            <option value="9">Off Aircraft Maintenance</option>
+                            <option value=""></option>
+                            <option value="1">1: No Malfunction</option>
+                            <option value="2">2: No Effect</option>
+                            <option value="3">3: Partial Failure</option>
+                            <option value="4">4: Reduced Performance</option>
+                            <option value="5">5: Mission Abort</option>
+                            <option value="6">6: Precautionary Landing</option>
+                            <option value="7">7: Forced Landing</option>
+                            <option value="8">8: Incident/Accident</option>
+                            <option value="9">9: Off Aircraft Maintenance</option>
                         </select>
                         <span asp-validation-for="MalEff" class="text-danger"></span>
                     </div>
@@ -168,11 +173,11 @@
                     <h5 class="text-center">CORRECTING INFORMATION</h5>
                     <div class="col-sm-4 form-group">
                         <label asp-for="CompDate" class="control-label">DATE</label>
-                        <input asp-for="CompDate" class="form-control" readonly />
+                        <input type="date" asp-for="CompDate" class="form-control" readonly />
                     </div>
                     <div class="col-sm-4 form-group">
                         <label asp-for="CompTime" class="control-label">TIME</label>
-                        <input asp-for="CompTime" class="form-control" readonly />
+                        <input type="time" asp-for="CompTime" class="form-control" readonly />
                     </div>
                     <div class="col-sm-4 form-group">
                         <label asp-for="CompAcftHrs" class="control-label">ACFT HRS</label>

@@ -70,7 +70,7 @@ namespace AMMS.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(AircraftModelViewModel model)
         {
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View(model);
 
             _service.UpdateAircraftModel(model);
 

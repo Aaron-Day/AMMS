@@ -5,53 +5,75 @@ namespace AMMS.Models.ViewModels
     public class FaultViewModel
     {
         public string Id { get; set; }
+        [Display(Name = "Serial Number")]
         public string AcftSerialNumber { get; set; }
+        [Display(Name = "MDS")]
         public string AcftModel { get; set; }
         [Required]
         public string Status { get; set; }
         [Required]
+        [Display(Name = "SYS")]
         public string SystemCode { get; set; }
         [Required]
+        [Display(Name = "Date")]
         public string FaultDate { get; set; }
         [Required]
+        [Display(Name = "NO.")]
         public int? FaultNumber { get; set; }
         [Required]
+        [Display(Name = "Time")]
         public string FaultTime { get; set; }
         [Required]
+        [Display(Name = "PID")]
         public string DiscPID { get; set; }
         [Required]
         [DataType(DataType.MultilineText)]
+        [Display(Name = "Text")]
         public string FaultText { get; set; }
         [Required]
+        [Display(Name = "HRS")]
         public double DiscAcftHrs { get; set; }
         [Required]
+        [Display(Name = "When Discovered")]
         public string WhenDisc { get; set; }
         [Required]
+        [Display(Name = "How Recognized")]
         public string HowRecog { get; set; }
         [Required]
+        [Display(Name = "Malfunction Effect")]
         public string MalEff { get; set; }
         public string Delay { get; set; }
         [Required]
         public string WUC { get; set; }
+        [Display(Name = "Date")]
         public string CompDate { get; set; }
+        [Display(Name = "Time")]
         public string CompTime { get; set; }
+        [Display(Name = "HRS")]
         public double? CompAcftHrs { get; set; }
         public int? Rounds { get; set; }
+        [Display(Name = "Action Code")]
         public string ActionCode { get; set; }
+        [Display(Name = "UIC")]
         public string CompWUC { get; set; }
         [DataType(DataType.MultilineText)]
         public string Action { get; set; }
+        [Display(Name = "PID")]
         public string CompPID { get; set; }
+        [Display(Name = "CAT")]
         public string CompCat { get; set; }
+        [Display(Name = "MMH")]
         public double? CompHrs { get; set; }
+        [Display(Name = "TI PID")]
         public string TIPID { get; set; }
+        [Display(Name = "TI MMH")]
         public double? TIManHrs { get; set; }
+        [Display(Name = "Aircraft Id")]
         public string AircraftId { get; set; }
 
         public bool isEmpty()
         {
             var empty = true;
-            empty = empty && string.IsNullOrEmpty(WUC);
             empty = empty && string.IsNullOrEmpty(CompDate);
             empty = empty && string.IsNullOrEmpty(CompTime);
             empty = empty && CompAcftHrs == null;
@@ -71,7 +93,6 @@ namespace AMMS.Models.ViewModels
         public bool isFull()
         {
             var full = true;
-            full = full && !string.IsNullOrEmpty(WUC);
             full = full && !string.IsNullOrEmpty(CompDate);
             full = full && !string.IsNullOrEmpty(CompTime);
             full = full && CompAcftHrs != null;

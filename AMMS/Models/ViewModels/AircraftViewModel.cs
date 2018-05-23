@@ -16,9 +16,11 @@ namespace AMMS.Models.ViewModels
         public double AcftHrs { get; set; }
 
         [Required]
+        [Display(Name = "Aircraft Model Id")]
         public string AircraftModelId { get; set; }
 
         [Required]
+        [Display(Name = "Unit Id")]
         public string UnitId { get; set; }
     }
 }

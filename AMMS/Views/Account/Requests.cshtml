@@ -11,6 +11,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.Unit)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Requested)
             </th>
             <th>
@@ -25,6 +28,9 @@
         @foreach (var request in Model)
         {
             <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => request.Unit)
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => request.Requested)
                 </td>

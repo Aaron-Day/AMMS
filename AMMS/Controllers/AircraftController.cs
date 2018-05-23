@@ -34,9 +34,9 @@ namespace AMMS.Controllers
 
             TempData["ParentId"] = parentId;
 
-            var viewModels = _service.GetAircraftByUnitId(parentId);
+            var aircraft = _service.GetAircraftByUnitId(parentId);
 
-            return View(viewModels);
+            return View(aircraft);
         }
 
         // <C>RUD
@@ -81,8 +81,6 @@ namespace AMMS.Controllers
 
             ViewBag.Models = _service.GetAllAircraftModels();
 
-            //TODO: Add units to a viewbag so aircraft can be transfered to another unit
-
             return View(aircraft);
         }
 
@@ -98,7 +96,6 @@ namespace AMMS.Controllers
             return RedirectToAction("List", new { parentId = aircraft.UnitId });
         }
 
-        //TODO: Recursively delete records
         // CRU<D>
         [HttpGet]
         [Authorize(Roles = "PC, QC")]

@@ -9,6 +9,7 @@ namespace AMMS.Models.ViewModels
         [Required]
         public string Nomenclature { get; set; }
         [Required]
+        [Display(Name = "MDS")]
         public string Model { get; set; }
         [Required]
         [Display(Name = "Serial Number")]
@@ -28,6 +29,7 @@ namespace AMMS.Models.ViewModels
         [Display(Name = "Next Due")]
         public string NextDue { get; set; }
         [Required]
+        [Display(Name = "Aircraft Id")]
         public string AircraftId { get; set; }
 
         public void Update(double hours = 0)

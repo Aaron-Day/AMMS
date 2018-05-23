@@ -5,6 +5,7 @@ using AMMS.Repository;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 
@@ -62,7 +63,7 @@ namespace AMMS.Services
             try
             {
                 var requests = _repository.GetRequestsByUic(uic);
-                return requests.Select(MapToRequestViewModel).ToList();
+                return requests.Select(MapToRequestViewModel).ToList().OrderBy(r => r.Requested);
             }
             catch (Exception e)
             {
@@ -76,7 +77,7 @@ namespace AMMS.Services
             try
             {
                 var requests = _repository.GetAllRequests();
-                return requests.Select(MapToRequestViewModel).ToList();
+                return requests.Select(MapToRequestViewModel).ToList().OrderBy(r => r.Requested);
             }
             catch (Exception e)
             {
@@ -212,7 +213,7 @@ namespace AMMS.Services
             try
             {
                 var users = _repository.GetUsersByRole(role);
-                return users.Select(MapToRegisterViewModel).ToList();
+                return users.Select(MapToRegisterViewModel).ToList().OrderBy(u => u.LastName);
             }
             catch (Exception e)
             {
@@ -226,7 +227,7 @@ namespace AMMS.Services
             try
             {
                 var users = _repository.GetUsersByUic(uic);
-                return users.Select(MapToRegisterViewModel).ToList();
+                return users.Select(MapToRegisterViewModel).ToList().OrderBy(u => u.LastName);
             }
             catch (Exception e)
             {
@@ -240,7 +241,7 @@ namespace AMMS.Services
             try
             {
                 var users = _repository.GetAllUsers();
-                return users.Select(MapToRegisterViewModel).ToList();
+                return users.Select(MapToRegisterViewModel).ToList().OrderBy(u => u.LastName);
             }
             catch (Exception e)
             {
@@ -490,6 +491,11 @@ namespace AMMS.Services
             var password = new PasswordHasher<ApplicationUser>();
             var hashed = password.HashPassword(update, PasswordProtocol.CalculateHash(user.Password, update.Salt));
             update.PasswordHash = hashed;
+            if (update.DateOfBirth != null && update.DateOfBirth.Contains("-"))
+            {
+                update.DateOfBirth = DateTime.ParseExact(update.DateOfBirth, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
 
             return update;
         }
@@ -506,6 +512,11 @@ namespace AMMS.Services
             update.DateOfBirth = user.DateOfBirth;
             update.SocialSecurityNumber = user.SocialSecurityNumber;
             update.AssignedUnit = user.AssignedUnit;
+            if (update.DateOfBirth != null && update.DateOfBirth.Contains("-"))
+            {
+                update.DateOfBirth = DateTime.ParseExact(update.DateOfBirth, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
         }
 
         /***************************************************************************
@@ -549,7 +560,7 @@ namespace AMMS.Services
             try
             {
                 var roles = _repository.GetAllRoles();
-                return roles.Select(MapToRoleListViewModel).ToList();
+                return roles.Select(MapToRoleListViewModel).ToList().OrderBy(r => r.RoleName);
             }
             catch (Exception e)
             {
@@ -736,7 +747,7 @@ namespace AMMS.Services
             try
             {
                 var units = _repository.GetAllUnits();
-                return units.Select(MapToUnitViewModel).ToList();
+                return units.Select(MapToUnitViewModel).ToList().OrderBy(u => u.UIC);
             }
             catch (Exception e)
             {
@@ -866,7 +877,7 @@ namespace AMMS.Services
             try
             {
                 var models = _repository.GetAircraftModelsByUIC(uic);
-                return models.Select(MapToAircraftModelViewModel).ToList();
+                return models.Select(MapToAircraftModelViewModel).ToList().OrderBy(m => m.Mds);
             }
             catch (Exception e)
             {
@@ -880,7 +891,7 @@ namespace AMMS.Services
             try
             {
                 var models = _repository.GetAllAircraftModels();
-                return models.Select(MapToAircraftModelViewModel).ToList();
+                return models.Select(MapToAircraftModelViewModel).ToList().OrderBy(m => m.Mds);
             }
             catch (Exception e)
             {
@@ -994,7 +1005,7 @@ namespace AMMS.Services
             try
             {
                 var aircraft = _repository.GetAircraftByUnitId(id);
-                return aircraft.Select(MapToAircraftViewModel).ToList();
+                return aircraft.Select(MapToAircraftViewModel).ToList().OrderBy(a => a.SerialNumber);
             }
             catch (Exception e)
             {
@@ -1008,7 +1019,7 @@ namespace AMMS.Services
             try
             {
                 var aircraft = _repository.GetAircraftByUIC(uic);
-                return aircraft.Select(MapToAircraftViewModel).ToList();
+                return aircraft.Select(MapToAircraftViewModel).ToList().OrderBy(a => a.SerialNumber);
             }
             catch (Exception e)
             {
@@ -1022,7 +1033,7 @@ namespace AMMS.Services
             try
             {
                 var aircraft = _repository.GetAllAircraft();
-                return aircraft.Select(MapToAircraftViewModel).ToList();
+                return aircraft.Select(MapToAircraftViewModel).ToList().OrderBy(a => a.UnitId).ThenBy(a => a.SerialNumber);
             }
             catch (Exception e)
             {
@@ -1126,7 +1137,7 @@ namespace AMMS.Services
         public IEnumerable<FlightViewModel> GetFlightsByAircraftId(string aircraftId)
         {
             var flights = _repository.GetFlightsByAircraftId(aircraftId);
-            return flights.Select(MapToFlightViewModel).ToList();
+            return flights.Select(MapToFlightViewModel).ToList().OrderBy(f => f.Date);
         }
 
         /***   SETTERS   ***/
@@ -1187,7 +1198,7 @@ namespace AMMS.Services
 
         public static Flight MapToFlight(FlightViewModel flight)
         {
-            return new Flight
+            var map = new Flight
             {
                 Id = flight.Id,
                 Date = flight.Date?.ToUpper(),
@@ -1199,6 +1210,12 @@ namespace AMMS.Services
                 FlightHours = flight.FlightHours,
                 AircraftId = flight.AircraftId
             };
+            if (map.Date != null && map.Date.Contains("-"))
+            {
+                map.Date = DateTime.ParseExact(map.Date, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
+            return map;
         }
 
         private static void CopyToFlight(FlightViewModel viewModel, Flight flight)
@@ -1212,6 +1229,11 @@ namespace AMMS.Services
             flight.End = viewModel.End;
             flight.FlightHours = viewModel.FlightHours;
             flight.AircraftId = viewModel.AircraftId;
+            if (flight.Date != null && flight.Date.Contains("-"))
+            {
+                flight.Date = DateTime.ParseExact(flight.Date, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
         }
 
         /***************************************************************************
@@ -1230,7 +1252,7 @@ namespace AMMS.Services
         public IEnumerable<InspectionViewModel> GetInspectionsByAircraftId(string id)
         {
             var inspections = _repository.GetInspectionsByAircraftId(id);
-            return inspections.Select(MapToInspectionViewModel).ToList();
+            return inspections.Select(MapToInspectionViewModel).ToList().OrderBy(i => i.InspectionNumber);
         }
 
         /***   SETTERS   ***/
@@ -1273,7 +1295,7 @@ namespace AMMS.Services
 
         private static Inspection MapToInspection(InspectionViewModel inspection)
         {
-            return new Inspection
+            var map = new Inspection
             {
                 Id = inspection.Id,
                 InspectionNumber = inspection.InspectionNumber?.ToUpper(),
@@ -1283,6 +1305,12 @@ namespace AMMS.Services
                 NextDue = inspection.NextDue?.ToUpper(),
                 AircraftId = inspection.AircraftId
             };
+            if (map.NextDue != null && map.NextDue.Contains("-"))
+            {
+                map.NextDue = DateTime.ParseExact(map.NextDue, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
+            return map;
         }
 
         private static void CopyToInspection(InspectionViewModel viewModel, Inspection inspection)
@@ -1294,6 +1322,11 @@ namespace AMMS.Services
             inspection.Frequency = viewModel.Frequency?.ToUpper();
             inspection.NextDue = viewModel.NextDue?.ToUpper();
             inspection.AircraftId = viewModel.AircraftId;
+            if (inspection.NextDue != null && inspection.NextDue.Contains("-"))
+            {
+                inspection.NextDue = DateTime.ParseExact(inspection.NextDue, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
         }
 
         /***************************************************************************
@@ -1312,7 +1345,7 @@ namespace AMMS.Services
         public IEnumerable<FaultViewModel> GetFaultsByAircraftId(string id)
         {
             var faults = _repository.GetFaultsByAircraftId(id);
-            return faults.Select(MapToFaultViewModel).ToList();
+            return faults.Select(MapToFaultViewModel).ToList().OrderBy(f => f.FaultDate).ThenBy(f => f.FaultNumber);
         }
 
         /***   SETTERS   ***/
@@ -1374,7 +1407,7 @@ namespace AMMS.Services
 
         private static Fault MapToFault(FaultViewModel fault)
         {
-            return new Fault
+            var map = new Fault
             {
                 Id = fault.Id,
                 Status = fault.Status,
@@ -1404,6 +1437,17 @@ namespace AMMS.Services
                 TIManHrs = fault.TIManHrs,
                 AircraftId = fault.AircraftId
             };
+            if (map.FaultDate != null && map.FaultDate.Contains("-"))
+            {
+                map.FaultDate = DateTime.ParseExact(map.FaultDate, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
+            if (map.CompDate != null && map.CompDate.Contains("-"))
+            {
+                map.CompDate = DateTime.ParseExact(map.CompDate, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
+            return map;
         }
 
         private static void CopyToFault(FaultViewModel viewModel, Fault fault)
@@ -1435,6 +1479,16 @@ namespace AMMS.Services
             fault.TIPID = viewModel.TIPID?.ToUpper();
             fault.TIManHrs = viewModel.TIManHrs;
             fault.AircraftId = viewModel.AircraftId;
+            if (fault.FaultDate != null && fault.FaultDate.Contains("-"))
+            {
+                fault.FaultDate = DateTime.ParseExact(fault.FaultDate, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
+            if (fault.CompDate != null && fault.CompDate.Contains("-"))
+            {
+                fault.CompDate = DateTime.ParseExact(fault.CompDate, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
+                    .ToString("dd' 'MMM' 'yy");
+            }
         }
 
         /***************************************************************************
@@ -1453,7 +1507,7 @@ namespace AMMS.Services
         public IEnumerable<RelatedMaintenanceViewModel> GetRelatedMaintenanceByFaultId(string id)
         {
             var related = _repository.GetRelatedMaintenanceByFaultId(id);
-            return related.Select(MapToRelatedMaintenanceViewModel).ToList();
+            return related.Select(MapToRelatedMaintenanceViewModel).ToList().OrderBy(r => r.Id);
         }
 
         /***   SETTERS   ***/

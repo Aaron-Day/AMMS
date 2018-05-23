@@ -56,3 +56,7 @@ footer .navbar .nav {
     color: black;
     border: 1px solid black;
 }
+
+ul {
+    margin-left: 40px;
+}

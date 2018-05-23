@@ -24,11 +24,18 @@
             {
                 <li><a asp-controller="Account" asp-action="List">User Admin</a></li>
             }
-            @if (!User.IsInRole("Admin"))
+            @if (User.IsInRole("PC") || User.IsInRole("QC") || User.IsInRole("TI") || User.IsInRole("CE"))
             {
                 <li><a asp-controller="Aircraft" asp-action="List" asp-route-parentId="@UserManager.GetUserId(User)">Logbooks</a></li>
             }
-            <li><a asp-controller="Account" asp-action="ChangePassword" asp-route-id="@UserManager.GetUserId(User)" title="Change Password">Hello @UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result.FullName</a></li>
+            @if (UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result.Email == "admin@us.army.mil")
+            {
+                <li><a asp-controller="Home" asp-action="Index" title="Home">Hello @UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result.FullName</a></li>
+            }
+            else
+            {
+                <li><a asp-controller="Account" asp-action="ChangePassword" asp-route-id="@UserManager.GetUserId(User)" title="Change Password">Hello @UserManager.FindByIdAsync(UserManager.GetUserId(User)).Result.FullName</a></li>
+            }
             <li><button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button></li>
         </ul>
     </form>

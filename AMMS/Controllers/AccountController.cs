@@ -61,15 +61,15 @@ namespace AMMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, PC, QC")]
-        public IActionResult Edit(RegisterViewModel viewModel)
+        public IActionResult Edit(RegisterViewModel registration)
         {
-            if (viewModel == null) return NotFound();
-            _service.UpdateUser(viewModel);
+            if (registration == null) return NotFound();
+            if (!ModelState.IsValid) return View(registration);
+            _service.UpdateUser(registration);
 
-            return RedirectToAction("List", new { uic = viewModel.AssignedUnit });
+            return RedirectToAction("List", new { uic = registration.AssignedUnit });
         }
 
-        //TODO: Recursively delete user roles
         [HttpGet]
         [Authorize(Roles = "Admin, PC, QC")]
         public IActionResult Delete(string id)
@@ -83,12 +83,12 @@ namespace AMMS.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Admin, PC, QC")]
-        public IActionResult Delete(RegisterViewModel viewModel)
+        public IActionResult Delete(RegisterViewModel registration)
         {
-            if (viewModel == null) return NotFound();
-            _service.DeleteUser(viewModel.Id);
+            if (registration == null) return NotFound();
+            _service.DeleteUser(registration.Id);
 
-            return RedirectToAction("List", new { uic = viewModel.AssignedUnit });
+            return RedirectToAction("List", new { uic = registration.AssignedUnit });
         }
 
         [HttpGet]
@@ -105,12 +105,23 @@ namespace AMMS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult ManageRoles(IList<UserRolesViewModel> viewModel)
+        public IActionResult ManageRoles(IList<UserRolesViewModel> roles)
         {
-            if (viewModel == null) return NotFound();
-            _service.UpdateUserRoles(viewModel);
+            if (roles == null) return NotFound();
+            if (!ModelState.IsValid) return View(roles);
+            foreach (var role in roles)
+            {
+                if (role.Assigned)
+                {
+                    // At least one role assigned
+                    _service.UpdateUserRoles(roles);
 
-            return RedirectToAction("List", new { uic = TempData["Assigned Unit"] });
+                    return RedirectToAction("List", new { uic = TempData["Assigned Unit"] });
+                }
+            }
+            // No roles assigned
+            ModelState.AddModelError("Error", "Empty Roles");
+            return View(roles);
         }
 
         [TempData]
@@ -129,12 +140,12 @@ namespace AMMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(LoginViewModel viewModel)
+        public IActionResult Login(LoginViewModel login)
         {
-            if (viewModel == null) return NotFound();
-            if (!ModelState.IsValid) return View();
+            if (login == null) return NotFound();
+            if (!ModelState.IsValid) return View(login);
 
-            var result = _service.Login(viewModel);
+            var result = _service.Login(login);
 
             if (result.Succeeded)
             {
@@ -148,7 +159,7 @@ namespace AMMS.Controllers
 
             // If we got this far, something failed, redisplay form
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return View(viewModel);
+            return View(login);
         }
 
         [HttpGet]
@@ -175,7 +186,7 @@ namespace AMMS.Controllers
         public IActionResult Register(RegisterViewModel registration, string id)
         {
             if (id == null) return NotFound();
-            if (!ModelState.IsValid) return View();
+            if (!ModelState.IsValid) return View(registration);
 
             ViewBag.Units = _service.GetAllUnits();
             _service.CreateUser(registration);
@@ -203,11 +214,11 @@ namespace AMMS.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult ForgotPassword(ForgotPasswordViewModel viewModel)
+        public IActionResult ForgotPassword(ForgotPasswordViewModel forgotPassword)
         {
-            if (!ModelState.IsValid) return View(viewModel);
+            if (!ModelState.IsValid) return View(forgotPassword);
 
-            var user = _service.GetUserByEmail(viewModel.Email);
+            var user = _service.GetUserByEmail(forgotPassword.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist or is not confirmed

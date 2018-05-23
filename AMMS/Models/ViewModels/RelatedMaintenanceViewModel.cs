@@ -5,22 +5,34 @@ namespace AMMS.Models.ViewModels
     public class RelatedMaintenanceViewModel
     {
         public string Id { get; set; }
+        [Display(Name = "Fault Status")]
         public string FaultStatus { get; set; }
+        [Display(Name = "Serial Number")]
         public string SerialNumber { get; set; }
+        [Display(Name = "SYS")]
         public string SystemCode { get; set; }
+        [Display(Name = "Fault Date")]
         public string FaultDate { get; set; }
+        [Display(Name = "Fault Number")]
         public int? FaultNumber { get; set; }
+        [Display(Name = "Text")]
         public string FaultText { get; set; }
         [Required]
         public string Status { get; set; }
         [Required]
+        [Display(Name = "Related Maintenance Action")]
         public string RelatedMaintenanceAction { get; set; }
+        [Display(Name = "Corrective Action")]
         public string CorrectiveAction { get; set; }
         public string PID { get; set; }
+        [Display(Name = "CAT")]
         public string Category { get; set; }
         public double? MMH { get; set; }
+        [Display(Name = "TI PID")]
         public string TIPID { get; set; }
+        [Display(Name = "TI MMH")]
         public double? TIManHrs { get; set; }
+        [Display(Name = "Fault Id")]
         public string FaultId { get; set; }
 
         public bool isTIReady()

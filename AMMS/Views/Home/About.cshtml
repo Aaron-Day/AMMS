@@ -1,15 +1,54 @@
 ﻿@{
     ViewData["Title"] = "About";
 }
-<h2>@ViewData["Title"]</h2>
 
 <div>
-    <h3>Aviation Maintenance Management System</h3>
-    <p>This software will enhance the Army's ability to more accurately track and control aviation maintenance, records and logistics. The program is designed to have a user-friendly atmosphere while reducing man-hours through automation.</p>
+    <h1>Senior Project</h1>
     <p>
         Oregon Institute of Technology<br />
         Software Engineering Technology<br />
-        2018 Senior Project<br />
         Aaron Day
     </p>
+
+    <h3>Aviation Maintenance Management System</h3>
+    <p>The United States Army has been using the same software to manage aircraft maintenance for nearly two decades, since the early days of the personal computer. In that time there has been little done to update this software while technology has continued to advance.</p>
+    <p>This project was designed to take several key features from the existing system and improve the appearance and usability of the system by incorporating modern software design principles.</p>
+    <p>The goal of this project is to advance the Army’s ability to accurately track and control aviation maintenance, records, and logistics and to reduce man-hours through automation. This has been accomplished by improvements to the user interface and making the project a web based application for virtually instantaneous maintenance record updates.</p>
+
+    <h3>Key Features</h3>
+    <ul style="list-style-type: disc">
+        <li>Manage multiple aviation units</li>
+        <li>Aircraft model specific records</li>
+        <li>Individual user accounts with access limited to their assigned unit</li>
+        <li>
+            Multiple personnel roles restrict access to sensitive tasks and info
+            <ul style="list-style-type: circle">
+                <li>Admin</li>
+                <li>Production Control</li>
+                <li>Quality Control</li>
+                <li>Technical Inspector</li>
+                <li>Crew / Mechanic</li>
+            </ul>
+        </li>
+        <li>Army Aviator’s Flight Record (DA Form 2408-12)</li>
+        <li>Aircraft Inspection and Maintenance Record (DA Form 2408-13-1)</li>
+        <li>Related Maintenance Actions Record (DA Form 2408-13-2)</li>
+        <li>Equipment Inspection List (DA Form 2408-18)</li>
+    </ul>
+
+    <h3>Technology Used</h3>
+    <ul style="list-style-type: disc">
+        <li>Microsoft Visual Studio 2017</li>
+        <li>ASP.NET Core 2.0 MVC Web Application</li>
+        <li>NUnit Testing Framework</li>
+        <li>FakeItEasy Mocking Framework</li>
+        <li>Log4net Logging Framework</li>
+        <li>Azure Web Hosting Service</li>
+        <li>GitHub Version Control Service</li>
+    </ul>
+
+    <h3>Next Steps</h3>
+    <p>With modern technology it is easier than ever to add functionality piece by piece on a modern framework. Further development would certainly involve adding additional features and continuing to improve on the user interface.</p>
+    <p>I envision this modern system eventualy surpassing its predecessor by incorporating technical manuals, automatically generated write-ups for common tasks, interface with tech supply for parts ordering, unit POL inventory management for consumables, and much more.</p>
+
 </div>
