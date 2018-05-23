@@ -1,4 +1,5 @@
-﻿@model AMMS.Models.ViewModels.FaultViewModel
+﻿@using System.Globalization
+@model AMMS.Models.ViewModels.FaultViewModel
 
 @{
     ViewData["Title"] = "Edit Fault";
@@ -54,6 +55,11 @@
                     </div>
                     <div class="col-sm-3 form-group">
                         <label asp-for="FaultDate" class="control-label">DATE</label>
+                        @if (Model.FaultDate != null && Model.FaultDate.Contains(" ") && !Model.FaultDate.Contains(","))
+                        {
+                            Model.FaultDate = DateTime.ParseExact(Model.FaultDate, "dd' 'MMM' 'yy", CultureInfo.InvariantCulture)
+                                .ToString("yyyy'-'MM'-'dd");
+                        }
                         <input type="date" asp-for="FaultDate" class="form-control" />
                         <span asp-validation-for="FaultDate" class="text-danger"></span>
                     </div>
@@ -168,6 +174,11 @@
 
                     <div class="col-sm-4 form-group">
                         <label asp-for="CompDate" class="control-label">DATE</label>
+                        @if (Model.CompDate != null && Model.CompDate.Contains(" ") && !Model.FaultDate.Contains(","))
+                        {
+                            Model.CompDate = DateTime.ParseExact(Model.CompDate, "dd' 'MMM' 'yy", CultureInfo.InvariantCulture)
+                                .ToString("yyyy'-'MM'-'dd");
+                        }
                         @if (ViewBag.Lock != null && ViewBag.Lock)
                         {
                             <input type="date" asp-for="CompDate" class="form-control" readonly />

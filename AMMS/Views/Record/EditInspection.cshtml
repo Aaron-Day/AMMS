@@ -1,4 +1,5 @@
-﻿@model AMMS.Models.ViewModels.InspectionViewModel
+﻿@using System.Globalization
+@model AMMS.Models.ViewModels.InspectionViewModel
 
 @{
     ViewData["Title"] = "Edit Inspection";
@@ -39,6 +40,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="NextDue" class="control-label"></label>
+                @if (Model.NextDue != null && Model.NextDue.Contains(" ") && !Model.NextDue.Contains(","))
+                {
+                    Model.NextDue = DateTime.ParseExact(Model.NextDue, "dd' 'MMM' 'yy", CultureInfo.InvariantCulture)
+                        .ToString("yyyy'-'MM'-'dd");
+                }
                 <input asp-for="NextDue" class="form-control" />
                 <span asp-validation-for="NextDue" class="text-danger"></span>
             </div>

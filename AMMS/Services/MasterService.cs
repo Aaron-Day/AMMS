@@ -494,7 +494,7 @@ namespace AMMS.Services
             if (update.DateOfBirth != null && update.DateOfBirth.Contains("-"))
             {
                 update.DateOfBirth = DateTime.ParseExact(update.DateOfBirth, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
 
             return update;
@@ -515,7 +515,7 @@ namespace AMMS.Services
             if (update.DateOfBirth != null && update.DateOfBirth.Contains("-"))
             {
                 update.DateOfBirth = DateTime.ParseExact(update.DateOfBirth, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
         }
 
@@ -1213,7 +1213,7 @@ namespace AMMS.Services
             if (map.Date != null && map.Date.Contains("-"))
             {
                 map.Date = DateTime.ParseExact(map.Date, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
             return map;
         }
@@ -1232,7 +1232,7 @@ namespace AMMS.Services
             if (flight.Date != null && flight.Date.Contains("-"))
             {
                 flight.Date = DateTime.ParseExact(flight.Date, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
         }
 
@@ -1308,7 +1308,7 @@ namespace AMMS.Services
             if (map.NextDue != null && map.NextDue.Contains("-"))
             {
                 map.NextDue = DateTime.ParseExact(map.NextDue, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
             return map;
         }
@@ -1325,7 +1325,7 @@ namespace AMMS.Services
             if (inspection.NextDue != null && inspection.NextDue.Contains("-"))
             {
                 inspection.NextDue = DateTime.ParseExact(inspection.NextDue, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
         }
 
@@ -1440,12 +1440,12 @@ namespace AMMS.Services
             if (map.FaultDate != null && map.FaultDate.Contains("-"))
             {
                 map.FaultDate = DateTime.ParseExact(map.FaultDate, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
             if (map.CompDate != null && map.CompDate.Contains("-"))
             {
                 map.CompDate = DateTime.ParseExact(map.CompDate, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
             return map;
         }
@@ -1482,12 +1482,12 @@ namespace AMMS.Services
             if (fault.FaultDate != null && fault.FaultDate.Contains("-"))
             {
                 fault.FaultDate = DateTime.ParseExact(fault.FaultDate, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
             if (fault.CompDate != null && fault.CompDate.Contains("-"))
             {
                 fault.CompDate = DateTime.ParseExact(fault.CompDate, "yyyy'-'MM'-'dd", CultureInfo.InvariantCulture)
-                    .ToString("dd' 'MMM' 'yy");
+                    .ToString("dd' 'MMM' 'yy")?.ToUpper();
             }
         }
 
