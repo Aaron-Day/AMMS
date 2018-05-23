@@ -577,6 +577,9 @@ namespace AMMS.Services
         {
             try
             {
+                // Do not update admin role
+                if (role.RoleName == "Admin")
+                    return;
                 var update = _repository.GetRoleById(role.Id);
                 CopyToRole(role, update);
                 _repository.UpdateRole(update);
@@ -592,6 +595,9 @@ namespace AMMS.Services
         {
             try
             {
+                // Do not delete admin role
+                if (id == GetRoleByName("Admin").Id)
+                    return;
                 _repository.DeleteRole(id);
             }
             catch (Exception e)
@@ -606,13 +612,16 @@ namespace AMMS.Services
         private RoleListViewModel MapToRoleListViewModel(IdentityRole role)
         {
             if (role == null) return null;
-            return new RoleListViewModel
+            var view = new RoleListViewModel
             {
                 Id = role.Id,
                 RoleName = role.Name,
                 // TODO: TEST
                 NumberOfUsers = GetUsersByRole(role.Name).Count()
             };
+            if (view.RoleName == "Admin")
+                --view.NumberOfUsers;
+            return view;
         }
 
         private static IdentityRole MapToRole(RoleListViewModel role)
@@ -660,6 +669,9 @@ namespace AMMS.Services
         {
             try
             {
+                // Do not update admin user
+                if (assignments.FirstOrDefault().UserId == GetUserByEmail("admin@us.army.mil").Id)
+                    return;
                 _repository.UpdateUserRoles(assignments);
             }
             catch (Exception e)

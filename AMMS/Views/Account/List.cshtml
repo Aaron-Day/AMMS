@@ -36,6 +36,7 @@
     <tbody>
         @foreach (var item in Model)
         {
+            @if (item.Email == "admin@us.army.mil") { continue; }
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.AssignedUnit)
